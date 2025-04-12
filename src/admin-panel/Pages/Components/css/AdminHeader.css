@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+.admin-header {
+    background-color: #B6B4CF;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 60px;
+    z-index: 100;
+    position: relative;
+  }
+  
+  .burger-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 768px) {
+    .burger-btn {
+      display: block;
+    }
+  }

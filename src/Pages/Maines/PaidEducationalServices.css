@@ -1,0 +1,84 @@
+.paid-educational-services-main-info {
+    padding: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9fc;
+}
+
+.paid-educational-services-main-info p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.paid-educational-services-main-info a {
+    color: #6a0dad;
+    text-decoration: none;
+}
+
+.paid-educational-services-main-info a:hover {
+    text-decoration: underline;
+}
+
+.paid-educational-services-info {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.paid-educational-services-info h1 {
+    font-size: 28px;
+    color: #3a1a6a;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.purple-line {
+    height: 3px;
+    background: linear-gradient(90deg, #7b2cbf, #9d4edd);
+    width: 80px;
+    margin: 0 auto 20px auto;
+    border-radius: 10px;
+}
+
+.paid-text {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.paid-documents-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.paid-documents-list li {
+    background-color: #f2ecfa;
+    padding: 18px 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(123, 44, 191, 0.1);
+}
+
+.paid-documents-list li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 14px rgba(123, 44, 191, 0.15);
+}
+
+.paid-documents-list a {
+    color: #4a148c;
+    font-weight: 500;
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.paid-documents-list a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,65 @@
+.leadership-main-info {
+    padding: 30px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdfdfd;
+    color: #2e2e2e;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.leadership-main-info a {
+    color: #4b0082;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.leadership-main-info a:hover {
+    text-decoration: underline;
+    color: #30175e;
+}
+
+.leadership-info h1 {
+    font-size: 2rem;
+    color: #4b0082;
+    margin: 30px 0 20px;
+    text-align: center;
+}
+
+.leader-card {
+    background-color: #ffffff;
+    border-left: 6px solid #B6B4CF;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(182, 180, 207, 0.15);
+}
+
+.leader-card h2 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.leader-card p {
+    font-size: 1rem;
+    margin-bottom: 6px;
+    color: #555;
+}
+
+.leader-card strong {
+    color: #4b0082;
+}
+
+@media (max-width: 768px) {
+    .leadership-info h1 {
+        font-size: 1.6rem;
+    }
+
+    .leader-card h2 {
+        font-size: 1.1rem;
+    }
+
+    .leader-card p {
+        font-size: 0.95rem;
+    }
+}

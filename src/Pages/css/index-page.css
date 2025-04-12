@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+* p, pre, h1, h2{
+    font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+  font-size: 14pt;
+}
+
+.line-yellow{
+    height: 4px;
+    width: auto;
+    background-color: #D3D29E;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.line-purple{
+    height: 4px;
+    width: auto;
+    background-color: #AFACCD;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.button-resurs{
+    border-style: none;
+    border-radius: 10px;
+    background-color: #AFACCD;
+    margin: 15px;
+    width: 300px;
+}
+
+.button-resurs:hover{
+    background-color: #83819e;
+}
+
+.director-name{
+    text-align: right;
+}
+
+.main-text, .director-name{
+margin-right: 15px;
+margin-left: 15px;
+}

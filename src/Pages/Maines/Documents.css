@@ -1,0 +1,88 @@
+.documents-main-info {
+    padding: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9fc;
+}
+
+.documents-main-info p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.documents-main-info a {
+    color: #6a0dad;
+    text-decoration: none;
+}
+
+.documents-main-info a:hover {
+    text-decoration: underline;
+}
+
+.documents-info {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.documents-info h1 {
+    font-size: 28px;
+    color: #3a1a6a;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.purple-line {
+    height: 3px;
+    background: linear-gradient(90deg, #7b2cbf, #9d4edd);
+    width: 80px;
+    margin: 0 auto 30px auto;
+    border-radius: 10px;
+}
+
+.documents-category {
+    margin-bottom: 40px;
+}
+
+.documents-category h2 {
+    font-size: 22px;
+    color: #5e35b1;
+    margin-bottom: 15px;
+    border-left: 5px solid #7b2cbf;
+    padding-left: 12px;
+}
+
+.documents-category ul {
+    list-style: none;
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.documents-category li {
+    background-color: #f3e8ff;
+    padding: 16px 18px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(123, 44, 191, 0.08);
+}
+
+.documents-category li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 14px rgba(123, 44, 191, 0.12);
+}
+
+.documents-category a {
+    color: #4a148c;
+    font-weight: 500;
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.documents-category a:hover {
+    text-decoration: underline;
+}

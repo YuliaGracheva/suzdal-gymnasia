@@ -1,23 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import HeaderRoutes from './Components/HeaderRoutes'; // 👈 добавим
+import { useLocation } from 'react-router-dom'; // 👈 поправим тут
 
 function App() {
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith('/admin');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='wrapper'>
+      {!isAdminPage && <Header />}
+      <HeaderRoutes /> 
+      {!isAdminPage && <Footer />}
     </div>
   );
 }

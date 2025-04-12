@@ -1,0 +1,67 @@
+.managment-bodies-main-info {
+    padding: 30px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdfdfd;
+    color: #2e2e2e;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.managment-bodies-main-info a {
+    color: #4b0082;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.managment-bodies-main-info a:hover {
+    text-decoration: underline;
+}
+
+.management-body-card {
+    background-color: #ffffff;
+    border-left: 6px solid #B6B4CF;
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 25px;
+    box-shadow: 0 4px 12px rgba(182, 180, 207, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+.management-body-card:hover {
+    box-shadow: 0 6px 20px rgba(211, 210, 158, 0.25);
+}
+
+.management-body-card h2 {
+    margin-top: 0;
+    font-size: 1.75rem;
+    color: #4b0082;
+}
+
+.management-body-card p {
+    margin: 10px 0;
+    line-height: 1.7;
+    font-size: 1rem;
+    color: #333;
+}
+
+.management-body-card strong {
+    color: #2c2c2c;
+}
+
+@media (max-width: 768px) {
+    .managment-bodies-main-info {
+        padding: 20px 15px;
+    }
+
+    .management-body-card {
+        padding: 20px;
+    }
+
+    .management-body-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .management-body-card p {
+        font-size: 0.95rem;
+    }
+}

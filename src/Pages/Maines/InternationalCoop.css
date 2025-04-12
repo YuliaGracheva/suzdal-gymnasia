@@ -1,0 +1,73 @@
+.international-coop-main-info {
+    padding: 30px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdfdfd;
+    color: #2e2e2e;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.international-coop-main-info a {
+    color: #4b0082;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.international-coop-main-info a:hover {
+    text-decoration: underline;
+}
+
+.international-coop-info h1 {
+    font-size: 2rem;
+    color: #4b0082;
+    margin-bottom: 20px;
+}
+
+.purple-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.white-block {
+    background-color: #ffffff;
+    border-left: 6px solid #B6B4CF;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(182, 180, 207, 0.2);
+}
+
+.white-block h2 {
+    font-size: 1.4rem;
+    color: #2c2c2c;
+    margin-bottom: 10px;
+}
+
+.white-block p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.white-block a {
+    display: inline-block;
+    font-size: 1rem;
+    color: #4b0082;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.white-block a:hover {
+    color: #30175e;
+}
+
+@media (max-width: 768px) {
+    .international-coop-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .white-block h2 {
+        font-size: 1.2rem;
+    }
+}

@@ -1,0 +1,96 @@
+.gia-main-info {
+    padding: 30px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdfdfd;
+    color: #2e2e2e;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.gia-main-info a {
+    color: #4b0082;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.gia-main-info a:hover {
+    text-decoration: underline;
+    color: #30175e;
+}
+
+.gia-info h1 {
+    font-size: 2rem;
+    color: #4b0082;
+    margin-bottom: 20px;
+}
+
+.gia-info h2 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.gia-info pre {
+    background-color: #ffffff;
+    border-left: 6px solid #B6B4CF;
+    border-radius: 12px;
+    padding: 20px;
+    font-size: 1rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    box-shadow: 0 4px 12px rgba(182, 180, 207, 0.15);
+    margin-bottom: 30px;
+}
+
+.link-gia {
+    margin-bottom: 20px;
+}
+
+.gia-info img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .gia-info h1 {
+        font-size: 1.6rem;
+    }
+
+    .gia-info h2 {
+        font-size: 1.2rem;
+    }
+
+    .gia-info pre {
+        font-size: 0.95rem;
+        padding: 15px;
+    }
+}
+
+.gia-video-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 0;
+}
+
+.gia-video-links a {
+    padding: 10px 14px;
+    background-color: #f2f0fa;
+    border-left: 4px solid #8a2be2;
+    border-radius: 8px;
+    color: #4b0082;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.gia-video-links a:hover {
+    background-color: #e6e1f4;
+}

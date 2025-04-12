@@ -1,0 +1,67 @@
+.accessible-environment-main-info {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    font-family: "Segoe UI", sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #fdfdfd;
+}
+
+.accessible-environment-main-info p {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.accessible-environment-main-info a {
+    color: #6a0dad;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.accessible-environment-main-info a:hover {
+    text-decoration: underline;
+}
+
+.accessible-environment-info h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #4b0082;
+}
+
+.accessible-environment-info h2 {
+    font-size: 24px;
+    margin: 25px 0 10px;
+    color: #4b0082;
+}
+
+.purple-line {
+    height: 4px;
+    width: 100%;
+    background-color: #B6B4CF;
+    border-radius: 2px;
+    margin: 15px 0;
+}
+
+.accessible-environment-info p {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+@media (max-width: 768px) {
+    .accessible-environment-main-info {
+        padding: 20px 15px;
+    }
+
+    .accessible-environment-info h1 {
+        font-size: 26px;
+    }
+
+    .accessible-environment-info h2 {
+        font-size: 20px;
+    }
+
+    .accessible-environment-main-info p {
+        font-size: 15px;
+    }
+}

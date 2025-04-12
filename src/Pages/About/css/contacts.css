@@ -1,0 +1,110 @@
+.contact-main-info {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #2e2e2e;
+    background-color: #ffffff;
+}
+
+.contact-main-info p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.contact-main-info a {
+    color: #6a1b9a;
+    text-decoration: none;
+}
+
+.contact-main-info a:hover {
+    text-decoration: underline;
+}
+
+.contact-main-info h1 {
+    font-size: 36px;
+    color: #6a1b9a;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.purple-line {
+    width: 80px;
+    height: 4px;
+    background-color: #fbc02d;
+    margin: 0 auto 30px auto;
+    border-radius: 2px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.purple-contact-block {
+    background-color: #f3e5f5;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(106, 27, 154, 0.1);
+}
+
+.white-contact-block {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(106, 27, 154, 0.05);
+}
+
+.white-contact-block h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #4a148c;
+}
+
+.white-contact-block pre {
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    color: #333;
+}
+
+.button-donat {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #6a1b9a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.button-donat:hover {
+    background-color: #4a148c;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .contact-main-info h1 {
+        font-size: 28px;
+    }
+
+    .white-contact-block h2 {
+        font-size: 20px;
+    }
+
+    .button-donat {
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .contact-info {
+        gap: 20px;
+    }
+}

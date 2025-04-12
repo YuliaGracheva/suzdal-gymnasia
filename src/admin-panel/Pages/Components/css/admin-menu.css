@@ -1,0 +1,45 @@
+.admin-menu {
+    box-sizing: border-box;
+    background-color: #f3e8ff;
+    padding: 20px 15px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    z-index: 5;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .admin-menu {
+      top: 60px; 
+      left: 0;
+      height: calc(100vh - 60px);
+      transform: translateX(-100%);
+    }
+  
+    .admin-body.menu-open .admin-menu {
+      transform: translateX(0);
+    }
+  }
+  
+  .admin-menu-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4a148c;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .admin-menu .nav-link {
+    color: #5e35b1;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .admin-menu .nav-link:hover {
+    background-color: #e0cfff;
+    text-decoration: none;
+    color: #311b92;
+  }
