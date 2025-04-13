@@ -1,0 +1,100 @@
+.uploaded-files-list {
+    margin-top: 30px;
+}
+
+.uploaded-files-list h3 {
+    font-size: 20px;
+    color: #5e35b1;
+    margin-bottom: 15px;
+}
+
+.uploaded-files-list ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* 3-4 элемента в строке */
+    gap: 15px;
+}
+
+.file-item {
+    position: relative;
+    background-color: #f3e8ff;
+    padding: 14px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(123, 44, 191, 0.08);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.file-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 14px rgba(123, 44, 191, 0.12);
+}
+
+.file-image-container,
+.file-document-container {
+    position: relative;
+}
+
+.uploaded-file {
+    max-width: 100%;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.file-actions {
+    visibility: hidden; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 10px;
+}
+
+.file-item:hover .file-actions {
+    visibility: visible; 
+}
+
+.file-actions button {
+    background-color: #7b2cbf;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.file-actions button:hover {
+    background-color: #5e35b1;
+}
+
+.file-document-container a {
+    color: #4a148c;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.file-document-container a:hover {
+    text-decoration: underline;
+}
+
+.file-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3a1a6a;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .uploaded-files-list ul {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+    }
+}
+
+@media (max-width: 480px) {
+    .uploaded-files-list ul {
+        grid-template-columns: 1fr;
+    }
+}

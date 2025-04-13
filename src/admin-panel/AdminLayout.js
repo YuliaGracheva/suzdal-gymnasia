@@ -8,6 +8,7 @@ import AdminSettings from './Pages/AdminSettings';
 import "./admin-layout.css";
 import AdminHeader from "./Pages/Components/AdminHeader";
 import ProtectedRoute from "./Pages/Components/ProtectedRoute";
+import AdminFileUpload from "./Pages/AdminFileUpload";
 
 export default function AdminLayout() {
     const location = useLocation();
@@ -40,6 +41,10 @@ export default function AdminLayout() {
                             <Route path="settings" element={
                                 <ProtectedRoute>
                                     <AdminSettings />
+                                </ProtectedRoute>} />
+                                <Route path="upload" element={
+                                <ProtectedRoute>
+                                    <AdminFileUpload />
                                 </ProtectedRoute>} />
                         </Routes>
                     </div>

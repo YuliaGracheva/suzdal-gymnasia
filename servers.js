@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 const corsOptions = {
     origin: 'http://localhost:3000',
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -10,6 +13,7 @@ const corsOptions = {
 const app = express();
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
+
 
 const db = new sqlite3.Database('./bd/suzdal-gimnasia.db', (err) => {
     if (err) {
@@ -20,6 +24,14 @@ const db = new sqlite3.Database('./bd/suzdal-gimnasia.db', (err) => {
     }
 });
 
+const ensureDirsExist = () => {
+    const dirs = ['uploads', 'uploads/images', 'uploads/documents'];
+    dirs.forEach(dir => {
+        const fullPath = path.join(__dirname, dir);
+        if (!fs.existsSync(fullPath)) fs.mkdirSync(fullPath);
+    });
+};
+ensureDirsExist();
 
 function checkAndCreateTable(tableName, createTableQuery) {
     db.get(`SELECT name FROM sqlite_master WHERE type='table' AND name='${tableName}'`, (err, row) => {
@@ -437,5 +449,91 @@ app.post("/api/admin/login", (req, res) => {
         }
     );
 });
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const ext = path.extname(file.originalname).toLowerCase();
+        const isImage = ['.jpg', '.jpeg', '.png', '.gif'].includes(ext);
+        const folder = isImage ? 'images' : 'documents';
+        cb(null, path.join(__dirname, 'uploads', folder));
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({ storage });
+
+app.post('/api/upload', upload.single('file'), (req, res) => {
+    if (!req.file) return res.status(400).send('Нет файла');
+    const ext = path.extname(req.file.filename).toLowerCase();
+    const folder = ['.jpg', '.jpeg', '.png', '.gif'].includes(ext) ? 'images' : 'documents';
+    res.json({ filePath: `/uploads/${folder}/${req.file.filename}` });
+});
+
+const getFileList = (folder) => {
+    const fullPath = path.join(__dirname, 'uploads', folder);
+    if (!fs.existsSync(fullPath)) return [];
+
+    return fs.readdirSync(fullPath).map(filename => `/uploads/${folder}/${filename}`);
+};
+
+app.get('/api/files/images', (req, res) => {
+    try {
+        const files = getFileList('images');
+        res.json(files);
+    } catch {
+        res.status(500).json({ error: 'Ошибка чтения изображений' });
+    }
+});
+
+app.get('/api/files/documents', (req, res) => {
+    try {
+        const files = getFileList('documents');
+        res.json(files);
+    } catch {
+        res.status(500).json({ error: 'Ошибка чтения документов' });
+    }
+});
+
+app.delete('/api/delete', (req, res) => {
+    const { filePath } = req.body;
+    const fileFullPath = path.join(__dirname, 'uploads', filePath.replace('/uploads', ''));
+
+    if (fs.existsSync(fileFullPath)) {
+        fs.unlink(fileFullPath, (err) => {
+            if (err) {
+                return res.status(500).send('Ошибка при удалении файла');
+            }
+            res.status(200).send('Файл удален');
+        });
+    } else {
+        res.status(404).send('Файл не найден');
+    }
+});
+
+// Пример для SQLite
+app.get("/api/news/:id/photos", (req, res) => {
+    const newsID = req.params.id;
+
+    const query = `
+        SELECT pn.PhotoPath 
+        FROM PhotoNews pn
+        JOIN PhotoNewsNews pnn ON pn.PhotoNewsID = pnn.PhotoNewsID
+        WHERE pnn.NewsID = ?
+    `;
+
+    db.all(query, [newsID], (err, rows) => {
+        if (err) {
+            console.error("Ошибка при получении фото:", err);
+            res.status(500).json({ error: "Ошибка при получении фото" });
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
 
 app.use(express.static('scripts'));

@@ -23,6 +23,9 @@ class AdminMenu extends Component {
                     <Nav.Link onClick={() => this.props.navigate("/admin/settings")}>
                         Настройки
                     </Nav.Link>
+                    <Nav.Link onClick={() => this.props.navigate("/admin/upload")}>
+                        Управление файлами
+                    </Nav.Link>
                     <Nav.Link onClick={this.handleLogout}>
                         Выйти
                     </Nav.Link>
