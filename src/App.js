@@ -1,8 +1,8 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
-import HeaderRoutes from './Components/HeaderRoutes'; 
+import Header from './Components/Header.js';
+import Footer from './Components/Footer.js';
+import HeaderRoutes from './Components/HeaderRoutes.js'; 
 import { useLocation } from 'react-router-dom'; 
 
 function App() {

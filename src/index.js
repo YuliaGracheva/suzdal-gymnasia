@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './App.js';
 import { BrowserRouter } from "react-router-dom";
 import './index.css';
-import reportWebVitals from './reportWebVitals';
-import { SearchProvider } from "../src/Components/SearchContext";
+import reportWebVitals from './reportWebVitals.js';
+import { SearchProvider } from "./Components/SearchContext.js";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,4 +16,5 @@ root.render(
     </SearchProvider>
   </BrowserRouter>
 );
+
 reportWebVitals();

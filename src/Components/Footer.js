@@ -15,6 +15,40 @@ import suz_reg from "../img/suz-reg.jpg";
 import './Footer.css';
 
 class Footer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            phone: '',
+            requests: [],
+        };
+    }
+
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
+
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        const { name, phone } = this.state;
+
+        try {
+            const response = await fetch('http://localhost:3004/api/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, phone }),
+            });
+            if (response.ok) {
+                this.setState({ name: '', phone: '' });
+                alert("Заявка отправлена успешно!");
+            }
+        } catch (error) {
+            console.error('Ошибка при отправке данных:', error);
+            alert("Ошибка отправки. Попробуйте позже.");
+        }
+    };
 
     render() {
         return (
@@ -128,12 +162,28 @@ class Footer extends Component {
                         <div className="footer-down-call-me">
                             <div className="footer-down-call-me-info">
                                 <h3>Данные для запроса звонка</h3>
-                                <label htmlFor="name">Ваше имя:</label>
-                                <textarea id="name" className="call-me-text-area"></textarea>
-                                <label htmlFor="phone">Номер телефона:</label>
-                                <textarea id="phone" className="call-me-text-area"></textarea>
+                                <form onSubmit={this.handleSubmit}>
+                                    <label htmlFor="name">Ваше имя:</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        value={this.state.name}
+                                        onChange={this.handleChange}
+                                        required
+                                    />
+                                    <label htmlFor="phone">Номер телефона:</label>
+                                    <input
+                                        type="text"
+                                        id="phone"
+                                        name="phone"
+                                        value={this.state.phone}
+                                        onChange={this.handleChange}
+                                        required
+                                    />
+                                    <button type="submit" className="call-me-button">Запросить звонок</button>
+                                </form>
                             </div>
-                            <button type="button" className="call-me-button">Запросить звонок</button>
                         </div>
                         <div className="footer-down-developer-info">
                             <h3>Разработчик</h3>

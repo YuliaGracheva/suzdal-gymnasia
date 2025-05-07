@@ -1,20 +1,21 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ children }) => {
-    const isAdmin = localStorage.getItem("isAdmin");
+const ProtectedRoute = ({ children, allowedRoles }) => {
+  const userData = JSON.parse(localStorage.getItem("adminUser"));
+  const isAdmin = localStorage.getItem("isAdmin");
 
-    if (!isAdmin) {
-        return (
-            <Navigate
-                to="/admin"
-                replace
-                state={{ error: "Доступ запрещён. Пожалуйста, войдите." }}
-            />
-        );
-    }
+  if (!isAdmin || !userData || !allowedRoles.includes(userData.role)) {
+    return (
+      <Navigate
+        to="/admin"
+        replace
+        state={{ error: "Доступ запрещён. Недостаточно прав." }}
+      />
+    );
+  }
 
-    return children;
+  return children;
 };
 
 export default ProtectedRoute;

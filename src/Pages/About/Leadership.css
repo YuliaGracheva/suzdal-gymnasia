@@ -1,65 +1,100 @@
 .leadership-main-info {
-    padding: 30px 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fdfdfd;
-    color: #2e2e2e;
-    max-width: 1100px;
+    background-color: #ffffff;
+    color: #333333;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    line-height: 1.7;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.leadership-main-info a {
-    color: #4b0082;
+.leadership-main-info p {
+    font-size: 14pt;
+    margin: 0.7em 0;
+    color: #555;
+}
+
+.leadership-main-info p:first-child {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 1.5rem;
+}
+
+.leadership-main-info p:first-child a {
+    color: #7a5b98;
     text-decoration: none;
     font-weight: 500;
 }
 
-.leadership-main-info a:hover {
+.leadership-main-info p:first-child a:hover {
     text-decoration: underline;
-    color: #30175e;
+}
+
+.leadership-info {
+    background: #f9f7fb;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(122, 91, 152, 0.1);
 }
 
 .leadership-info h1 {
-    font-size: 2rem;
-    color: #4b0082;
-    margin: 30px 0 20px;
-    text-align: center;
+    font-size: 28px;
+    color: #5d4d7a;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.leadership-info h1::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #7a5b98;
+    margin-top: 8px;
+    border-radius: 2px;
 }
 
 .leader-card {
-    background-color: #ffffff;
-    border-left: 6px solid #B6B4CF;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(182, 180, 207, 0.15);
+    background-color: #fdfdfd;
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leader-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .leader-card h2 {
-    font-size: 1.3rem;
-    color: #333;
-    margin-bottom: 10px;
+    font-size: 20pt;
+    color: #7a5b98;
+    margin-bottom: 15px;
 }
 
 .leader-card p {
-    font-size: 1rem;
-    margin-bottom: 6px;
+    font-size: 14pt;
     color: #555;
+    margin: 5px 0;
 }
 
 .leader-card strong {
-    color: #4b0082;
+    color: #5d4d7a;
 }
 
 @media (max-width: 768px) {
-    .leadership-info h1 {
-        font-size: 1.6rem;
+    .leadership-main-info {
+        padding: 1.5rem;
     }
 
-    .leader-card h2 {
-        font-size: 1.1rem;
+    .leadership-info {
+        padding: 1.5rem;
     }
 
-    .leader-card p {
-        font-size: 0.95rem;
+    .leader-card {
+        padding: 18px;
     }
 }

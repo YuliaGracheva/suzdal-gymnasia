@@ -77,15 +77,22 @@ const AdminFileUpload = () => {
         fetchFiles();
     }, [fileType]);
 
+    const user = JSON.parse(localStorage.getItem("adminUser"));
+    const isEditable = user.role === "admin" || user.role === "editor";
+
     return (
         <div style={{ padding: 20 }}>
             <h2>Загрузка файла</h2>
-            <select value={fileType} onChange={(e) => setFileType(e.target.value)}>
-                <option value="image">Фото</option>
-                <option value="document">Документ</option>
-            </select>
-            <input type="file" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Загрузить</button>
+            {isEditable && (
+                <form onSubmit={handleUpload}>
+                    <select value={fileType} onChange={(e) => setFileType(e.target.value)}>
+                        <option value="image">Изображение</option>
+                        <option value="document">Документ</option>
+                    </select>
+                    <input type="file" onChange={handleFileChange} />
+                    <button type="submit">Загрузить</button>
+                </form>
+            )}
 
             <div className="uploaded-files-list">
                 <h3>Загруженные файлы ({fileType === 'image' ? 'Фото' : 'Документы'})</h3>

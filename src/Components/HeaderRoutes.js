@@ -1,31 +1,33 @@
 import { Routes, Route } from "react-router-dom";
 
-import Home from "../Pages/Home";
-import News from "../Pages/News";
-import SearchPage from "./SearchPage";
-import ManagmentBodies from "../Pages/Maines/ManagmentBodies";
-import Documents from "../Pages/Maines/Documents";
-import AccessibleEnvironment from "../Pages/Maines/AccessibleEnvironment";
-import PaidEducationalServices from "../Pages/Maines/PaidEducationalServices";
-import FinancialEconomicActivity from "../Pages/Maines/FinancialEconomicActivity";
-import VacantPlace from "../Pages/Maines/VacantPlace";
-import Scholarships from "../Pages/Maines/Scholarship";
-import InternationalCoop from "../Pages/Maines/InternationalCoop";
-import OrganizationEat from "../Pages/Maines/OrganizationEat";
-import NewsDetail from "../Pages/NewsDetail";
-import EducationProcess from "../Pages/Maines/Educations/EducationProcess";
-import GIA from "../Pages/Maines/Educations/GIA";
+import Home from "../Pages/Home.js";
+import News from "../Pages/News.js";
+import SearchPage from "./SearchPage.js";
+import ManagmentBodies from "../Pages/Maines/ManagmentBodies.js";
+import Documents from "../Pages/Maines/Documents.js";
+import AccessibleEnvironment from "../Pages/Maines/AccessibleEnvironment.js";
+import PaidEducationalServices from "../Pages/Maines/PaidEducationalServices.js";
+import FinancialEconomicActivity from "../Pages/Maines/FinancialEconomicActivity.js";
+import VacantPlace from "../Pages/Maines/VacantPlace.js";
+import Scholarships from "../Pages/Maines/Scholarship.js";
+import InternationalCoop from "../Pages/Maines/InternationalCoop.js";
+import OrganizationEat from "../Pages/Maines/OrganizationEat.js";
+import NewsDetail from "../Pages/NewsDetail.js";
+import EducationProcess from "../Pages/Maines/Educations/EducationProcess.js";
+import GIA from "../Pages/Maines/Educations/GIA.js";
 
-import Contact from "../Pages/About/Contact";
-import Message from "../Pages/About/Messages";
-import Employee from "../Pages/About/Employee";
-import Leadership from "../Pages/About/Leadership";
-import Olympiad from "../Pages/About/Olympiad";
+import Contact from "../Pages/About/Contact.js";
+import Message from "../Pages/About/Messages.js";
+import Employee from "../Pages/About/Employee.js";
+import Leadership from "../Pages/About/Leadership.js";
+import Olympiad from "../Pages/About/Olympiad.js";
 
-import ProcessReception from "../Pages/Reception/ProcessReception";
-import FunctionalGramm from "../Pages/Resurs/FunctionalGramm";
+import ProcessReception from "../Pages/Reception/ProcessReception.js";
+import FunctionalGramm from "../Pages/Resurs/FunctionalGramm.js";
 
-import AdminLayout from "../admin-panel/AdminLayout";
+import AdminLayout from "../admin-panel/AdminLayout.js";
+
+import ArchiveNews from "../Pages/ArchiveNews.js";
 
 export default function HeaderRoutes() {
   return (
@@ -53,6 +55,7 @@ export default function HeaderRoutes() {
       <Route path="/search" element={<SearchPage />} />
       <Route path="/news/:id" element={<NewsDetail />} />
       <Route path="/admin/*" element={<AdminLayout />} />
+      <Route path="/news/archive/:year/:month" element={<ArchiveNews />} />
     </Routes>
   );
 }

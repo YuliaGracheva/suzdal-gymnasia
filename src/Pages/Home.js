@@ -16,6 +16,27 @@ export default function Home() {
             });
     }, []);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (scrollRef.current) {
+                const containerWidth = scrollRef.current.offsetWidth;
+                const contentWidth = scrollRef.current.scrollWidth;
+                const wrapper = scrollRef.current.parentElement;
+                if (wrapper) {
+                    if (contentWidth <= containerWidth) {
+                        wrapper.classList.add("hide-buttons");
+                    } else {
+                        wrapper.classList.remove("hide-buttons");
+                    }
+                }
+            }
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [news]);
+
     const scroll = (direction) => {
         if (scrollRef.current) {
             const scrollAmount = direction === "left" ? -340 : 340;
@@ -36,11 +57,15 @@ export default function Home() {
                         <div className="carousel-track" style={{ width: `${news.length * 340}px` }}>
                             {news.map((item) => (
                                 <div className="news-card" key={item.NewsID}>
-                                    <h2>{item.NewsName}</h2>
-                                    <p>{item.NewsDescription.length > 150 ? item.NewsDescription.substring(0, 150) + "..." : item.NewsDescription}</p>
-                                    <p>Дата: {new Date(item.NewsDate).toLocaleDateString()}</p>
+                                <h2>{item.NewsName}</h2>
+                                <p className="news-description">
+                                    {item.NewsDescription.length > 150 ? item.NewsDescription.substring(0, 150) + "..." : item.NewsDescription}
+                                </p>
+                                <div className="news-card-bottom">
+                                    <p className="news-date">Дата: {new Date(item.NewsDate).toLocaleDateString()}</p>
                                     <a className="view-button" href={`/news/${item.NewsID}`}>Читать далее</a>
                                 </div>
+                            </div>                            
                             ))}
                         </div>
                     </div>

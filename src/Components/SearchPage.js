@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
-import { SearchContext } from "./SearchContext";
+import { SearchContext } from "./SearchContext.js";
 
 const pagesContent = [
     { path: "/main-info/documents", content: "Документы, устав, лицензия, свидетельства" },
     { path: "/about/leadership", content: "Руководство, директор, замдиректора" },
     { path: "/main-info/organisation-eat", content: "Организация питания, меню, питание учащихся" },
     { path: "/news", content: "Новости, мероприятия, события" },
-    // добавь всё нужное
 ];
 
 const SearchPage = () => {

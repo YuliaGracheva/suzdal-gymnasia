@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Nav } from "react-bootstrap";
-import { withNavigation } from "../withNavigation";
+import { withNavigation } from "../withNavigation.js";
 import "./css/admin-menu.css";
 
 class AdminMenu extends Component {
@@ -17,8 +17,14 @@ class AdminMenu extends Component {
         return (
             <div className="admin-menu">
                 <Nav className="flex-column">
+                <Nav.Link onClick={() => this.props.navigate("/admin/main")}>
+                        Главная
+                    </Nav.Link>
                     <Nav.Link onClick={() => this.props.navigate("/admin/tables")}>
                         Управление таблицами
+                    </Nav.Link>
+                    <Nav.Link onClick={() => this.props.navigate("/admin/user")}>
+                        Управление пользователями
                     </Nav.Link>
                     <Nav.Link onClick={() => this.props.navigate("/admin/settings")}>
                         Настройки

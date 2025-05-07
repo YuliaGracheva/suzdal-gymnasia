@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import * as adminService from "../../services/adminPanelService";
+import * as adminService from "../../services/adminPanelService.js";
 import "./css/AdminTables.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 function AdminTables() {
     const [tableList, setTableList] = useState([]);
@@ -15,6 +17,11 @@ function AdminTables() {
     const [foreignKeys, setForeignKeys] = useState([]);
     const [foreignOptions, setForeignOptions] = useState({});
     const [primaryKey, setPrimaryKey] = useState("");
+    const [isArchiveView, setIsArchiveView] = useState(false);
+
+    const archiveTables = ["News", "Documents"];
+
+    const isRichTextField = (key) => /description|content|text|html/i.test(key);
 
     useEffect(() => {
         adminService.fetchTableList()
@@ -24,23 +31,21 @@ function AdminTables() {
 
     const validateFields = (data) => {
         for (let field of notNullFields) {
-            if (field === primaryKey) continue; 
+            if (field === primaryKey) continue;
             if (!data[field] || data[field].toString().trim() === "") {
                 return `Поле "${field}" обязательно для заполнения`;
             }
         }
         return "";
-    };    
+    };
 
     const loadForeignKeys = async (tableName) => {
         const res = await adminService.fetchForeignKeys(tableName);
         const options = {};
-
         for (let fk of res) {
             const values = await adminService.fetchTableData(fk.table);
             options[fk.from] = values;
         }
-
         setForeignKeys(res);
         setForeignOptions(options);
     };
@@ -128,7 +133,23 @@ function AdminTables() {
             .catch(() => setError("Ошибка при удалении"));
     };
 
+    const handleArchive = (row) => {
+        const archivedRow = { ...row, isArchived: 1 };
+        adminService.updateTableRow(selectedTable, archivedRow[primaryKey], archivedRow)
+            .then(() => loadTable(selectedTable))
+            .catch(() => setError("Ошибка при архивации"));
+    };
+
     const isForeignKey = (key) => foreignKeys.find(fk => fk.from === key);
+
+    const filteredTableData = archiveTables.includes(selectedTable)
+        ? (isArchiveView
+            ? tableData.filter(row => row.isArchived === 1)
+            : tableData.filter(row => !row.isArchived))
+        : tableData;
+
+    const user = JSON.parse(localStorage.getItem("adminUser"));
+    const isEditable = user.role === "admin" || user.role === "editor";
 
     return (
         <div className="admin-tables-container">
@@ -145,21 +166,34 @@ function AdminTables() {
             </select>
             {validationError && <p className="error-text">{validationError}</p>}
 
-            {selectedTable && tableData.length > 0 && (
+            {archiveTables.includes(selectedTable) && (
+                <div style={{ marginTop: "10px" }}>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={isArchiveView}
+                            onChange={() => setIsArchiveView(!isArchiveView)}
+                        />
+                        Показать архив
+                    </label>
+                </div>
+            )}
+
+            {selectedTable && filteredTableData.length > 0 && (
                 <>
                     <h2>Содержимое таблицы: {selectedTable}</h2>
                     <div className="table-wrapper">
                         <table className="styled-table">
                             <thead>
                                 <tr>
-                                    {Object.keys(tableData[0]).map((col, i) => (
+                                    {Object.keys(filteredTableData[0]).map((col, i) => (
                                         <th key={i}>{col}</th>
                                     ))}
                                     <th>Действия</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {tableData.map((row, rowIndex) => (
+                                {filteredTableData.map((row, rowIndex) => (
                                     <tr key={rowIndex}>
                                         {Object.keys(row).map((key, j) => (
                                             <td key={j}>
@@ -175,6 +209,12 @@ function AdminTables() {
                                                                 </option>
                                                             ))}
                                                         </select>
+                                                    ) : isRichTextField(key) ? (
+                                                        <ReactQuill
+                                                            theme="snow"
+                                                            value={editingRow[key] || ""}
+                                                            onChange={(value) => setEditingRow({ ...editingRow, [key]: value })}
+                                                        />
                                                     ) : (
                                                         <input
                                                             value={editingRow[key] || ""}
@@ -182,7 +222,7 @@ function AdminTables() {
                                                         />
                                                     )
                                                 ) : (
-                                                    row[key]
+                                                    <div dangerouslySetInnerHTML={{ __html: row[key] }} />
                                                 )}
                                             </td>
                                         ))}
@@ -191,56 +231,71 @@ function AdminTables() {
                                                 <button onClick={handleSave} className="btn save">Сохранить</button>
                                             ) : (
                                                 <>
-                                                    <button onClick={() => handleEdit(rowIndex)} className="btn edit">✏️</button>
-                                                    <button onClick={() => handleDelete(row[primaryKey])} className="btn delete">🗑️</button>
+                                                    {isEditable && (
+                                                        <>
+                                                            <button onClick={() => handleEdit(rowIndex)} className="btn edit">✏️</button>
+                                                            <button onClick={() => handleDelete(row[primaryKey])} className="btn delete">🗑️</button>
+                                                            {archiveTables.includes(selectedTable) && !row.isArchived && (
+                                                                <button onClick={() => handleArchive(row)} className="btn archive">🗄️ В архив</button>
+                                                            )}
+                                                        </>
+                                                    )}
                                                 </>
                                             )}
                                         </td>
                                     </tr>
                                 ))}
-
-                                <tr>
-                                    {Object.keys(tableData[0]).filter(key => key !== primaryKey).map((key, i) => (
-                                        <td key={i}>
-                                            {isForeignKey(key) ? (
-                                                <select
-                                                    value={newRow[key] || ""}
-                                                    onChange={(e) => handleInputChange(e, key, true)}>
-                                                    <option value="">-- выберите --</option>
-                                                    {foreignOptions[key]?.map((option, idx) => (
-                                                        <option key={idx} value={option[foreignKeys.find(fk => fk.from === key).to]}>
-                                                            {Object.values(option).slice(1).join(" ")}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            ) : (
-                                                <input
-                                                    placeholder={key}
-                                                    value={newRow[key] || ""}
-                                                    onChange={(e) => handleInputChange(e, key, true)}
-                                                />
-                                            )}
+                                {isEditable && (
+                                    <tr>
+                                        {Object.keys(filteredTableData[0]).filter(key => key !== primaryKey).map((key, i) => (
+                                            <td key={i}>
+                                                {isForeignKey(key) ? (
+                                                    <select
+                                                        value={newRow[key] || ""}
+                                                        onChange={(e) => handleInputChange(e, key, true)}
+                                                    >
+                                                        <option value="">-- выберите --</option>
+                                                        {foreignOptions[key]?.map((option, idx) => (
+                                                            <option key={idx} value={option[foreignKeys.find(fk => fk.from === key).to]}>
+                                                                {Object.values(option).slice(1).join(" ")}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                ) : isRichTextField(key) ? (
+                                                    <ReactQuill
+                                                        theme="snow"
+                                                        value={newRow[key] || ""}
+                                                        onChange={(value) => setNewRow({ ...newRow, [key]: value })}
+                                                    />
+                                                ) : (
+                                                    <input
+                                                        placeholder={key}
+                                                        value={newRow[key] || ""}
+                                                        onChange={(e) => handleInputChange(e, key, true)}
+                                                    />
+                                                )}
+                                            </td>
+                                        ))}
+                                        <td>
+                                            <button className="btn add" onClick={() => {
+                                                const validationMsg = validateFields(newRow);
+                                                if (validationMsg) {
+                                                    setValidationError(validationMsg);
+                                                    return;
+                                                }
+                                                adminService.createTableRow(selectedTable, newRow)
+                                                    .then(() => {
+                                                        loadTable(selectedTable);
+                                                        setValidationError("");
+                                                    })
+                                                    .catch(() => setError("Ошибка при добавлении записи"));
+                                            }}>
+                                                ➕
+                                            </button>
                                         </td>
-                                    ))}
-                                    <td>
-                                        <button className="btn add" onClick={() => {
-                                            const validationMsg = validateFields(newRow);
-                                            if (validationMsg) {
-                                                setValidationError(validationMsg);
-                                                return;
-                                            }
+                                    </tr>
+                                )}
 
-                                            adminService.createTableRow(selectedTable, newRow)
-                                                .then(() => {
-                                                    loadTable(selectedTable);
-                                                    setValidationError("");
-                                                })
-                                                .catch(() => setError("Ошибка при добавлении записи"));
-                                        }}>
-                                            ➕
-                                        </button>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

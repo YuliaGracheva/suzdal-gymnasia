@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./NewsDetail.css";
 
 const NewsDetail = () => {
@@ -7,6 +7,7 @@ const NewsDetail = () => {
     const [newsItem, setNewsItem] = useState(null);
     const [photos, setPhotos] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`http://localhost:3004/api/news/${id}`)
@@ -56,7 +57,7 @@ const NewsDetail = () => {
                 )}
             </div>
 
-            <a href="/news"><p>Вернуться к другим новостям</p></a>
+            <p onClick={() => navigate(-1)} className="back-link">Вернуться</p>
 
             {selectedImage && (
                 <div className="modal-overlay" onClick={closeModal}>

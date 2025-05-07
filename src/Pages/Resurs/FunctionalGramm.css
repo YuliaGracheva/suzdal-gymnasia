@@ -1,78 +1,93 @@
 .functional-gramm-main-info {
-    padding: 30px;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: #2e2e2e;
-    background-color: #fefefe;
-}
-
-.functional-gramm-main-info p {
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-.functional-gramm-main-info a {
-    color: #6a1b9a;
+    padding: 2rem 1rem;
+    font-family: "Arial", sans-serif;
+    color: #333;
+  }
+  
+  .functional-gramm-main-info p:first-child {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 1.5rem;
+  }
+  
+  .functional-gramm-main-info p:first-child a {
+    color: #7a5b98;
     text-decoration: none;
-    transition: all 0.2s ease-in-out;
-}
-
-.functional-gramm-main-info a:hover {
-    color: #fbc02d;
+    font-weight: 500;
+  }
+  
+  .functional-gramm-main-info p:first-child a:hover {
     text-decoration: underline;
-}
-
-.fin-gram-info h1 {
-    font-size: 32px;
-    color: #6a1b9a;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #fbc02d;
-    padding-bottom: 10px;
-}
-
-.fin-gram-info h2 {
-    font-size: 24px;
-    margin-top: 40px;
-    color: #4a148c;
-    border-left: 5px solid #fbc02d;
-    padding-left: 10px;
-}
-
-.text-bold {
-    font-weight: 600;
-    margin-top: 20px;
-    color: #333;
-}
-
-.fin-gram-info ul {
-    padding-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.fin-gram-info ul li {
-    margin-bottom: 8px;
-    list-style-type: disc;
-    color: #333;
-}
-
-.fin-gram-info a {
+  }
+  
+  .fin-gram-info {
+    background: #f9f7fb;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(122, 91, 152, 0.1);
+  }
+  
+  .fin-gram-info h1 {
+    font-size: 28px;
+    color: #5d4d7a;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .fin-gram-info h1::after {
+    content: "";
     display: block;
-    margin-bottom: 10px;
+    width: 60px;
+    height: 4px;
+    background-color: #7a5b98;
+    margin-top: 8px;
+    border-radius: 2px;
+  }
+  
+  .fin-gram-info p {
     font-size: 16px;
-}
-
-@media (max-width: 768px) {
-    .functional-gramm-main-info {
-        padding: 20px;
-    }
-
-    .fin-gram-info h1 {
-        font-size: 26px;
-    }
-
-    .fin-gram-info h2 {
-        font-size: 20px;
-    }
-}
+    line-height: 1.7;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .fin-gram-info .text-bold {
+    font-weight: bold;
+    font-size: 18px;
+    color: #5d4d7a;
+    margin-top: 2rem;
+  }
+  
+  .fin-gram-info ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .fin-gram-info ul li {
+    font-size: 16px;
+    margin-bottom: 0.75rem;
+  }
+  
+  .fin-gram-info a {
+    display: block;
+    color: #7a5b98;
+    font-size: 16px;
+    margin-top: 0.5rem;
+    transition: color 0.3s ease;
+    text-decoration: underline;
+  }
+  
+  .fin-gram-info a:hover {
+    color: #5d4d7a;
+  }
+  
+  .fin-gram-info h2 {
+    font-size: 24px;
+    color: #5d4d7a;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  

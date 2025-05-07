@@ -1,110 +1,130 @@
 .contact-main-info {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 20px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: #2e2e2e;
     background-color: #ffffff;
+    color: #333333;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    line-height: 1.7;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .contact-main-info p {
+    font-size: 14pt;
+    margin: 0.7em 0;
+    color: #555;
+}
+
+.contact-main-info p:first-child {
     font-size: 14px;
-    margin-bottom: 10px;
+    color: #888;
+    margin-bottom: 1.5rem;
 }
 
-.contact-main-info a {
-    color: #6a1b9a;
+.contact-main-info p:first-child a {
+    color: #7a5b98;
     text-decoration: none;
+    font-weight: 500;
 }
 
-.contact-main-info a:hover {
+.contact-main-info p:first-child a:hover {
     text-decoration: underline;
 }
 
 .contact-main-info h1 {
-    font-size: 36px;
-    color: #6a1b9a;
-    margin-bottom: 10px;
-    text-align: center;
+    font-size: 28px;
+    color: #5d4d7a;
+    margin-bottom: 1rem;
+    position: relative;
 }
 
 .purple-line {
-    width: 80px;
+    content: "";
+    display: block;
+    width: 60px;
     height: 4px;
-    background-color: #fbc02d;
-    margin: 0 auto 30px auto;
+    background-color: #7a5b98;
+    margin: 8px 0 24px 0;
     border-radius: 2px;
 }
 
 .contact-info {
     display: flex;
-    flex-direction: column;
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
 }
 
 .purple-contact-block {
-    background-color: #f3e5f5;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(106, 27, 154, 0.1);
+    background-color: #e8d7f1;
+    border-radius: 15px;
+    padding: 20px;
+    flex: 1;
+    min-width: 280px;
+    max-width: 500px;
 }
 
 .white-contact-block {
     background-color: #ffffff;
+    border-radius: 10px;
     padding: 20px;
-    border-radius: 12px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(106, 27, 154, 0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .white-contact-block h2 {
-    font-size: 22px;
+    color: #5d4d7a;
+    font-size: 18pt;
     margin-bottom: 15px;
-    color: #4a148c;
 }
 
 .white-contact-block pre {
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 14pt;
+    color: #666;
     white-space: pre-wrap;
-    color: #333;
+    word-wrap: break-word;
 }
 
 .button-donat {
     display: block;
     width: 100%;
-    padding: 12px;
-    margin-bottom: 10px;
-    font-size: 16px;
+    background-color: #7a5b98;
+    color: #ffffff;
     font-weight: 600;
-    background-color: #6a1b9a;
-    color: #fff;
+    padding: 10px 15px;
+    margin-bottom: 10px;
     border: none;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
+    border-radius: 10px;
+    font-size: 14pt;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .button-donat:hover {
-    background-color: #4a148c;
+    background-color: #6b4e89;
+    transform: scale(1.03);
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
-    .contact-main-info h1 {
-        font-size: 28px;
-    }
-
-    .white-contact-block h2 {
-        font-size: 20px;
-    }
-
-    .button-donat {
-        font-size: 15px;
-        padding: 10px;
+    .contact-main-info {
+        padding: 1.5rem;
     }
 
     .contact-info {
-        gap: 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .purple-contact-block {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .white-contact-block {
+        padding: 15px;
+    }
+
+    .button-donat {
+        font-size: 12pt;
+        padding: 8px 12px;
     }
 }

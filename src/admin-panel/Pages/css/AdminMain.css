@@ -1,0 +1,34 @@
+.admin-main {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.requests-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.requests-table th, .requests-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.requests-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.requests-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.requests-table tr:hover {
+    background-color: #e9e9e9;
+}

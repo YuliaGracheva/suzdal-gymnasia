@@ -12,7 +12,7 @@ const Employee = () => {
       })
       .then((data) => {
         const filtered = data.filter(doc => doc.CategoryDocumentID === 7);
-        setDocuments(filtered); // теперь всё работает, потому что documents объявлен
+        setDocuments(filtered);
       })
       .catch((error) => {
         console.error("Ошибка при загрузке документов:", error);

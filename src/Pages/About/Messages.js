@@ -16,6 +16,7 @@ function Message() {
 
     return (
         <div className="message-container">
+            <p>Вы здесь: <a href="/">Главная</a> / <a href="/main-info">Основные сведения</a> / Объявления</p>
             <h1 className="message-title">Объявления</h1>
             <div className="purple-line"></div>
             {messages.map((msg) => (

@@ -1,148 +1,196 @@
 .footer {
+    margin: 0;
+    padding: 0;
     background-color: #f9f9f9;
-    font-family: "Segoe UI", sans-serif;
-    color: #333;
-    border-top: 5px solid #6a0dad;
+    color: #555;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    border-top: 1px solid #eee;
 }
 
 .purple-footer-contact {
     display: flex;
     justify-content: space-between;
-    padding: 30px;
-    background-color: #B6B4CF;
-    color: white;
+    align-items: flex-start;
+    background-color: #f4f0f8;
+    padding: 1.5rem 2rem;
+    gap: 2rem;
     flex-wrap: wrap;
 }
 
 .contact-info {
-    max-width: 400px;
+    min-width: 200px; 
 }
 
-.contact-info h2 {
-    font-size: 24px;
-    margin-bottom: 15px;
+.footer-h {
+    font-size: 12pt;
+    color: #7a5b98;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
 }
 
 .contact-text {
-    line-height: 1.6;
+    font-size: 12pt;
+    line-height: 1.4;
+    color: #555;
 }
 
 .contact-text a {
-    color: #ffd700;
+    color: #7a5b98;
     text-decoration: underline;
 }
 
 .useful-resurs-white {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: flex-end;
-    max-width: 800px;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); 
+    margin-top: 1.5rem;
 }
 
 .block {
-    width: 180px;
-    text-align: center;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
+    text-align: center;
     transition: transform 0.3s ease;
-}
-
-.block:hover {
-    transform: translateY(-5px);
 }
 
 .block img {
     width: 100%;
-    height: 100px;
-    object-fit: contain;
-    margin-bottom: 10px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.block:hover {
+    transform: scale(1.05);
 }
 
 .block p {
-    font-size: 14px;
-    color: #333;
+    font-size: 8pt;
+    color: #7a5b98;
 }
 
 .map-footer {
-    margin: 20px auto;
-    max-width: 100%;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.map-footer iframe {
+    display: block;
+    width: 100%;
+    height: 200px;
+    border: none;
+    border-radius: 8px;
 }
 
 .yellow-footer-down {
-    background-color: #D3D29E;
-    padding: 40px 30px;
+    background-color: #fff1c5;
+    padding: 1.5rem 1rem;
+    color: #7a5b98;
+    margin: 0;
+    border-top: 1px solid #f4f0f8;
 }
 
 .footer-down-name {
-    font-size: 22px;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 16pt;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 .footer-down-info {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 30px;
+    justify-content: space-between;
+    gap: 1.5rem;
 }
 
-.footer-down-call-me,
-.footer-down-developer-info {
+.footer-down-call-me {
     flex: 1;
-    min-width: 280px;
+    min-width: 260px;
+}
+
+.footer-down-call-me-info h3,
+.footer-down-developer-info h3 {
+    font-size: 14pt;
+    margin-bottom: 0.8rem;
 }
 
 .footer-down-call-me-info label {
+    font-size: 12pt;
     display: block;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin-bottom: 0.4rem;
 }
 
 .call-me-text-area {
     width: 100%;
-    height: 40px;
-    padding: 8px;
-    border-radius: 8px;
+    padding: 0.5rem;
+    border-radius: 6px;
     border: 1px solid #ccc;
+    font-size: 12pt;
     resize: none;
-    font-size: 14px;
+    margin-bottom: 0.8rem;
 }
 
 .call-me-button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #6a0dad;
-    color: white;
+    background-color: #7a5b98;
+    color: #fff;
+    padding: 8px 18px;
+    font-size: 12pt;
     border: none;
-    border-radius: 10px;
-    font-weight: bold;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
 }
 
 .call-me-button:hover {
-    background-color: #5a009a;
+    background-color: #6a4d85;
+    transform: scale(1.05);
 }
 
-.footer-down-developer-info p {
-    margin: 5px 0;
+.footer-down-developer-info {
+    flex: 1;
+    min-width: 260px;
 }
 
-.footer-down-developer-info button {
-    margin-top: 15px;
-    padding: 8px 16px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+.footer-down-developer-info p,
+.footer-down-developer-info a {
+    font-size: 12pt;
+    margin: 0.3rem 0;
+    color: #555;
 }
 
-.footer-down-developer-info button:hover {
-    background-color: #555;
+.footer-down-developer-info a {
+    color: #7a5b98;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .purple-footer-contact {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .useful-resurs-white {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .footer-down-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .block {
+        width: 100%;
+    }
+
+    .call-me-button {
+        width: auto;
+    }
 }

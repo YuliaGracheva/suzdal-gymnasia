@@ -1,8 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import logo from '../img/image.png';
 import { Link, useNavigate } from "react-router-dom";
-import { SearchContext } from "./SearchContext";
+import { SearchContext } from "./SearchContext.js";
+import './Header.css';
+import defaultLogo from '../img/image.png';
 
 export default function Header() {
     const [dropdowns, setDropdowns] = useState({
@@ -15,7 +16,15 @@ export default function Header() {
 
     const { setQuery } = useContext(SearchContext);
     const [input, setInput] = useState("");
+    const [customLogo, setCustomLogo] = useState(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const storedLogo = localStorage.getItem("siteLogo");
+        if (storedLogo) {
+            setCustomLogo(storedLogo);
+        }
+    }, []);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -42,7 +51,12 @@ export default function Header() {
             <Navbar collapseOnSelect expand="md" className="header-main">
                 <Container>
                     <Navbar.Brand as={Link} to="/">
-                        <img src={logo} height={30} width={30} alt="Logo" />
+                        <img
+                            src={customLogo || defaultLogo}
+                            height={30}
+                            alt="Logo"
+                            style={{ objectFit: 'contain', maxWidth: "100%" }}
+                        />
                     </Navbar.Brand>
                     <p>Суздальская православная гимназия</p>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -96,7 +110,8 @@ export default function Header() {
                                 onMouseLeave={() => handleClose('resurs')}>
                                 <NavDropdown.Item as={Link} to="/resurs/fuctional-gramm">Функциональная грамотность</NavDropdown.Item>
                             </NavDropdown>
-
+                        </Nav>
+                        <div className="header-search-wrapper">
                             <Form className="d-flex" onSubmit={handleSearch}>
                                 <FormControl
                                     type="text"
@@ -107,7 +122,7 @@ export default function Header() {
                                 />
                                 <Button type="submit" variant="outline-info">Поиск</Button>
                             </Form>
-                        </Nav>
+                        </div>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

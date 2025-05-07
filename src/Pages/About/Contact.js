@@ -25,6 +25,19 @@ class Contact extends Component {
                                 orthodox2001@yandex.ru
                             </pre>
                         </div>
+                        <div className="white-contact-block">
+                            <h2>Наши банковские реквизиты</h2>
+                            <pre>
+                                ИНН 3310003536
+                                КПП 331001001
+                                ОГРН 1023302552657
+                                р/с 40703810810000001476
+                                Владимирское отделение №8611
+                                ПАО Сбербанк г. Владимир
+                                к/с 30101810000000000602
+                                БИК 041708602
+                            </pre>
+                        </div>
                     </div>
                     <div className="purple-contact-block">
                         <div className="white-contact-block">
@@ -38,19 +51,6 @@ class Contact extends Component {
                             <button class="button-donat">Пожертвовать на уставную деятельность учреждения 10 000 руб.</button>
                             <button class="button-donat">Пожертвовать на уставную деятельность учреждения 50 000 руб.</button>
 
-                        </div>
-                        <div className="white-contact-block">
-                            <h2>Наши банковские реквизиты</h2>
-                            <pre>
-                                ИНН 3310003536
-                                КПП 331001001
-                                ОГРН 1023302552657
-                                р/с 40703810810000001476
-                                Владимирское отделение №8611
-                                ПАО Сбербанк г. Владимир
-                                к/с 30101810000000000602
-                                БИК 041708602
-                            </pre>
                         </div>
                     </div>
                 </div>

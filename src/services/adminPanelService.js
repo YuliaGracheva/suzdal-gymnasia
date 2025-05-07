@@ -71,3 +71,72 @@ export async function createTableRow(tableName, rowData) {
 
     return response.json();
 }
+
+export async function fetchUsers() {
+    const response = await fetch(`${API_URL}/users`);
+    if (!response.ok) {
+        throw new Error(`Ошибка загрузки пользователей: ${response.status}`);
+    }
+    return await response.json();
+}
+
+export const addUser = async (user) => {
+    const res = await fetch(`${API_URL}/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
+    });
+
+    if (!res.ok) {
+        throw new Error(`Ошибка добавления пользователя: ${res.status}`);
+    }
+
+    return true;
+};
+
+export const updateUser = async (user) => {
+    if (!user || !user.UserId) {
+        throw new Error("Некорректный пользователь: отсутствует UserId");
+    }
+
+    const res = await fetch(`${API_URL}/users/${user.UserId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            username: user.Username,
+            role: user.role,
+        }),
+    });
+
+    if (!res.ok) {
+        throw new Error(`Ошибка обновления пользователя: ${res.status}`);
+    }
+
+    return true;
+};
+
+export const updateUserPassword = async (UserId, password) => {
+    const res = await fetch(`${API_URL}/users/${UserId}/password`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+    });
+
+    if (!res.ok) {
+        throw new Error(`Ошибка обновления пароля: ${res.status}`);
+    }
+
+    return true;
+};
+
+export const deleteUser = async (UserId) => {
+    const res = await fetch(`${API_URL}/users/${UserId}`, {
+        method: "DELETE",
+    });
+
+    if (!res.ok) {
+        throw new Error(`Ошибка удаления пользователя: ${res.status}`);
+    }
+
+    return true;
+};

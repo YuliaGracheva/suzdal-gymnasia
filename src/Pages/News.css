@@ -1,47 +1,185 @@
-.news-list {
-    display: flex;
+.news-page {
+  display: flex;
+  align-items: stretch; 
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.news-sidebar {
+  width: 250px;
+  background-color: #f5f1f9;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.news-sidebar h3 {
+  font-size: 18pt;
+  margin-bottom: 1rem;
+  color: #5d4d7a;
+}
+
+.archive-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.archive-list li {
+  padding: 8px 0;
+  cursor: pointer;
+  color: #7a5b98;
+  font-size: 14pt;
+  transition: color 0.3s ease;
+}
+
+.archive-list li:hover {
+  color: #5d4d7a;
+  text-decoration: underline;
+}
+
+.news-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-main-content p:first-child {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+.news-main-content h1 {
+  font-size: 28px;
+  color: #5d4d7a;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.news-main-content h1::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #7a5b98;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.news-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.news-search {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 15px;
+  font-size: 14pt;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.news-sort {
+  padding: 10px 15px;
+  font-size: 14pt;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  color: #555;
+}
+
+.news-list-vertical {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: flex-start;
+}
+
+.news-card-vertical {
+  background-color: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  padding: 25px;
+  width: 320px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-card-vertical:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.news-card-vertical h2 {
+  color: #7a5b98;
+  font-size: 18pt;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.news-card-vertical p {
+  font-size: 14pt;
+  color: #666;
+}
+
+.news-date {
+  font-size: 12pt;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.view-button {
+  display: inline-block;
+  margin-top: 15px;
+  background-color: #e8d7f1;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #5d4d7a;
+  font-weight: 600;
+  font-size: 14pt;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.view-button:hover {
+  background-color: #d1bde2;
+  transform: scale(1.05);
+}
+
+@media (max-width: 992px) {
+  .news-page {
     flex-direction: column;
-    gap: 24px;
-    padding: 20px 0;
-    margin: 15px;
+    padding: 1.5rem;
   }
-  
+
+  .news-sidebar {
+    width: 100%;
+    order: 2;
+  }
+
+  .news-main-content {
+    order: 1;
+  }
+
+  .news-list-vertical {
+    justify-content: center;
+  }
+
   .news-card-vertical {
-    background-color: #B6B4CF;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
   }
-  
-  .news-card-vertical h2 {
-    margin-bottom: 10px;
-  }
-  
-  .news-date {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .view-button {
-    display: inline-block;
-    margin-top: 16px;
-    padding: 10px 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    text-decoration: none;
-    color: #333;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  .view-button:hover {
-    background-color: #ddd;
-    transform: scale(1.05);
-  }
-  
-  .news-card-vertical:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-  }
-  
+}

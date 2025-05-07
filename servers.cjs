@@ -1,19 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
+const sqlite3 = require('sqlite3');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const bcrypt = require('bcrypt');
+const { fileURLToPath } = require('url');
+const { dirname } = require('path');
+
 const corsOptions = {
     origin: 'http://localhost:3000',
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
 };
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
-
 
 const db = new sqlite3.Database('./bd/suzdal-gimnasia.db', (err) => {
     if (err) {
@@ -33,132 +37,7 @@ const ensureDirsExist = () => {
 };
 ensureDirsExist();
 
-function checkAndCreateTable(tableName, createTableQuery) {
-    db.get(`SELECT name FROM sqlite_master WHERE type='table' AND name='${tableName}'`, (err, row) => {
-        if (err) {
-            console.error(`Error checking table ${tableName}:`, err.message);
-        }
-        if (!row) {
-            db.run(createTableQuery, (err) => {
-                if (err) {
-                    console.error(`Error creating table ${tableName}:`, err.message);
-                } else {
-                    console.log(`Table ${tableName} created.`);
-                }
-            });
-        } else {
-            console.log(`Table ${tableName} already exists.`);
-        }
-    });
-}
-
-
 db.serialize(() => {
-    db.run("PRAGMA foreign_keys = ON;");
-
-    checkAndCreateTable("User", `CREATE TABLE User (
-    UserID INTEGER PRIMARY KEY AUTOINCREMENT,
-    Username TEXT NOT NULL,
-    Login TEXT NOT NULL,
-    Password TEXT NOT NULL
-  )`);
-
-    checkAndCreateTable("EmployeeCategory", `CREATE TABLE EmployeeCategory (
-    EmployeeCategoryID INTEGER PRIMARY KEY AUTOINCREMENT,
-    EmployeeCategoryName TEXT NOT NULL
-  )`);
-
-    checkAndCreateTable("Employee", `CREATE TABLE Employee (
-    EmployeeID INTEGER PRIMARY KEY AUTOINCREMENT,
-    EmployeeSurname TEXT NOT NULL,
-    EmployeeName TEXT NOT NULL,
-    EmployeePatronymic TEXT,
-    EmployeePost TEXT NOT NULL,
-    EmployeePhoto TEXT,
-    EmployeeCategoryID INTEGER NOT NULL,
-    UserID INTEGER NOT NULL,
-    FOREIGN KEY (EmployeeCategoryID) REFERENCES EmployeeCategory(EmployeeCategoryID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
-  )`);
-
-
-    checkAndCreateTable("CategoryDocument", `CREATE TABLE CategoryDocument (
-    CategoryDocumentID INTEGER PRIMARY KEY AUTOINCREMENT,
-    CategoryDocumentName TEXT NOT NULL
-  )`);
-
-    checkAndCreateTable("Document", `CREATE TABLE Document (
-    DocumentID INTEGER PRIMARY KEY AUTOINCREMENT,
-    DocumentPath TEXT NOT NULL,
-    CategoryDocumentID INTEGER NOT NULL,
-    UserID INTEGER NOT NULL,
-    FOREIGN KEY (CategoryDocumentID) REFERENCES CategoryDocument(CategoryDocumentID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
-  )`);
-
-    checkAndCreateTable("ManagementBodies", `CREATE TABLE ManagementBodies (
-    ManagementBodiesID INTEGER PRIMARY KEY AUTOINCREMENT,
-    ManagementBodiesName TEXT NOT NULL,
-    UserID INTEGER NOT NULL,
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
-  )`);
-
-    checkAndCreateTable("Message", `CREATE TABLE Message (
-    MessageID INTEGER PRIMARY KEY AUTOINCREMENT,
-    MessageTheme TEXT NOT NULL,
-    MessageText TEXT NOT NULL,
-    UserID INTEGER NOT NULL,
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
-  )`);
-
-    checkAndCreateTable("Status", `CREATE TABLE Status (
-    StatusID INTEGER PRIMARY KEY AUTOINCREMENT,
-    StatusName TEXT NOT NULL
-  )`);
-
-
-    checkAndCreateTable("Subject", `CREATE TABLE Subject (
-    SubjectID INTEGER PRIMARY KEY AUTOINCREMENT,
-    SubjectName TEXT NOT NULL
-  )`);
-
-    checkAndCreateTable("Olympiad", `CREATE TABLE Olympiad (
-    OlympiadID INTEGER PRIMARY KEY AUTOINCREMENT,
-    OlympiadSurname TEXT NOT NULL,
-    OlympiadName TEXT NOT NULL,
-    OlympiadClass TEXT NOT NULL,
-    OlympiadQuanityPoints INTEGER NOT NULL,
-    OlympiadPlace INTEGER NOT NULL,
-    StatusID INTEGER NOT NULL,
-    SubjectID INTEGER NOT NULL,
-    UserID INTEGER NOT NULL,
-    FOREIGN KEY (StatusID) REFERENCES Status(StatusID),
-    FOREIGN KEY (SubjectID) REFERENCES Subject(SubjectID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
-  )`);
-
-
-    checkAndCreateTable("News", `CREATE TABLE News (
-    NewsID INTEGER PRIMARY KEY AUTOINCREMENT,
-    NewsTheme TEXT NOT NULL,
-    NewsText TEXT NOT NULL,
-    UserID INTEGER NOT NULL,
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
-  )`);
-
-    checkAndCreateTable("PhotoNews", `CREATE TABLE PhotoNews (
-    PhotoNewsID INTEGER PRIMARY KEY AUTOINCREMENT,
-    PhotoPath TEXT NOT NULL
-  )`);
-
-    checkAndCreateTable("PhotoNewsNews", `CREATE TABLE PhotoNewsNews (
-    PhotoNewsNewsID INTEGER PRIMARY KEY AUTOINCREMENT,
-    PhotoNewsID INTEGER NOT NULL,
-    NewsID INTEGER NOT NULL,
-    FOREIGN KEY (PhotoNewsID) REFERENCES PhotoNews(PhotoNewsID),
-    FOREIGN KEY (NewsID) REFERENCES News(NewsID)
-  )`);
-
     db.on('error', (err) => {
         console.error('Database error:', err.message);
     });
@@ -514,7 +393,6 @@ app.delete('/api/delete', (req, res) => {
     }
 });
 
-// Пример для SQLite
 app.get("/api/news/:id/photos", (req, res) => {
     const newsID = req.params.id;
 
@@ -532,6 +410,159 @@ app.get("/api/news/:id/photos", (req, res) => {
         } else {
             res.json(rows);
         }
+    });
+});
+
+app.get("/api/admin/users", async (req, res) => {
+    try {
+        const users = await new Promise((resolve, reject) => {
+            db.all("SELECT * FROM User", (err, rows) => {
+                if (err) reject(err);
+                else resolve(rows);
+            });
+        });
+        res.json(users);
+    } catch (error) {
+        console.error("Ошибка при получении пользователей:", error);
+        res.status(500).json({ error: "Ошибка сервера" });
+    }
+});
+
+app.post("/api/admin/users", async (req, res) => {
+    const { username, password, role } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    await db.run("INSERT INTO User (Username, Password, role) VALUES (?, ?, ?)", [username, hashedPassword, role]);
+    res.status(201).send();
+});
+
+app.put("/api/admin/users/:id", async (req, res) => {
+    const { id } = req.params;
+    const { username, role } = req.body;
+    await db.run("UPDATE User SET Username = ?, role = ? WHERE UserId = ?", [username, role, id]);
+    res.send();
+});
+
+app.delete("/api/admin/users/:id", async (req, res) => {
+    const { id } = req.params;
+    await db.run("DELETE FROM User WHERE UserId = ?", [id]);
+    res.send();
+});
+
+app.put("/api/admin/users/:id/password", async (req, res) => {
+    const { id } = req.params;
+    const { password } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await db.run("UPDATE User SET Password = ? WHERE UserId = ?", [hashedPassword, id]);
+    res.send();
+});
+
+const util = require("util");
+
+const dbGet = util.promisify(db.get.bind(db));
+const dbRun = util.promisify(db.run.bind(db));
+
+app.post("/api/admin/reset-password", async (req, res) => {
+    const { username } = req.body;
+
+    if (!username) {
+        return res.status(400).json({ error: "Не указан логин" });
+    }
+
+    try {
+        const user = await dbGet(
+            "SELECT * FROM User WHERE Login = ?",
+            [username]
+        );
+
+        console.log("Ищем пользователя по логину:", username);
+        console.log("Найденный пользователь:", user);
+
+        if (!user) {
+            return res.status(404).json({ error: "Пользователь не найден" });
+        }
+
+        await dbRun(
+            "INSERT INTO PasswordRequests (UserID, RequestDate) VALUES (?, datetime('now'))",
+            [user.UserID]
+        );
+
+        res.json({ message: "Запрос на изменение пароля отправлен администратору" });
+    } catch (error) {
+        console.error("Ошибка при сбросе пароля:", error);
+        res.status(500).json({ error: "Ошибка сервера" });
+    }
+});
+
+app.use(bodyParser.json());
+
+app.post('/api/feedback', (req, res) => {
+    const { name, phone } = req.body;
+    const query = 'INSERT INTO feedback (name, phone) VALUES (?, ?)';
+    db.run(query, [name, phone], function (err) {
+        if (err) {
+            console.error('Ошибка при добавлении заявки:', err);
+            return res.status(500).json({ message: 'Ошибка при добавлении заявки' });
+        }
+        res.status(201).json({ message: 'Заявка добавлена', id: this.lastID });
+    });
+});
+
+app.get('/api/feedback', (req, res) => {
+    const query = 'SELECT * FROM feedback';
+    db.all(query, [], (err, rows) => {
+        if (err) {
+            console.error('Ошибка при получении заявок:', err);
+            return res.status(500).json({ message: 'Ошибка при получении заявок' });
+        }
+        res.status(200).json(rows);
+    });
+});
+
+app.put('/api/feedback/:id', (req, res) => {
+    const { id } = req.params;
+    const { is_processed } = req.body;
+
+    const query = 'UPDATE feedback SET is_processed = ? WHERE id = ?';
+    const params = [is_processed, id];
+
+    db.run(query, params, function (err) {
+        if (err) {
+            console.error('Ошибка при обновлении статуса:', err);
+            return res.status(500).json({ message: 'Ошибка при обновлении статуса' });
+        }
+        res.status(200).json({ message: 'Статус обновлён' });
+    });
+});
+
+app.delete('/api/feedback/:id', (req, res) => {
+    const id = req.params.id;
+    db.run('DELETE FROM Feedback WHERE id = ?', [id], function(err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ message: 'Заявка удалена' });
+    });
+});
+
+app.put('/api/users/:userId/password', async (req, res) => {
+    const { userId } = req.params;
+    const { password } = req.body;
+
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        db.run('UPDATE User SET Password = ? WHERE UserID = ?', [hashedPassword, userId], function(err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ message: 'Пароль обновлён' });
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Ошибка хеширования пароля' });
+    }
+});
+
+app.get('/api/password-requests', (req, res) => {
+    db.all('SELECT * FROM PasswordRequests', [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows); 
     });
 });
 
