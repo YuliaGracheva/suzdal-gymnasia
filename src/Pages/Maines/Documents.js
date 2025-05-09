@@ -8,13 +8,11 @@ class Documents extends Component {
     };
 
     componentDidMount() {
-        // Получаем документы
         fetch("http://localhost:3004/api/document")
             .then(res => res.json())
             .then(data => this.setState({ documents: data }))
             .catch(err => console.error("Ошибка загрузки документов:", err));
 
-        // Получаем категории документов
         fetch("http://localhost:3004/api/categorydocument")
             .then(res => res.json())
             .then(data => this.setState({ categories: data }))

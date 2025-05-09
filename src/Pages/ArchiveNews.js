@@ -16,7 +16,7 @@ const ArchiveNews = () => {
                     const date = new Date(item.NewsDate);
                     return (
                         date.getFullYear() === parseInt(year) &&
-                        date.getMonth() + 1 === parseInt(month) // getMonth() начинается с 0
+                        date.getMonth() + 1 === parseInt(month)
                     );
                 });
                 setFilteredNews(filtered);

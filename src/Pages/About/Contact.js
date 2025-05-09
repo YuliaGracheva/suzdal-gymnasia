@@ -2,6 +2,36 @@ import React, { Component } from "react";
 import './css/contacts.css';
 
 class Contact extends Component {
+    constructor(props) {
+            super(props);
+            this.state = {
+                contactInfo: {
+                    address: '',
+                    phones: '',
+                    email: ''
+                },
+                recaptchaToken: null,
+                useRecaptcha: false
+            };
+        }
+
+        componentDidMount() {
+            fetch("http://localhost:3004/api/settings")
+                .then((res) => res.json())
+                .then((data) => {
+                    if (!data) return;
+        
+                    const contacts = JSON.parse(data.contacts || "{}");
+                    
+                    this.setState({
+                        contactInfo: contacts,
+                    });
+                })
+                .catch((err) => {
+                    console.error("Ошибка при загрузке настроек:", err);
+                });
+        }    
+
     render() {
         return (
             <div className="contact-main-info">
@@ -14,16 +44,25 @@ class Contact extends Component {
                     <div className="purple-contact-block">
                         <div className="white-contact-block">
                             <h2>Свяжитесь с нами</h2>
-                            <pre>
-                                601293, Владимирская обл., г. Суздаль, ул. Васильевская, дом 7
-                                Телефоны:
-                                +7 49231 2-13-64 (Директор)
-                                +7 49231 2-52-43 (вахта)
-                                Факс:
-                                +7 49231 2-13-64
-                                E-mail:
-                                orthodox2001@yandex.ru
-                            </pre>
+                            <p className="contact-text">
+                                {this.state.contactInfo.address && (
+                                    <>
+                                        {this.state.contactInfo.address}<br />
+                                    </>
+                                )}
+                                {this.state.contactInfo.phones && (
+                                    <>
+                                        Телефоны:<br />
+                                        {this.state.contactInfo.phones}<br />
+                                    </>
+                                )}
+                                {this.state.contactInfo.email && (
+                                    <>
+                                        E-mail:<br />
+                                        <a href={`mailto:${this.state.contactInfo.email}`}>{this.state.contactInfo.email}</a>
+                                    </>
+                                )}
+                            </p>
                         </div>
                         <div className="white-contact-block">
                             <h2>Наши банковские реквизиты</h2>

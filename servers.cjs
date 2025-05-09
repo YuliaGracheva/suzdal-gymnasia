@@ -765,7 +765,7 @@ app.post("/api/admin/login", async (req, res) => {
 
         if (user.isBlocked === "Заблокирован") {
             console.log("Account is blocked for user:", user.Username);
-            return res.status(403).json({ error: "Ваш аккаунт заблокирован" }); // 403 Forbidden
+            return res.status(403).json({ error: "Ваш аккаунт заблокирован" });
         }
 
         console.log("Stored password hash:", user.Password);

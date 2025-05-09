@@ -7,11 +7,9 @@ class PaidEducationalServices extends Component {
     };
 
     componentDidMount() {
-        // Получаем все документы
         fetch("http://localhost:3004/api/document")
             .then(res => res.json())
             .then(data => {
-                // Фильтруем только с категорией 6
                 const filteredDocs = data.filter(doc => doc.CategoryDocumentID === 6);
                 this.setState({ documents: filteredDocs });
             })
