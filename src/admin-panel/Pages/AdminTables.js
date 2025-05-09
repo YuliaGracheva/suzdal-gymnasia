@@ -24,7 +24,7 @@ function AdminTables() {
     const quillRefs = useRef({});
 
     const archiveTables = ["News", "Documents"];
-    const hiddenTables = ["User", "Feedback", "PasswordRequests"];
+    const hiddenTables = ["User", "feedback", "PasswordRequests", "PhotoNews", "PhotoNewsNews", "Settings"];
 
     const isRichTextField = (key) => /description|content|text|html/i.test(key);
 
@@ -85,15 +85,15 @@ function AdminTables() {
             .catch(() => setError("Ошибка при получении списка таблиц"));
     }, []);
 
-    const validateFields = (data) => {
-        for (let field of notNullFields) {
+    const validateFields = (data, requiredFields = notNullFields) => {
+        for (let field of requiredFields) {
             if (field === primaryKey) continue;
             if (!data[field] || data[field].toString().trim() === "") {
                 return `Поле "${field}" обязательно для заполнения`;
             }
         }
         return "";
-    };
+    };    
 
     const loadForeignKeys = async (tableName) => {
         const res = await adminService.fetchForeignKeys(tableName);
@@ -226,7 +226,7 @@ function AdminTables() {
             <select id="table-select" value={selectedTable} onChange={handleTableSelect}>
                 <option value="">-- выберите таблицу --</option>
                 {tableList.map((table, index) => (
-                    <option key={index} value={table}>{tableNamesRu[table] ||table}</option>
+                    <option key={index} value={table}>{tableNamesRu[table] || table}</option>
                 ))}
             </select>
             {validationError && <p className="error-text">{validationError}</p>}
@@ -330,52 +330,70 @@ function AdminTables() {
             {isEditable && selectedTable && filteredTableData.length > 0 && (
                 <div className="add-form">
                     <h3>Добавить новую запись</h3>
-                    {Object.keys(filteredTableData[0]).filter(key => key !== primaryKey).map((key, i) => (
-                        <div key={i} className="form-group">
-                            <label>{fieldNamesRu[key] || key}</label>
-                            {isForeignKey(key) ? (
-                                <select
-                                    value={newRow[key] || ""}
-                                    onChange={(e) => handleInputChange(e, key, true)}>
-                                    <option value="">-- выберите --</option>
-                                    {foreignOptions[key]?.map((option, idx) => (
-                                        <option key={idx} value={option[foreignKeys.find(fk => fk.from === key).to]}>
-                                            {Object.values(option).slice(1).join(" ")}
-                                        </option>
-                                    ))}
-                                </select>
-                            ) : isRichTextField(key) ? (
-                                <>
-                                    <ReactQuill
-                                        ref={(el) => {
-                                            if (el) quillRefs.current[key] = el;
-                                        }}
-                                        theme="snow"
+                    {Object.keys(filteredTableData[0])
+                        .filter(key => key !== primaryKey && key !== "UserID")
+                        .map((key, i) => (
+                            <div key={i} className="form-group">
+                                <label>{fieldNamesRu[key] || key}</label>
+                                {isForeignKey(key) ? (
+                                    <select
                                         value={newRow[key] || ""}
-                                        onChange={(value) => setNewRow({ ...newRow, [key]: value })}
+                                        onChange={(e) => handleInputChange(e, key, true)}>
+                                        <option value="">-- выберите --</option>
+                                        {foreignOptions[key]?.map((option, idx) => (
+                                            <option key={idx} value={option[foreignKeys.find(fk => fk.from === key).to]}>
+                                                {Object.values(option).slice(1).join(" ")}
+                                            </option>
+                                        ))}
+                                    </select>
+                                ) : isRichTextField(key) ? (
+                                    <>
+                                        <ReactQuill
+                                            ref={(el) => {
+                                                if (el) quillRefs.current[key] = el;
+                                            }}
+                                            theme="snow"
+                                            value={newRow[key] || ""}
+                                            onChange={(value) => setNewRow({ ...newRow, [key]: value })}
+                                        />
+                                        <button className="btn" onClick={() => { setShowImageModal(true); setActiveField(key); }}>
+                                            📷 Вставить изображение
+                                        </button>
+                                    </>
+                                ) : (
+                                    <input
+                                        placeholder={key}
+                                        value={newRow[key] || ""}
+                                        onChange={(e) => handleInputChange(e, key, true)}
                                     />
-                                    <button className="btn" onClick={() => { setShowImageModal(true); setActiveField(key); }}>
-                                        📷 Вставить изображение
-                                    </button>
-                                </>
-                            ) : (
-                                <input
-                                    placeholder={key}
-                                    value={newRow[key] || ""}
-                                    onChange={(e) => handleInputChange(e, key, true)}
-                                />
-                            )}
-                        </div>
-                    ))}
+                                )}
+                            </div>
+                        ))}
+
                     <button className="btn add" onClick={() => {
-                        const validationMsg = validateFields(newRow);
+                        const user = JSON.parse(localStorage.getItem("adminUser"));
+                        const currentUserId = user?.UserID;
+
+                        const rowToSubmit = {
+                            ...newRow,
+                            ...(Object.keys(filteredTableData[0]).includes("UserID") ? { UserID: currentUserId } : {})
+                        };
+
+                        const safeNotNullFields = notNullFields.filter(field => field !== "UserID");
+                        const validationMsg = validateFields(rowToSubmit, safeNotNullFields);
                         if (validationMsg) return setValidationError(validationMsg);
-                        adminService.createTableRow(selectedTable, newRow)
-                            .then(() => loadTable(selectedTable))
+
+                        adminService.createTableRow(selectedTable, rowToSubmit)
+                            .then(() => {
+                                setNewRow({});
+                                setValidationError("");
+                                loadTable(selectedTable);
+                            })
                             .catch(() => setError("Ошибка при добавлении записи"));
                     }}>
                         ➕ Добавить
                     </button>
+
                 </div>
             )}
 

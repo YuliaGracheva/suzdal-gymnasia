@@ -780,7 +780,13 @@ app.post("/api/admin/login", async (req, res) => {
 
         console.log("Password is valid for user:", user.Username);
 
-        res.json({ user: { Username: user.Username, Role: user.role } });
+        res.json({
+            user: {
+                UserID: user.UserID,
+                Username: user.Username,
+                Role: user.role
+            }
+        });
 
     } catch (err) {
         console.error("Ошибка входа:", err);

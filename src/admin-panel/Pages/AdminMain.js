@@ -29,9 +29,8 @@ class AdminMain extends Component {
         if (!role) return;
     
         this.setState({ role });
-    
-        if (role !== 'viewer') {
-            await this.fetchRequests();
+        await this.fetchRequests();
+        if (role !== 'viewer' && role !== 'editor') {
             await this.fetchPasswordRequests();
         }
     }    
@@ -124,15 +123,9 @@ class AdminMain extends Component {
 
     render() {
         const { requests, passwordRequests, newPasswords, role } = this.state;
-
-        if (role === null) {
-            return null;
-        }
-
-        if (role === 'viewer') {
-            return <p style={{ padding: '20px', fontSize: '18px' }}>У вас нет доступа к этому разделу.</p>;
-        }
-
+    
+        if (role === null) return null;
+    
         return (
             <div className="admin-main">
                 <h2>Заявки на звонок</h2>
@@ -142,7 +135,7 @@ class AdminMain extends Component {
                             <tr>
                                 <th>Имя</th>
                                 <th>Телефон</th>
-                                <th>Действие</th>
+                                {role !== 'viewer' && <th>Действие</th>}
                             </tr>
                         </thead>
                         <tbody>
@@ -150,61 +143,67 @@ class AdminMain extends Component {
                                 <tr key={request.id}>
                                     <td>{request.name}</td>
                                     <td>{request.phone}</td>
-                                    <td>
-                                        <button onClick={() => this.handleMarkProcessed(request.id)}>
-                                            Обработано
-                                        </button>
-                                    </td>
+                                    {role !== 'viewer' && (
+                                        <td>
+                                            <button onClick={() => this.handleMarkProcessed(request.id)}>
+                                                Обработано
+                                            </button>
+                                        </td>
+                                    )}
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 ) : <p>Нет заявок на звонок.</p>}
-
-                <h2>Заявки на смену пароля</h2>
-                {passwordRequests.length > 0 ? (
-                    <table className="requests-table">
-                        <thead>
-                            <tr>
-                                <th>Пользователь</th>
-                                <th>Новый пароль</th>
-                                <th>Действие</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {passwordRequests.map((req) => (
-                                <tr key={req.UserID}>
-                                    <td>
-                                        {req.Username || `ID: ${req.UserID}`}
-                                        {req.Login && <span> ({req.Login})</span>}
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="text"
-                                            placeholder="Новый пароль"
-                                            value={newPasswords[req.UserID] || ''}
-                                            onChange={(e) => this.handleInputChange(req.UserID, e.target.value)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <button onClick={() => this.handlePasswordChange(req.UserID)}>
-                                            Сменить
-                                        </button>
-                                        <button
-                                            onClick={() => this.handleCancelPasswordRequest(req.UserID)}
-                                            style={{ marginLeft: '10px', backgroundColor: '#ccc' }}
-                                        >
-                                            Отменить
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : <p>Нет заявок на смену пароля.</p>}
+    
+                {role !== 'viewer' && (
+                    <>
+                        <h2>Заявки на смену пароля</h2>
+                        {passwordRequests.length > 0 ? (
+                            <table className="requests-table">
+                                <thead>
+                                    <tr>
+                                        <th>Пользователь</th>
+                                        <th>Новый пароль</th>
+                                        <th>Действие</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {passwordRequests.map((req) => (
+                                        <tr key={req.UserID}>
+                                            <td>
+                                                {req.Username || `ID: ${req.UserID}`}
+                                                {req.Login && <span> ({req.Login})</span>}
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Новый пароль"
+                                                    value={newPasswords[req.UserID] || ''}
+                                                    onChange={(e) => this.handleInputChange(req.UserID, e.target.value)}
+                                                />
+                                            </td>
+                                            <td>
+                                                <button onClick={() => this.handlePasswordChange(req.UserID)}>
+                                                    Сменить
+                                                </button>
+                                                <button
+                                                    onClick={() => this.handleCancelPasswordRequest(req.UserID)}
+                                                    style={{ marginLeft: '10px', backgroundColor: '#ccc' }}
+                                                >
+                                                    Отменить
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : <p>Нет заявок на смену пароля.</p>}
+                    </>
+                )}
             </div>
         );
     }
-}
+}    
 
 export default AdminMain;
