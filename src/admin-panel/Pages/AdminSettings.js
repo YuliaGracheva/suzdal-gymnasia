@@ -4,7 +4,6 @@ import "./css/AdminSettings.css";
 const AdminSettings = () => {
     const [siteTitle, setSiteTitle] = useState("");
     const [siteDescription, setSiteDescription] = useState("");
-    const [theme, setTheme] = useState("light");
     const [logo, setLogo] = useState(null);
     const [logoPreview, setLogoPreview] = useState(null);
     const [contacts, setContacts] = useState({ name: "", address: "", phones: "", email: "" });
@@ -13,19 +12,20 @@ const AdminSettings = () => {
     const [useRecaptcha, setUseRecaptcha] = useState(false);
 
     useEffect(() => {
-        const settings = localStorage.getItem("adminSettings");
-        if (settings) {
-            const parsed = JSON.parse(settings);
-            setSiteTitle(parsed.siteTitle || "");
-            setSiteDescription(parsed.siteDescription || "");
-            setLogoPreview(parsed.logo || null);
-            setContacts(parsed.contacts || {});
-            setSocialLinks(parsed.socialLinks || {});
-            setNewsCount(parsed.newsCount || 5);
-            setUseRecaptcha(parsed.useRecaptcha || false);
-            applySettings(parsed);
-        }
-    }, []);
+        fetch("http://localhost:3004/api/settings")
+            .then(res => res.json())
+            .then((data) => {
+                if (!data) return;
+                setSiteTitle(data.siteTitle || "");
+                setSiteDescription(data.siteDescription || "");
+                setLogoPreview(data.logo || null);
+                setContacts(JSON.parse(data.contacts || "{}"));
+                setSocialLinks(JSON.parse(data.socialLinks || "{}"));
+                setNewsCount(data.newsCount || 5);
+                setUseRecaptcha(!!data.useRecaptcha);
+                applySettings(data);
+            });
+    }, []);    
 
     const applySettings = (settings) => {
         document.title = settings.siteTitle || "";
@@ -62,10 +62,22 @@ const AdminSettings = () => {
             newsCount,
             useRecaptcha
         };
-        localStorage.setItem("adminSettings", JSON.stringify(settings));
-        applySettings(settings);
-        alert("Настройки сохранены и применены!");
-    };
+    
+        fetch("http://localhost:3004/api/settings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(settings)
+        })
+        .then(res => res.json())
+        .then((result) => {
+            if (result.success) {
+                applySettings(settings);
+                alert("Настройки сохранены и применены!");
+            } else {
+                alert("Ошибка при сохранении настроек.");
+            }
+        });
+    };    
 
     const handleChange = (obj, setObj) => (e) => {
         const { name, value } = e.target;
@@ -90,7 +102,6 @@ const AdminSettings = () => {
 
             <div className="settings-group">
                 <h3>Контакты</h3>
-                <input name="name" placeholder="Название" value={contacts.name} onChange={handleChange(contacts, setContacts)} />
                 <input name="address" placeholder="Адрес" value={contacts.address} onChange={handleChange(contacts, setContacts)} />
                 <input name="phones" placeholder="Телефоны" value={contacts.phones} onChange={handleChange(contacts, setContacts)} />
                 <input name="email" placeholder="Email" value={contacts.email} onChange={handleChange(contacts, setContacts)} />

@@ -786,4 +786,46 @@ app.post("/api/admin/login", async (req, res) => {
     }
 });
 
+app.get("/api/settings", (req, res) => {
+    db.get("SELECT * FROM Settings LIMIT 1", (err, row) => {
+        if (err) return res.status(500).json({ error: "Ошибка сервера" });
+        res.json(row || {});
+    });
+});
+
+app.post("/api/settings", (req, res) => {
+    const {
+        siteTitle, siteDescription, logo, contacts, socialLinks, newsCount, useRecaptcha
+    } = req.body;
+
+    const settingsJson = {
+        siteTitle,
+        siteDescription,
+        logo,
+        contacts: JSON.stringify(contacts),
+        socialLinks: JSON.stringify(socialLinks),
+        newsCount,
+        useRecaptcha
+    };
+
+    db.run(`
+        INSERT OR REPLACE INTO Settings (id, siteTitle, siteDescription, logo, contacts, socialLinks, newsCount, useRecaptcha)
+        VALUES (1, ?, ?, ?, ?, ?, ?, ?)
+    `,
+        [
+            settingsJson.siteTitle,
+            settingsJson.siteDescription,
+            settingsJson.logo,
+            settingsJson.contacts,
+            settingsJson.socialLinks,
+            settingsJson.newsCount,
+            settingsJson.useRecaptcha ? 1 : 0
+        ],
+        (err) => {
+            if (err) return res.status(500).json({ error: "Ошибка сохранения" });
+            res.json({ success: true });
+        }
+    );
+});
+
 app.use(express.static('scripts'));

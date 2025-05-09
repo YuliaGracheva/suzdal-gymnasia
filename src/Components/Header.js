@@ -20,11 +20,17 @@ export default function Header() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const storedLogo = localStorage.getItem("logo");
-        if (storedLogo) {
-            setCustomLogo(storedLogo);
-        }
-    }, []);
+        fetch("http://localhost:3004/api/settings")
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.logo) {
+                    setCustomLogo(data.logo);
+                }
+            })
+            .catch(err => {
+                console.error("Ошибка загрузки настроек:", err);
+            });
+    }, []);    
 
     const handleSearch = (e) => {
         e.preventDefault();

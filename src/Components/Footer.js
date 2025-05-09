@@ -46,16 +46,24 @@ class Footer extends Component {
     };
 
     componentDidMount() {
-        const settings = localStorage.getItem("adminSettings");
-        if (settings) {
-            const parsed = JSON.parse(settings);
-            this.setState({
-                contactInfo: parsed.contacts || {},
-                socialLinks: parsed.socialLinks || {},
-                useRecaptcha: parsed.useRecaptcha || false
+        fetch("http://localhost:3004/api/settings")
+            .then((res) => res.json())
+            .then((data) => {
+                if (!data) return;
+    
+                const contacts = JSON.parse(data.contacts || "{}");
+                const socialLinks = JSON.parse(data.socialLinks || "{}");
+    
+                this.setState({
+                    contactInfo: contacts,
+                    socialLinks,
+                    useRecaptcha: !!data.useRecaptcha
+                });
+            })
+            .catch((err) => {
+                console.error("Ошибка при загрузке настроек:", err);
             });
-        }
-    }
+    }    
 
     handleChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
