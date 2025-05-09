@@ -147,6 +147,19 @@ app.get('/api/photonewsnews', (req, res) => getAllDataFromTable('PhotoNewsNews',
 app.get('/api/subject', (req, res) => getAllDataFromTable('Subject', res));
 app.get('/api/status', (req, res) => getAllDataFromTable('Status', res));
 
+app.get("/api/news/notArchived", (req, res) => {
+    const sql = "SELECT * FROM News WHERE isArchived = 0";
+    db.all(sql, [], (err, rows) => { 
+        if (err) {
+            console.error("Ошибка при получении новостей:", err);
+            res.status(500).json({ error: "Ошибка сервера" });
+        } else {
+            res.json(rows); 
+        }
+    });
+});
+
+
 app.get("/api/news/:id", (req, res) => {
     const { id } = req.params;
     console.log("ПОЛУЧЕН ЗАПРОС НА НОВОСТЬ:", id);

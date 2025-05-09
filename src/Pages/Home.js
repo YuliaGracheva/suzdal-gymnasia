@@ -3,18 +3,27 @@ import './Home.css';
 
 export default function Home() {
     const [news, setNews] = useState([]);
+    const [newsCount, setNewsCount] = useState(3);
     const scrollRef = useRef(null);
 
     useEffect(() => {
-        fetch("http://localhost:3004/api/news")
+        const settings = localStorage.getItem("adminSettings");
+        if (settings) {
+            const parsed = JSON.parse(settings);
+            if (parsed.newsCount) {
+                setNewsCount(parsed.newsCount);
+            }
+        }
+    
+        fetch("http://localhost:3004/api/news/notArchived")
             .then((res) => res.json())
             .then((data) => {
                 const sorted = data
                     .sort((a, b) => new Date(b.NewsDate) - new Date(a.NewsDate))
-                    .slice(0, 3);
+                    .slice(0, newsCount);
                 setNews(sorted);
             });
-    }, []);
+    }, [newsCount]); 
 
     useEffect(() => {
         const handleResize = () => {

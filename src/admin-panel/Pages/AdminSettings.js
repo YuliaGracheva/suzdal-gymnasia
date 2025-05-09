@@ -7,12 +7,8 @@ const AdminSettings = () => {
     const [theme, setTheme] = useState("light");
     const [logo, setLogo] = useState(null);
     const [logoPreview, setLogoPreview] = useState(null);
-    const [fontFamily, setFontFamily] = useState("Oswald");
-    const [fontSize, setFontSize] = useState("16px");
     const [contacts, setContacts] = useState({ name: "", address: "", phones: "", email: "" });
     const [socialLinks, setSocialLinks] = useState({ vk: "", ok: "", telegram: "", youtube: "" });
-    const [seo, setSeo] = useState({ keywords: "", description: "" });
-    const [favicon, setFavicon] = useState(null);
     const [newsCount, setNewsCount] = useState(5);
     const [useRecaptcha, setUseRecaptcha] = useState(false);
 
@@ -22,14 +18,9 @@ const AdminSettings = () => {
             const parsed = JSON.parse(settings);
             setSiteTitle(parsed.siteTitle || "");
             setSiteDescription(parsed.siteDescription || "");
-            setTheme(parsed.theme || "light");
             setLogoPreview(parsed.logo || null);
-            setFontFamily(parsed.fontFamily || "Oswald");
-            setFontSize(parsed.fontSize || "16px");
             setContacts(parsed.contacts || {});
             setSocialLinks(parsed.socialLinks || {});
-            setSeo(parsed.seo || {});
-            setFavicon(parsed.favicon || null);
             setNewsCount(parsed.newsCount || 5);
             setUseRecaptcha(parsed.useRecaptcha || false);
             applySettings(parsed);
@@ -42,13 +33,9 @@ const AdminSettings = () => {
         desc.name = "description";
         desc.content = settings.siteDescription || "";
         document.head.appendChild(desc);
-        document.body.setAttribute("data-theme", settings.theme || "light");
-        document.body.style.fontFamily = settings.fontFamily || "Oswald";
-        document.body.style.fontSize = settings.fontSize || "16px";
         if (settings.favicon) {
             const link = document.querySelector("link[rel~='icon']") || document.createElement("link");
             link.rel = "icon";
-            link.href = settings.favicon;
             document.head.appendChild(link);
         }
     };
@@ -65,27 +52,13 @@ const AdminSettings = () => {
         }
     };
 
-    const handleFaviconChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => setFavicon(reader.result);
-            reader.readAsDataURL(file);
-        }
-    };
-
     const handleSave = () => {
         const settings = {
             siteTitle,
             siteDescription,
-            theme,
             logo,
-            fontFamily,
-            fontSize,
             contacts,
             socialLinks,
-            seo,
-            favicon,
             newsCount,
             useRecaptcha
         };
@@ -110,22 +83,9 @@ const AdminSettings = () => {
                 <label>Описание сайта</label>
                 <textarea value={siteDescription} onChange={e => setSiteDescription(e.target.value)} />
 
-                <label>Шрифт</label>
-                <select value={fontFamily} onChange={e => setFontFamily(e.target.value)}>
-                    <option value="Oswald">Oswald</option>
-                    <option value="Roboto">Roboto</option>
-                    <option value="Open Sans">Open Sans</option>
-                </select>
-
-                <label>Размер шрифта</label>
-                <input type="number" value={parseInt(fontSize)} onChange={e => setFontSize(`${e.target.value}px`)} />
-
                 <label>Логотип</label>
                 <input type="file" accept="image/*" onChange={handleLogoChange} />
                 {logoPreview && <img src={logoPreview} alt="Preview" className="logo-preview" />}
-
-                <label>Favicon</label>
-                <input type="file" accept="image/*" onChange={handleFaviconChange} />
             </div>
 
             <div className="settings-group">
@@ -142,12 +102,6 @@ const AdminSettings = () => {
                 <input name="ok" placeholder="Одноклассники" value={socialLinks.ok} onChange={handleChange(socialLinks, setSocialLinks)} />
                 <input name="telegram" placeholder="Telegram" value={socialLinks.telegram} onChange={handleChange(socialLinks, setSocialLinks)} />
                 <input name="youtube" placeholder="YouTube" value={socialLinks.youtube} onChange={handleChange(socialLinks, setSocialLinks)} />
-            </div>
-
-            <div className="settings-group">
-                <h3>SEO</h3>
-                <input name="keywords" placeholder="Meta keywords" value={seo.keywords} onChange={handleChange(seo, setSeo)} />
-                <textarea name="description" placeholder="Meta description" value={seo.description} onChange={handleChange(seo, setSeo)} />
             </div>
 
             <div className="settings-group">
