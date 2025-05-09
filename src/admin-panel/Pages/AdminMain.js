@@ -13,16 +13,28 @@ class AdminMain extends Component {
     }
 
     async componentDidMount() {
-        const user = JSON.parse(localStorage.getItem("user"));
-        if (!user || !user.Role) return;
-
-        this.setState({ role: user.Role });
-
-        if (user.Role !== 'viewer') {
+        const userRaw = localStorage.getItem("adminUser");
+        if (!userRaw) return;
+    
+        let user;
+        try {
+            user = JSON.parse(userRaw);
+        } catch {
+            console.error("Ошибка парсинга adminUser в localStorage");
+            return;
+        }
+    
+        const role = user?.Role || user?.role || null;
+        console.log("Роль пользователя:", role);
+        if (!role) return;
+    
+        this.setState({ role });
+    
+        if (role !== 'viewer') {
             await this.fetchRequests();
             await this.fetchPasswordRequests();
         }
-    }
+    }    
 
     fetchRequests = async () => {
         try {
@@ -61,12 +73,12 @@ class AdminMain extends Component {
         }
     };
 
-    handlePasswordChange = async (userId) => {
-        const newPassword = this.state.newPasswords[userId];
+    handlePasswordChange = async (userID) => {
+        const newPassword = this.state.newPasswords[userID];
         if (!newPassword) return alert("Введите новый пароль");
 
         try {
-            const response = await fetch(`http://localhost:3004/api/users/${userId}/password`, {
+            const response = await fetch(`http://localhost:3004/api/users/${userID}/password`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ password: newPassword })
@@ -79,7 +91,7 @@ class AdminMain extends Component {
 
             alert("Пароль успешно изменён.");
             this.setState(prev => ({
-                newPasswords: { ...prev.newPasswords, [userId]: '' }
+                newPasswords: { ...prev.newPasswords, [userID]: '' }
             }));
             this.fetchPasswordRequests();
         } catch (error) {
@@ -101,11 +113,11 @@ class AdminMain extends Component {
         }
     };
 
-    handleInputChange = (userId, value) => {
+    handleInputChange = (userID, value) => {
         this.setState((prevState) => ({
             newPasswords: {
                 ...prevState.newPasswords,
-                [userId]: value
+                [userID]: value
             }
         }));
     };

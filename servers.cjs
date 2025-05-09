@@ -687,17 +687,19 @@ app.get('/api/password-requests', (req, res) => {
     });
 });
 
-app.post('/api/password-requests', (req, res) => {
-    const { userId } = req.body;
+app.get('/api/password-requests', (req, res) => {
+    const sql = `
+        SELECT pr.UserID, pr.RequestDate, u.Username, u.Login
+        FROM PasswordRequests pr
+        JOIN User u ON pr.UserID = u.UserID
+    `;
 
-    db.get('SELECT * FROM PasswordRequests WHERE UserID = ?', [userId], (err, row) => {
-        if (err) return res.status(500).json({ error: err.message });
-        if (row) return res.status(400).json({ error: 'Заявка уже существует' });
-
-        db.run('INSERT INTO PasswordRequests (UserID) VALUES (?)', [userId], function (err) {
-            if (err) return res.status(500).json({ error: err.message });
-            res.json({ message: 'Заявка добавлена' });
-        });
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            console.error("Ошибка при получении заявок на смену пароля:", err.message);
+            return res.status(500).json({ error: "Ошибка сервера" });
+        }
+        res.json(rows);
     });
 });
 
