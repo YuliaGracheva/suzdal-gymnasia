@@ -18,7 +18,7 @@
 }
 
 .contact-info {
-    min-width: 200px; 
+    min-width: 200px;
 }
 
 .footer-h {
@@ -43,7 +43,7 @@
 .useful-resurs-white {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     margin-top: 1.5rem;
 }
 
@@ -208,6 +208,25 @@
     height: 24px;
     margin-right: 10px;
     fill: #7a5b98;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #a773ac;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: #6c4370;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
 }
 
 @media (max-width: 768px) {
