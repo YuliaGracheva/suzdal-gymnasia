@@ -1,19 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SearchContext } from "./SearchContext.js";
-
-const pagesContent = [
-    { path: "/main-info/documents", content: "Документы, устав, лицензия, свидетельства" },
-    { path: "/about/leadership", content: "Руководство, директор, замдиректора" },
-    { path: "/main-info/organisation-eat", content: "Организация питания, меню, питание учащихся" },
-    { path: "/news", content: "Новости, мероприятия, события" },
-];
 
 const SearchPage = () => {
     const { query } = useContext(SearchContext);
+    const [results, setResults] = useState([]);
 
-    const results = pagesContent.filter(page =>
-        page.content.toLowerCase().includes(query.toLowerCase())
-    );
+    useEffect(() => {
+        fetch(`/search?q=${encodeURIComponent(query)}`)
+            .then(res => res.json())
+            .then(data => setResults(data))
+            .catch(console.error);
+    }, [query]);
 
     return (
         <div className="search-results">
@@ -24,7 +21,7 @@ const SearchPage = () => {
                 <ul>
                     {results.map((page, idx) => (
                         <li key={idx}>
-                            <a href={page.path}>{page.content}</a>
+                            <a href={page.path}>{page.path}</a>
                         </li>
                     ))}
                 </ul>

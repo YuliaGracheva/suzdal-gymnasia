@@ -20,7 +20,7 @@ export default function Header() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const storedLogo = localStorage.getItem("siteLogo");
+        const storedLogo = localStorage.getItem("logo");
         if (storedLogo) {
             setCustomLogo(storedLogo);
         }
@@ -99,17 +99,9 @@ export default function Header() {
 
                             <Nav.Link as={Link} to="/news">Новости</Nav.Link>
 
-                            <NavDropdown title="Прием" show={dropdowns.reception}
-                                onMouseEnter={() => handleToggle('reception')}
-                                onMouseLeave={() => handleClose('reception')}>
-                                <NavDropdown.Item as={Link} to="/reception/process-reception">Процесс</NavDropdown.Item>
-                            </NavDropdown>
-
-                            <NavDropdown title="Ресурсы" show={dropdowns.resurs}
-                                onMouseEnter={() => handleToggle('resurs')}
-                                onMouseLeave={() => handleClose('resurs')}>
-                                <NavDropdown.Item as={Link} to="/resurs/fuctional-gramm">Функциональная грамотность</NavDropdown.Item>
-                            </NavDropdown>
+                            <NavDropdown.Item as={Link} to="/process-reception">Процесс поступления</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/fuctional-gramm">Функциональная грамотность</NavDropdown.Item>
+                            
                         </Nav>
                         <div className="header-search-wrapper">
                             <Form className="d-flex" onSubmit={handleSearch}>

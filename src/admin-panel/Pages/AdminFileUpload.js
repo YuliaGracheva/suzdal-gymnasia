@@ -25,7 +25,9 @@ const AdminFileUpload = () => {
         }
     };
 
-    const handleUpload = async () => {
+    const handleUpload = async (e) => {
+        e.preventDefault(); 
+
         if (!file) {
             alert('Выберите файл');
             return;
@@ -44,11 +46,14 @@ const AdminFileUpload = () => {
 
             setFile(null);
             await fetchFiles();
+
+            window.dispatchEvent(new CustomEvent("imageUploaded"));
         } catch (error) {
             alert('Ошибка при загрузке файла');
             console.error(error);
         }
     };
+
 
     const handleDelete = async (filePath) => {
         try {
@@ -78,12 +83,13 @@ const AdminFileUpload = () => {
     }, [fileType]);
 
     const user = JSON.parse(localStorage.getItem("adminUser"));
-    const isEditable = user.role === "admin" || user.role === "editor";
+    const canUpload = user.Role === "admin" || user.Role === "editor";
+const canDelete = user.Role === "admin";
 
     return (
         <div style={{ padding: 20 }}>
             <h2>Загрузка файла</h2>
-            {isEditable && (
+            {canUpload && (
                 <form onSubmit={handleUpload}>
                     <select value={fileType} onChange={(e) => setFileType(e.target.value)}>
                         <option value="image">Изображение</option>
@@ -98,10 +104,12 @@ const AdminFileUpload = () => {
                 <h3>Загруженные файлы ({fileType === 'image' ? 'Фото' : 'Документы'})</h3>
                 <ul>
                     {uploadedFiles.map((file, index) => {
-                        const fileNameWithoutExt = file.split('/').pop().split('.')[0]; // Убираем расширение
+                        const fileNameWithoutExt = file.split('/').pop().split('.')[0]; 
+                        const isImage = file.match(/\.(jpg|jpeg|png|gif)$/i);
+
                         return (
                             <li key={index} className="file-item">
-                                {file.match(/\.(jpg|jpeg|png|gif)$/i) ? (
+                                {isImage ? (
                                     <div className="file-image-container">
                                         <img
                                             src={`http://localhost:3004${file}`}
@@ -109,7 +117,9 @@ const AdminFileUpload = () => {
                                             className="uploaded-file"
                                         />
                                         <div className="file-actions">
-                                            <button onClick={() => handleDelete(file)}>Удалить</button>
+                                            {canDelete && (
+                                                <button onClick={() => handleDelete(file)}>Удалить</button>
+                                            )}
                                             <button onClick={() => handleCopy(file)}>Копировать путь</button>
                                         </div>
                                         <div className="file-name">{fileNameWithoutExt}</div>
@@ -120,7 +130,9 @@ const AdminFileUpload = () => {
                                             📄 {fileNameWithoutExt}
                                         </a>
                                         <div className="file-actions">
-                                            <button onClick={() => handleDelete(file)}>Удалить</button>
+                                            {canDelete && (
+                                                <button onClick={() => handleDelete(file)}>Удалить</button>
+                                            )}
                                             <button onClick={() => handleCopy(file)}>Копировать путь</button>
                                         </div>
                                     </div>

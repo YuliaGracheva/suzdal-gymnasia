@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import avo from "../img/avo.jpg";
 import avodo from "../img/avo-do.jpg";
@@ -21,7 +22,39 @@ class Footer extends Component {
             name: '',
             phone: '',
             requests: [],
+            socialLinks: {
+                vk: '',
+                ok: '',
+                telegram: '',
+                youtube: ''
+            },
+            contactInfo: {
+                name: '',
+                address: '',
+                phones: '',
+                email: ''
+            },
+            recaptchaToken: null,
+            useRecaptcha: false
         };
+        this.recaptchaRef = React.createRef();
+    }
+
+    handleRecaptchaChange = (token) => {
+        console.log("✔ Получен токен от reCAPTCHA:", token);
+        this.setState({ recaptchaToken: token });
+    };
+
+    componentDidMount() {
+        const settings = localStorage.getItem("adminSettings");
+        if (settings) {
+            const parsed = JSON.parse(settings);
+            this.setState({
+                contactInfo: parsed.contacts || {},
+                socialLinks: parsed.socialLinks || {},
+                useRecaptcha: parsed.useRecaptcha || false
+            });
+        }
     }
 
     handleChange = (e) => {
@@ -30,43 +63,92 @@ class Footer extends Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        const { name, phone } = this.state;
+        const { name, phone, useRecaptcha, recaptchaToken } = this.state;
+
+        if (useRecaptcha && !recaptchaToken) {
+            alert("Подтвердите, что вы не робот.");
+            return;
+        }
 
         try {
-            const response = await fetch('http://localhost:3004/api/feedback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, phone }),
+            const response = await fetch("http://localhost:3004/api/feedback", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, phone, recaptchaToken, useRecaptcha })
             });
+
             if (response.ok) {
-                this.setState({ name: '', phone: '' });
                 alert("Заявка отправлена успешно!");
+                this.setState({ name: '', phone: '', recaptchaToken: null });
+                if (this.recaptchaRef.current) {
+                    this.recaptchaRef.current.reset(); 
+                }
+            } else {
+                const result = await response.json();
+                alert(result.error || "Ошибка при отправке.");
             }
         } catch (error) {
-            console.error('Ошибка при отправке данных:', error);
+            console.error("Ошибка при отправке:", error);
             alert("Ошибка отправки. Попробуйте позже.");
         }
     };
 
     render() {
+        const { socialLinks, contactInfo, useRecaptcha } = this.state;
+
         return (
             <footer className="footer">
                 <div className="purple-footer-contact">
                     <div className="contact-info">
                         <h2 className="footer-h">Наши контакты</h2>
                         <p className="contact-text">
-                            601293, Владимирская обл., г. Суздаль, ул. Васильевская , дом 7<br />
-                            Телефоны:<br />
-                            +7 49231 2-13-64 (директор)<br />
-                            +7 49231 2-52-43 (вахта)<br />
-                            Факс:<br />
-                            +7 49231 2-13-64<br />
-                            E-mail:<br />
-                            <a href="mailto:orthodox2001@yandex.ru">orthodox2001@yandex.ru</a>
+                            {this.state.contactInfo.address && (
+                                <>
+                                    {this.state.contactInfo.address}<br />
+                                </>
+                            )}
+                            {this.state.contactInfo.phones && (
+                                <>
+                                    Телефоны:<br />
+                                    {this.state.contactInfo.phones}<br />
+                                </>
+                            )}
+                            {this.state.contactInfo.email && (
+                                <>
+                                    E-mail:<br />
+                                    <a href={`mailto:${this.state.contactInfo.email}`}>{this.state.contactInfo.email}</a>
+                                </>
+                            )}
                         </p>
+
+                        <div className="footer-social-links">
+                            <h3>Мы в соцсетях</h3>
+                            <ul>
+                                {socialLinks.vk && (
+                                    <li>
+                                        <a href={socialLinks.vk} rel="noopener noreferrer" target="_blank">
+                                            ВКонтакте
+                                        </a>
+                                    </li>
+                                )}
+                                {socialLinks.telegram && (
+                                    <li>
+                                        <a href={socialLinks.telegram} rel="noopener noreferrer" target="_blank">
+                                            Telegram
+                                        </a>
+                                    </li>
+                                )}
+                                {socialLinks.youtube && (
+                                    <li>
+                                        <a href={socialLinks.youtube} rel="noopener noreferrer" target="_blank">
+                                            YouTube
+                                        </a>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
                     </div>
+
                     <div className="useful-resurs-white">
                         <div className="block">
                             <a href="https://avo.ru/" target="_blank" rel="noopener noreferrer">
@@ -125,8 +207,7 @@ class Footer extends Component {
                         <div className="block">
                             <a href="https://omofor.ru/" target="_blank" rel="noopener noreferrer">
                                 <img src={omofor} />
-                                <p>Региональная общественная организация ветеранов и инвалидов силовых структур
-                                    «ОМОРОФ-СУВОРОВСКИЙ ПРИЗЫВ»</p>
+                                <p>Региональная организация «ОМОРОФ-СУВОРОВСКИЙ ПРИЗЫВ»</p>
                             </a>
                         </div>
                         <div className="block">
@@ -155,7 +236,6 @@ class Footer extends Component {
                     ></iframe>
                 </div>
 
-
                 <div className="yellow-footer-down">
                     <h2 className="footer-down-name">Появились вопросы? Свяжитесь с нами!</h2>
                     <div className="footer-down-info">
@@ -163,7 +243,7 @@ class Footer extends Component {
                             <div className="footer-down-call-me-info">
                                 <h3>Данные для запроса звонка</h3>
                                 <form onSubmit={this.handleSubmit}>
-                                    <label htmlFor="name">Ваше имя:</label>
+                                <label htmlFor="name">Ваше имя:</label>
                                     <input
                                         type="text"
                                         id="name"
@@ -181,6 +261,13 @@ class Footer extends Component {
                                         onChange={this.handleChange}
                                         required
                                     />
+                                    {useRecaptcha && (
+                                        <ReCAPTCHA
+                                            ref={this.recaptchaRef}
+                                            sitekey="6Ld7hzMrAAAAACCRlvHn1dGhfufHv2vXWxS4EXE5"
+                                            onChange={this.handleRecaptchaChange}
+                                        />
+                                    )}
                                     <button type="submit" className="call-me-button">Запросить звонок</button>
                                 </form>
                             </div>
@@ -190,7 +277,6 @@ class Footer extends Component {
                             <p>Грачева Юлия Алексеевна</p>
                             <p>+79004812276</p>
                             <p><a href="mailto:a9904070@gmail.com">a9904070@gmail.com</a></p>
-
                         </div>
                     </div>
                 </div>

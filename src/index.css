@@ -21,3 +21,11 @@ body {
   margin: auto;
   display: block;
 }
+
+.ql-editor strong, 
+.ql-editor b,
+strong, 
+b {
+  font-weight: 700 !important;
+}
+

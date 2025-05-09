@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import "./css/admin-login.css";
 
@@ -23,38 +23,28 @@ const AdminLogin = () => {
         headers: {
           "Content-Type": "application/json"
         },
+        credentials: "include",
         body: JSON.stringify({ login: username, password })
       });
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("isAdmin", "true");
-        localStorage.setItem("adminUser", JSON.stringify(data.user));
-        navigate("/admin/main");
+        
+        if (data && data.user) {
+          if (data.user.isBlocked === "Заблокирован") {
+            setError("Ваш аккаунт заблокирован");
+            return;
+          }
+
+          localStorage.setItem("isAdmin", "true");
+          localStorage.setItem("adminUser", JSON.stringify(data.user)); 
+          navigate("/admin/main");
+        } else {
+          setError("Не удалось сохранить данные пользователя");
+        }
       } else {
         const errData = await response.json();
         setError(errData.error || "Ошибка входа");
-      }
-    } catch (err) {
-      setError("Ошибка подключения к серверу");
-    }
-  };
-
-  const handlePasswordReset = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3004/api/admin/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username })
-      });
-
-      if (response.ok) {
-        setSuccessMessage("Запрос на изменение пароля отправлен администратору");
-      } else {
-        setError("Ошибка отправки запроса");
       }
     } catch (err) {
       setError("Ошибка подключения к серверу");
@@ -108,7 +98,6 @@ const AdminLogin = () => {
         <Button variant="link" onClick={handleForgotPassword}>
           Забыли пароль?
         </Button>
-
       </div>
     </div>
   );

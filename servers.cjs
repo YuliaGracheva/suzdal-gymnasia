@@ -1,3 +1,5 @@
+require("dotenv").config({ path: './process.env' });
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -8,14 +10,32 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 const { fileURLToPath } = require('url');
 const { dirname } = require('path');
+const fetch = require("node-fetch");
 
 const corsOptions = {
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
+    credentials: true
 };
+const session = require('express-session');
 
 const app = express();
+
+console.log("Process.env:", process.env);
+console.log("SESSION_SECRET:", process.env.SESSION_SECRET);
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24,
+    }
+}));
+
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
@@ -310,25 +330,6 @@ app.get('/api/admin/foreign-keys/:tableName', (req, res) => {
     });
 });
 
-app.post("/api/admin/login", (req, res) => {
-    const { login, password } = req.body;
-
-    db.get(
-        "SELECT * FROM User WHERE Login = ? AND Password = ?",
-        [login, password],
-        (err, row) => {
-            if (err) {
-                return res.status(500).json({ error: "Ошибка сервера" });
-            }
-            if (row) {
-                res.json({ success: true, user: row });
-            } else {
-                res.status(401).json({ error: "Неверный логин или пароль" });
-            }
-        }
-    );
-});
-
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const storage = multer.diskStorage({
@@ -429,22 +430,90 @@ app.get("/api/admin/users", async (req, res) => {
 });
 
 app.post("/api/admin/users", async (req, res) => {
-    const { username, password, role } = req.body;
+    const { username, login, password, role } = req.body;
+
+    if (!username || !login || !password || !role) {
+        return res.status(400).json({ error: "Все поля должны быть заполнены." });
+    }
+
     const hashedPassword = bcrypt.hashSync(password, 10);
-    await db.run("INSERT INTO User (Username, Password, role) VALUES (?, ?, ?)", [username, hashedPassword, role]);
-    res.status(201).send();
+
+    try {
+        await db.run("INSERT INTO User (Username, Login, Password, role, isBlocked) VALUES (?, ?, ?, ?, ?)",
+            [username, login, hashedPassword, role, "Разблокирован"]);
+    } catch (error) {
+        console.error("Ошибка при добавлении пользователя:", error);
+        res.status(500).json({ error: "Ошибка добавления пользователя" });
+    }
+});
+
+app.get("/api/admin/users/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await new Promise((resolve, reject) => {
+            db.get("SELECT * FROM User WHERE UserID = ?", [id], (err, row) => {
+                if (err) reject(err);
+                else resolve(row);
+            });
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "Пользователь не найден" });
+        }
+
+        res.json(user);
+    } catch (error) {
+        console.error("Ошибка при получении пользователя:", error);
+        res.status(500).json({ error: "Ошибка сервера" });
+    }
 });
 
 app.put("/api/admin/users/:id", async (req, res) => {
     const { id } = req.params;
-    const { username, role } = req.body;
-    await db.run("UPDATE User SET Username = ?, role = ? WHERE UserId = ?", [username, role, id]);
-    res.send();
+    const { username, role, login, isBlocked, password } = req.body;
+
+    console.log("Received data:", req.body);
+
+    if (!username || !role || !login) {
+        return res.status(400).json({ error: "Все поля (username, role, login) обязательны." });
+    }
+
+    const user = await db.get("SELECT * FROM User WHERE UserID = ?", [id]);
+    if (!user) {
+        return res.status(404).json({ error: "Пользователь не найден." });
+    }
+
+    const finalIsBlocked = isBlocked !== undefined ? isBlocked : user.isBlocked;
+
+    if (finalIsBlocked !== "Заблокирован" && finalIsBlocked !== "Разблокирован") {
+        return res.status(400).json({ error: "Неверное значение для поля isBlocked." });
+    }
+
+    const queryParams = [username, login, role, finalIsBlocked, id];
+
+    console.log("Received data:", queryParams);
+
+    if (password) {
+        const hashedPassword = bcrypt.hashSync(password, 10);
+        queryParams.splice(3, 0, hashedPassword);
+    }
+
+    try {
+        const updateQuery = password
+            ? "UPDATE User SET Username = ?, Login = ?, role = ?, Password = ?, isBlocked = ? WHERE UserID = ?"
+            : "UPDATE User SET Username = ?, Login = ?, role = ?, isBlocked = ? WHERE UserID = ?";
+
+        await db.run(updateQuery, queryParams);
+        res.send();
+    } catch (error) {
+        console.error("Ошибка обновления пользователя:", error);
+        res.status(500).json({ error: "Ошибка обновления пользователя" });
+    }
 });
 
 app.delete("/api/admin/users/:id", async (req, res) => {
     const { id } = req.params;
-    await db.run("DELETE FROM User WHERE UserId = ?", [id]);
+    await db.run("DELETE FROM User WHERE UserID = ?", [id]);
     res.send();
 });
 
@@ -497,8 +566,33 @@ app.post("/api/admin/reset-password", async (req, res) => {
 
 app.use(bodyParser.json());
 
-app.post('/api/feedback', (req, res) => {
-    const { name, phone } = req.body;
+app.post('/api/feedback', async (req, res) => {
+    const { name, phone, recaptchaToken, useRecaptcha } = req.body;
+
+    if (useRecaptcha) {
+        const secret = "6Ld7hzMrAAAAALSBit1lRK-t8v8fVroQUVi2RJO3";
+        try {
+            const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `secret=${secret}&response=${recaptchaToken}`
+            });            
+
+            const data = await verifyRes.json();
+            console.log("📥 Пришёл запрос на /api/feedback:", req.body);
+            console.log("📤 Проверка токена:", recaptchaToken);
+
+            console.log("Ответ от Google reCAPTCHA:", data);
+
+            if (!data.success) {
+                return res.status(400).json({ error: "Проверка reCAPTCHA не пройдена" });
+            }
+        } catch (err) {
+            console.error("Ошибка при проверке reCAPTCHA:", err);
+            return res.status(500).json({ error: "Ошибка проверки reCAPTCHA" });
+        }
+    }
+
     const query = 'INSERT INTO feedback (name, phone) VALUES (?, ?)';
     db.run(query, [name, phone], function (err) {
         if (err) {
@@ -508,6 +602,7 @@ app.post('/api/feedback', (req, res) => {
         res.status(201).json({ message: 'Заявка добавлена', id: this.lastID });
     });
 });
+
 
 app.get('/api/feedback', (req, res) => {
     const query = 'SELECT * FROM feedback';
@@ -538,7 +633,7 @@ app.put('/api/feedback/:id', (req, res) => {
 
 app.delete('/api/feedback/:id', (req, res) => {
     const id = req.params.id;
-    db.run('DELETE FROM Feedback WHERE id = ?', [id], function(err) {
+    db.run('DELETE FROM Feedback WHERE id = ?', [id], function (err) {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ message: 'Заявка удалена' });
     });
@@ -548,11 +643,20 @@ app.put('/api/users/:userId/password', async (req, res) => {
     const { userId } = req.params;
     const { password } = req.body;
 
+    if (!password || password.length < 4) {
+        return res.status(400).json({ error: 'Неверный пароль' });
+    }
+
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        db.run('UPDATE User SET Password = ? WHERE UserID = ?', [hashedPassword, userId], function(err) {
+
+        db.run('UPDATE User SET Password = ? WHERE UserID = ?', [hashedPassword, userId], function (err) {
             if (err) return res.status(500).json({ error: err.message });
-            res.json({ message: 'Пароль обновлён' });
+
+            db.run('DELETE FROM PasswordRequests WHERE UserID = ?', [userId], function (err2) {
+                if (err2) return res.status(500).json({ error: err2.message });
+                res.json({ message: 'Пароль обновлён и заявка удалена' });
+            });
         });
     } catch (error) {
         res.status(500).json({ error: 'Ошибка хеширования пароля' });
@@ -560,11 +664,113 @@ app.put('/api/users/:userId/password', async (req, res) => {
 });
 
 app.get('/api/password-requests', (req, res) => {
-    db.all('SELECT * FROM PasswordRequests', [], (err, rows) => {
+    db.all(`
+        SELECT pr.UserID, u.Username, u.Login 
+        FROM PasswordRequests pr
+        LEFT JOIN User u ON pr.UserID = u.UserID
+    `, [], (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
-        res.json(rows); 
+        res.json(rows);
     });
 });
 
+app.post('/api/password-requests', (req, res) => {
+    const { userId } = req.body;
+
+    db.get('SELECT * FROM PasswordRequests WHERE UserID = ?', [userId], (err, row) => {
+        if (err) return res.status(500).json({ error: err.message });
+        if (row) return res.status(400).json({ error: 'Заявка уже существует' });
+
+        db.run('INSERT INTO PasswordRequests (UserID) VALUES (?)', [userId], function (err) {
+            if (err) return res.status(500).json({ error: err.message });
+            res.json({ message: 'Заявка добавлена' });
+        });
+    });
+});
+
+app.delete('/api/password-requests/:userId', (req, res) => {
+    const { userId } = req.params;
+
+    db.run('DELETE FROM PasswordRequests WHERE UserID = ?', [userId], function (err) {
+        if (err) return res.status(500).json({ error: err.message });
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'Заявка не найдена' });
+        }
+        res.json({ message: 'Заявка удалена' });
+    });
+});
+
+const pagesDir = path.join(__dirname, "Pages");
+
+function getAllPageTexts() {
+    const files = fs.readdirSync(pagesDir);
+    const pages = files.map(filename => {
+        const content = fs.readFileSync(path.join(pagesDir, filename), "utf-8");
+        return {
+            path: "/" + filename.replace(/\.txt|\.html|\.json/, ""),
+            content: content.toLowerCase()
+        };
+    });
+    return pages;
+}
+
+app.get("/search", (req, res) => {
+    const query = (req.query.q || "").toLowerCase();
+    if (!query) return res.json([]);
+
+    const pages = getAllPageTexts();
+    const results = pages.filter(page => page.content.includes(query));
+    res.json(results);
+});
+
+app.post("/api/admin/login", async (req, res) => {
+    const { login, password } = req.body;
+
+    try {
+        console.log("Login attempt:", login);
+
+        const user = await new Promise((resolve, reject) => {
+            db.get("SELECT * FROM User WHERE Login = ?", [login], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        console.log("Queried user from database:", user);
+
+        if (!user) {
+            console.log("User not found:", login);
+            return res.status(401).json({ error: "Неверный логин или пароль" });
+        }
+
+        console.log("User found:", user.Username);
+
+        if (user.isBlocked === "Заблокирован") {
+            console.log("Account is blocked for user:", user.Username);
+            return res.status(403).json({ error: "Ваш аккаунт заблокирован" }); // 403 Forbidden
+        }
+
+        console.log("Stored password hash:", user.Password);
+        console.log("Password entered by user:", password);
+
+        const isPasswordValid = await bcrypt.compare(password, user.Password);
+
+        if (!isPasswordValid) {
+            console.log("Password mismatch for user:", user.Username);
+            return res.status(401).json({ error: "Неверный логин или пароль" });
+        }
+
+        console.log("Password is valid for user:", user.Username);
+
+        res.json({ user: { Username: user.Username, Role: user.role } });
+
+    } catch (err) {
+        console.error("Ошибка входа:", err);
+        res.status(500).json({ error: "Ошибка сервера" });
+    }
+});
 
 app.use(express.static('scripts'));

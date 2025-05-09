@@ -22,7 +22,7 @@ class ProcessReception extends Component {
     render() {
         return (
             <div className="reception-main-info">
-                <p>Вы здесь: <a href="/">Главная</a> / <a href="/main-info">Основные сведения</a> / Порядок приёма</p>
+                <p>Вы здесь: <a href="/">Главная</a> / Процесс приема</p>
 
                 <div className="reception-info">
                     <h1>Документы, регламентирующие порядок приёма</h1>

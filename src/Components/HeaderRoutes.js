@@ -45,8 +45,8 @@ export default function HeaderRoutes() {
       <Route path="/main-info/organisation-eat" element={<OrganizationEat />} />
       <Route path="/main-info/education/education-process" element={<EducationProcess />} />
       <Route path="/main-info/education/gia" element={<GIA />} />
-      <Route path="/resurs/fuctional-gramm" element={<FunctionalGramm />} />
-      <Route path="/reception/process-reception" element={<ProcessReception />} />
+      <Route path="/fuctional-gramm" element={<FunctionalGramm />} />
+      <Route path="/process-reception" element={<ProcessReception />} />
       <Route path="/about/contact" element={<Contact />} />
       <Route path="/about/employee" element={<Employee />} />
       <Route path="/about/leadership" element={<Leadership />} />

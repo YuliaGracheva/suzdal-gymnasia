@@ -17,8 +17,8 @@ export default function AdminLayout() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const showMenu =
-  location.pathname.startsWith("/admin") &&
-  !["/admin", "/admin/forgot-password"].includes(location.pathname);
+        location.pathname.startsWith("/admin") &&
+        !["/admin", "/admin/forgot-password"].includes(location.pathname);
 
     return (
         <div className="admin-layout">

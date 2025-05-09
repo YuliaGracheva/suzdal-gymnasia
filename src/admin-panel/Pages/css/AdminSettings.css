@@ -34,13 +34,13 @@
     border: 1px solid #ccc;
     font-size: 15px;
     background-color: #f9f9fc;
-    color: #3a1a6a;
+    color: #3a2b50;
 }
 
 .save-button {
     width: 100%;
     padding: 12px;
-    background-color: #7b2cbf;
+    background-color: #6f4792;
     color: white;
     border: none;
     border-radius: 8px;
@@ -51,5 +51,5 @@
 }
 
 .save-button:hover {
-    background-color: #5e35b1;
+    background-color: #6f5a97;
 }

@@ -57,6 +57,11 @@ export async function fetchTableColumns(tableName) {
 }
 
 export async function createTableRow(tableName, rowData) {
+    const user = JSON.parse(localStorage.getItem("adminUser"));
+    if (user && user.ID) {
+        rowData.UserID = user.ID;
+    }
+
     const response = await fetch(`${API_URL}/table/${tableName}`, {
         method: "POST",
         headers: {
@@ -80,46 +85,56 @@ export async function fetchUsers() {
     return await response.json();
 }
 
-export const addUser = async (user) => {
-    const res = await fetch(`${API_URL}/users`, {
+export const createUser = async (user) => {
+    const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),
     });
-
-    if (!res.ok) {
-        throw new Error(`Ошибка добавления пользователя: ${res.status}`);
+    if (!response.ok) {
+        throw new Error("Ошибка при создании пользователя");
     }
-
-    return true;
+    return response.json();
 };
 
 export const updateUser = async (user) => {
-    if (!user || !user.UserId) {
-        throw new Error("Некорректный пользователь: отсутствует UserId");
+    if (!user || !user.UserID) {
+        throw new Error("Некорректный пользователь: отсутствует UserID");
     }
 
-    const res = await fetch(`${API_URL}/users/${user.UserId}`, {
+    const updateData = {
+        username: user.Username,
+        login: user.Login,
+        role: user.role,
+        isBlocked: user.isBlocked,
+    };
+
+    if (user.password) {
+        updateData.password = user.password;
+    }
+
+    console.log("Sending update request with data:", updateData);  
+
+    const res = await fetch(`${API_URL}/users/${user.UserID}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            username: user.Username,
-            role: user.role,
-        }),
+        body: JSON.stringify(updateData),
     });
 
     if (!res.ok) {
+        const error = await res.json();
+        console.error("Error response:", error); 
         throw new Error(`Ошибка обновления пользователя: ${res.status}`);
     }
 
     return true;
 };
 
-export const updateUserPassword = async (UserId, password) => {
-    const res = await fetch(`${API_URL}/users/${UserId}/password`, {
+export const updateUserPassword = async (UserID, Password) => {
+    const res = await fetch(`${API_URL}/users/${UserID}/password`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ Password }),
     });
 
     if (!res.ok) {
@@ -129,8 +144,8 @@ export const updateUserPassword = async (UserId, password) => {
     return true;
 };
 
-export const deleteUser = async (UserId) => {
-    const res = await fetch(`${API_URL}/users/${UserId}`, {
+export const deleteUser = async (UserID) => {
+    const res = await fetch(`${API_URL}/users/${UserID}`, {
         method: "DELETE",
     });
 
@@ -140,3 +155,16 @@ export const deleteUser = async (UserId) => {
 
     return true;
 };
+
+export async function fetchImageList() {
+    try {
+        const response = await fetch(`http://localhost:3004/api/files/images`);
+        if (!response.ok) {
+            throw new Error("Не удалось загрузить изображения");
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Ошибка при загрузке изображений:", error);
+        throw error;
+    }
+}

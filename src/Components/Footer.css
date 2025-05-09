@@ -168,6 +168,48 @@
     text-decoration: underline;
 }
 
+.footer-social-links {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #7a5b98;
+}
+
+.footer-social-links h3 {
+    font-size: 12pt;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.footer-social-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-social-links li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+}
+
+.footer-social-links a {
+    display: flex;
+    align-items: center;
+    color: #7a5b98;
+    text-decoration: none;
+    font-size: 12pt;
+}
+
+.footer-social-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-social-links .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    fill: #7a5b98;
+}
+
 @media (max-width: 768px) {
     .purple-footer-contact {
         flex-direction: column;

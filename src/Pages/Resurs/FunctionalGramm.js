@@ -6,7 +6,7 @@ export default class FunctionalGramm extends Component {
         return (
             <div className="functional-gramm-main-info">
                 <p>
-                    Вы здесь: <a href="/">Главная</a> / <a href="/resurs">Ресурсы</a> /{" "}
+                    Вы здесь: <a href="/">Главная</a> /{" "}
                     <span>Функциональная грамотность</span>
                 </p>
 

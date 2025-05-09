@@ -40,7 +40,7 @@ const NewsDetail = () => {
 
             <div className="news-detail">
                 <h2>{newsItem.NewsName}</h2>
-                <p>{newsItem.NewsDescription}</p>
+                <p dangerouslySetInnerHTML={{ __html: newsItem.NewsDescription }} ></p>
 
                 {photos.length > 0 && (
                     <div className="news-photos">

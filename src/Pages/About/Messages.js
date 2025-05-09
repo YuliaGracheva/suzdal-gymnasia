@@ -22,7 +22,7 @@ function Message() {
             {messages.map((msg) => (
                 <div key={msg.MessageID} className="message-card">
                     <div className="message-theme">{msg.MessageTheme}</div>
-                    <div className="message-description">{msg.MessageDescription}</div>
+                    <div className="message-description" dangerouslySetInnerHTML={{ __html: msg.MessageDescription }} />
                     <div className="message-author">Автор: {msg.Username}</div>
                 </div>
             ))}

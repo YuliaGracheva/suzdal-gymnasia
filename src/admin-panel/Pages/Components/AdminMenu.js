@@ -14,24 +14,39 @@ class AdminMenu extends Component {
     };
 
     render() {
+        const userRole = JSON.parse(localStorage.getItem("adminUser"))?.Role;
+
         return (
             <div className="admin-menu">
                 <Nav className="flex-column">
-                <Nav.Link onClick={() => this.props.navigate("/admin/main")}>
+                    <Nav.Link onClick={() => this.props.navigate("/admin/main")}>
                         Главная
                     </Nav.Link>
-                    <Nav.Link onClick={() => this.props.navigate("/admin/tables")}>
-                        Управление таблицами
-                    </Nav.Link>
-                    <Nav.Link onClick={() => this.props.navigate("/admin/user")}>
-                        Управление пользователями
-                    </Nav.Link>
-                    <Nav.Link onClick={() => this.props.navigate("/admin/settings")}>
-                        Настройки
-                    </Nav.Link>
-                    <Nav.Link onClick={() => this.props.navigate("/admin/upload")}>
-                        Управление файлами
-                    </Nav.Link>
+
+                    {(userRole === "admin" || userRole === "editor" || userRole === "viewer") && (
+                        <Nav.Link onClick={() => this.props.navigate("/admin/tables")}>
+                            Управление таблицами
+                        </Nav.Link>
+                    )}
+
+                    {userRole === "admin" && (
+                        <Nav.Link onClick={() => this.props.navigate("/admin/user")}>
+                            Управление пользователями
+                        </Nav.Link>
+                    )}
+
+                    {userRole === "admin" && (
+                        <Nav.Link onClick={() => this.props.navigate("/admin/settings")}>
+                            Настройки
+                        </Nav.Link>
+                    )}
+
+                    {(userRole === "admin" || userRole === "editor" || userRole === "viewer") && (
+                        <Nav.Link onClick={() => this.props.navigate("/admin/upload")}>
+                            Управление файлами
+                        </Nav.Link>
+                    )}
+
                     <Nav.Link onClick={this.handleLogout}>
                         Выйти
                     </Nav.Link>

@@ -1,0 +1,231 @@
+.admin-users {
+    padding: 30px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9fc;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 28px;
+    color: #493a61;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+h3 {
+    font-size: 22px;
+    color: #8064b8;
+    margin: 20px 0 10px;
+}
+
+.create-user-form {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    margin-bottom: 30px;
+}
+
+.create-user-form input,
+.create-user-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.create-user-form button {
+    padding: 10px 20px;
+    background-color: #72a773;
+    color: white;
+    font-size: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.create-user-form button:hover {
+    opacity: 0.8;
+}
+
+.error {
+    color: #c26161;
+    background-color: #fdecea;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toast.error {
+    background-color: #f44336;
+}
+
+.toast button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.user-table th,
+.user-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.user-table th {
+    background-color: #f3e8ff;
+    color: #4a148c;
+    font-weight: 600;
+}
+
+.user-table tr:hover {
+    background-color: #f9f4ff;
+}
+
+.user-table .btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.user-table .btn.block {
+    background-color: #9b3b35;
+    color: white;
+}
+
+.user-table .btn.unblock {
+    background-color: #59865b;
+    color: white;
+}
+
+.user-table .btn.edit {
+    background-color: #ece7b5;
+    color: #4a148c;
+    margin-left: 10px;
+}
+
+.user-table .btn:hover {
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .admin-users {
+        padding: 15px;
+    }
+
+    .create-user-form {
+        padding: 15px;
+    }
+
+    .create-user-form input,
+    .create-user-form select {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .create-user-form button {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+
+    .user-table th,
+    .user-table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .user-table .btn {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    .toast {
+        top: 10px;
+        right: 10px;
+        padding: 10px 15px;
+    }
+
+    .toast button {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-users {
+        padding: 10px;
+    }
+
+    .create-user-form {
+        padding: 10px;
+    }
+
+    .create-user-form input,
+    .create-user-form select {
+        font-size: 10px;
+        padding: 6px;
+    }
+
+    .create-user-form button {
+        font-size: 10px;
+        padding: 6px 10px;
+    }
+
+    .user-table th,
+    .user-table td {
+        font-size: 10px;
+        padding: 6px;
+    }
+
+    .user-table .btn {
+        font-size: 10px;
+        padding: 4px 6px;
+    }
+
+    .toast {
+        top: 5px;
+        right: 5px;
+        padding: 8px 12px;
+    }
+
+    .toast button {
+        font-size: 12px;
+    }
+}

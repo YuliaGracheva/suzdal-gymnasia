@@ -7,26 +7,32 @@ class AdminMain extends Component {
         this.state = {
             requests: [],
             passwordRequests: [],
-            newPasswords: {} // userId -> new password
+            newPasswords: {},
+            role: null
         };
     }
 
-    componentDidMount() {
-        this.fetchRequests();
-        this.fetchPasswordRequests();
+    async componentDidMount() {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (!user || !user.Role) return;
+
+        this.setState({ role: user.Role });
+
+        if (user.Role !== 'viewer') {
+            await this.fetchRequests();
+            await this.fetchPasswordRequests();
+        }
     }
 
     fetchRequests = async () => {
         try {
             const response = await fetch('http://localhost:3004/api/feedback');
+            if (!response.ok) throw new Error();
             const data = await response.json();
-            if (response.ok) {
-                this.setState({ requests: data });
-            } else {
-                alert("Не удалось загрузить заявки на звонок.");
-            }
+            this.setState({ requests: data });
         } catch (error) {
             console.error('Ошибка при получении заявок на звонок:', error);
+            alert("Не удалось загрузить заявки на звонок.");
         }
     };
 
@@ -35,27 +41,23 @@ class AdminMain extends Component {
             const response = await fetch(`http://localhost:3004/api/feedback/${id}`, {
                 method: 'DELETE'
             });
-            if (response.ok) {
-                this.fetchRequests();
-            } else {
-                alert("Не удалось удалить заявку.");
-            }
+            if (!response.ok) throw new Error();
+            this.fetchRequests();
         } catch (error) {
             console.error('Ошибка при удалении заявки:', error);
+            alert("Не удалось удалить заявку.");
         }
     };
 
     fetchPasswordRequests = async () => {
         try {
             const response = await fetch('http://localhost:3004/api/password-requests');
+            if (!response.ok) throw new Error();
             const data = await response.json();
-            if (response.ok) {
-                this.setState({ passwordRequests: data });
-            } else {
-                alert("Не удалось загрузить заявки на смену пароля.");
-            }
+            this.setState({ passwordRequests: data });
         } catch (error) {
             console.error('Ошибка при получении заявок на смену пароля:', error);
+            alert("Не удалось загрузить заявки на смену пароля.");
         }
     };
 
@@ -70,14 +72,32 @@ class AdminMain extends Component {
                 body: JSON.stringify({ password: newPassword })
             });
 
-            if (response.ok) {
-                alert("Пароль успешно изменён.");
-                this.fetchPasswordRequests();
-            } else {
-                alert("Ошибка при изменении пароля.");
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData?.error || 'Ошибка при изменении пароля');
             }
+
+            alert("Пароль успешно изменён.");
+            this.setState(prev => ({
+                newPasswords: { ...prev.newPasswords, [userId]: '' }
+            }));
+            this.fetchPasswordRequests();
         } catch (error) {
             console.error('Ошибка смены пароля:', error);
+            alert(error.message);
+        }
+    };
+
+    handleCancelPasswordRequest = async (userId) => {
+        try {
+            const response = await fetch(`http://localhost:3004/api/password-requests/${userId}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) throw new Error();
+            this.fetchPasswordRequests();
+        } catch (error) {
+            console.error('Ошибка при удалении заявки на смену пароля:', error);
+            alert("Не удалось удалить заявку.");
         }
     };
 
@@ -91,8 +111,16 @@ class AdminMain extends Component {
     };
 
     render() {
-        const { requests, passwordRequests, newPasswords } = this.state;
-    
+        const { requests, passwordRequests, newPasswords, role } = this.state;
+
+        if (role === null) {
+            return null;
+        }
+
+        if (role === 'viewer') {
+            return <p style={{ padding: '20px', fontSize: '18px' }}>У вас нет доступа к этому разделу.</p>;
+        }
+
         return (
             <div className="admin-main">
                 <h2>Заявки на звонок</h2>
@@ -120,7 +148,7 @@ class AdminMain extends Component {
                         </tbody>
                     </table>
                 ) : <p>Нет заявок на звонок.</p>}
-    
+
                 <h2>Заявки на смену пароля</h2>
                 {passwordRequests.length > 0 ? (
                     <table className="requests-table">
@@ -135,9 +163,7 @@ class AdminMain extends Component {
                             {passwordRequests.map((req) => (
                                 <tr key={req.UserID}>
                                     <td>
-                                        {/* Используем Username, если он существует, иначе показываем только UserID */}
                                         {req.Username || `ID: ${req.UserID}`}
-                                        {/* Можно добавить и Login, если нужно: */}
                                         {req.Login && <span> ({req.Login})</span>}
                                     </td>
                                     <td>
@@ -152,6 +178,12 @@ class AdminMain extends Component {
                                         <button onClick={() => this.handlePasswordChange(req.UserID)}>
                                             Сменить
                                         </button>
+                                        <button
+                                            onClick={() => this.handleCancelPasswordRequest(req.UserID)}
+                                            style={{ marginLeft: '10px', backgroundColor: '#ccc' }}
+                                        >
+                                            Отменить
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -160,7 +192,7 @@ class AdminMain extends Component {
                 ) : <p>Нет заявок на смену пароля.</p>}
             </div>
         );
-    }    
+    }
 }
 
 export default AdminMain;
