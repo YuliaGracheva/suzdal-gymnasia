@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "homepage": "http://YuliaGracheva.github.io/suzdal_gymnazia", 
+  "homepage": "https://yuliagracheva.github.io/suzdal-gymnasia/", 
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",

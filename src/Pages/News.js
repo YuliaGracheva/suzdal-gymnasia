@@ -11,7 +11,7 @@ const News = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/news")
+        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/news")
             .then((res) => res.json())
             .then((data) => {
                 setNews(data);

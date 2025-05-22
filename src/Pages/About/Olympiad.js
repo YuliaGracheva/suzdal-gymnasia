@@ -6,7 +6,7 @@ const Olympiad = () => {
 
     useEffect(() => {
         console.log("Компонент Olympiad загружен");
-        fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/olympiads")
+        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/olympiads")
             .then(res => res.json())
             .then(data => {
                 console.log("Данные получены:", data);

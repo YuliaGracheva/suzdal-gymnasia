@@ -77,7 +77,7 @@ class AdminMain extends Component {
         if (!newPassword) return alert("Введите новый пароль");
 
         try {
-            const response = await fetch(`http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/users/${userID}/password`, {
+            const response = await fetch(`https://yuliagracheva.github.io/suzdal-gymnasia/api/users/${userID}/password`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ password: newPassword })
@@ -101,7 +101,7 @@ class AdminMain extends Component {
 
     handleCancelPasswordRequest = async (userId) => {
         try {
-            const response = await fetch(`http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/password-requests/${userId}`, {
+            const response = await fetch(`https://yuliagracheva.github.io/suzdal-gymnasia/api/password-requests/${userId}`, {
                 method: 'DELETE'
             });
             if (!response.ok) throw new Error();

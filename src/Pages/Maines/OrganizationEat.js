@@ -5,7 +5,7 @@ function OrganizationEat() {
     const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
-        fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/document")
+        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/document")
             .then((res) => res.json())
             .then((data) => {
                 console.log("Все документы:", data);

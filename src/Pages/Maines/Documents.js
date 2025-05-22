@@ -8,12 +8,12 @@ class Documents extends Component {
     };
 
     componentDidMount() {
-        fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/document")
+        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/document")
             .then(res => res.json())
             .then(data => this.setState({ documents: data }))
             .catch(err => console.error("Ошибка загрузки документов:", err));
 
-        fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/categorydocument")
+        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/categorydocument")
             .then(res => res.json())
             .then(data => this.setState({ categories: data }))
             .catch(err => console.error("Ошибка загрузки категорий:", err));

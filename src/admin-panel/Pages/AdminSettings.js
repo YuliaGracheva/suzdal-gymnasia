@@ -12,7 +12,7 @@ const AdminSettings = () => {
     const [useRecaptcha, setUseRecaptcha] = useState(false);
 
     useEffect(() => {
-        fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/settings")
+        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/settings")
             .then(res => res.json())
             .then((data) => {
                 if (!data) return;

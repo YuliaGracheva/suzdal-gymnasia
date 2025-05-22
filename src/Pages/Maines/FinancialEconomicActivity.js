@@ -5,7 +5,7 @@ function FinancialEconomicActivity() {
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {
-    fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/document")
+    fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/document")
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.filter(doc => doc.CategoryDocumentID === 8);

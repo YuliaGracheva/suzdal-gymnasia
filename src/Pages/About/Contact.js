@@ -16,7 +16,7 @@ class Contact extends Component {
         }
 
         componentDidMount() {
-            fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/settings")
+            fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/settings")
                 .then((res) => res.json())
                 .then((data) => {
                     if (!data) return;

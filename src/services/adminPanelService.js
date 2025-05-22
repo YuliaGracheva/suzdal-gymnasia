@@ -1,4 +1,4 @@
-const API_URL = 'http://YuliaGracheva.github.io/suzdal_gymnazia/api/admin';
+const API_URL = 'https://yuliagracheva.github.io/suzdal-gymnasia/api/admin';
 
 export const fetchTableList = async () => {
     const res = await fetch(`${API_URL}/tables`);
@@ -158,7 +158,7 @@ export const deleteUser = async (UserID) => {
 
 export async function fetchImageList() {
     try {
-        const response = await fetch(`http://localhost:3004/api/files/images`);
+        const response = await fetch(`https://yuliagracheva.github.io/suzdal-gymnasia/api/files/images`);
         if (!response.ok) {
             throw new Error("Не удалось загрузить изображения");
         }

@@ -6,7 +6,7 @@ class ManagmentBodies extends Component {
     };
 
     componentDidMount() {
-        fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/managementbodies")
+        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/managementbodies")
             .then((res) => res.json())
             .then((data) => {
                 console.log("Данные об органах управления:", data);

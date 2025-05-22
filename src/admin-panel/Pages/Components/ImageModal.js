@@ -33,7 +33,7 @@ function ImageModal({ onClose, onSelectImage, endpoint }) {
     }, [endpoint]);
 
     const handleImageClick = (url) => {
-        onSelectImage(`https://suzdal-gymnazia-v2.onrender.com${url}`);
+        onSelectImage(`https://yuliagracheva.github.io/suzdal-gymnasia/${url}`);
         onClose();
     };
 
@@ -51,7 +51,7 @@ function ImageModal({ onClose, onSelectImage, endpoint }) {
                         .map((url, index) => (
                             <img
                                 key={index}
-                                src={url.startsWith("http") ? url : `http://localhost:3004${url}`}
+                                src={url.startsWith("http") ? url : `https://yuliagracheva.github.io/suzdal-gymnasia/${url}`}
                                 alt={`Изображение ${index + 1}`}
                                 onClick={() => handleImageClick(url)}
                                 className="selectable-image"

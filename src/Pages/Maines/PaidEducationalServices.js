@@ -7,7 +7,7 @@ class PaidEducationalServices extends Component {
     };
 
     componentDidMount() {
-        fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/document")
+        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/document")
             .then(res => res.json())
             .then(data => {
                 const filteredDocs = data.filter(doc => doc.CategoryDocumentID === 6);
