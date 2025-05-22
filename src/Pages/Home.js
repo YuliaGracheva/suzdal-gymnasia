@@ -15,7 +15,7 @@ export default function Home() {
             }
         }
     
-        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/news/notArchived")
+        fetch("http://4854069-fc63586.twc1.net/api/news/notArchived")
             .then((res) => res.json())
             .then((data) => {
                 const sorted = data

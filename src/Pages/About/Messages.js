@@ -5,7 +5,7 @@ function Message() {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/message")
+        fetch("http://4854069-fc63586.twc1.net/api/message")
             .then((res) => res.json())
             .then((data) => {
                 console.log("Данные сообщений:", data);

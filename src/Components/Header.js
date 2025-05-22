@@ -20,7 +20,7 @@ export default function Header() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/settings")
+        fetch("http://4854069-fc63586.twc1.net/api/settings")
             .then((res) => res.json())
             .then((data) => {
                 if (data.logo) {

@@ -5,7 +5,7 @@ const configs = {
         base: "http://localhost:3004",
     },
     production: {
-        base: "https://yuliagracheva.github.io/suzdal-gymnasia/",
+        base: "https://4854069-fc63586.twc1.net",
     },
 };
 

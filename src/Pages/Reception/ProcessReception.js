@@ -10,7 +10,7 @@ class ProcessReception extends Component {
     }
 
     componentDidMount() {
-        fetch("https://yuliagracheva.github.io/suzdal-gymnasia/api/document") 
+        fetch("http://4854069-fc63586.twc1.net/api/document") 
             .then((response) => response.json())
             .then((data) => {
                 const filtered = data.filter(doc => doc.CategoryDocumentID === 9);
