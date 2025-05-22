@@ -1,14 +1,15 @@
-require("dotenv").config({ path: './process.env' });
-
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
-import session from "express-session";
 import sqlite3 from "sqlite3";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import fs from "fs";
+import util from "util";
+
+dotenv.config({ path: './process.env' });
 
 const allowedOrigins = [
     'http://localhost:3000',
@@ -16,7 +17,7 @@ const allowedOrigins = [
 ];
 
 const corsOptions = {
-    origin: function (origin, callback) {
+    origin: function(origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
@@ -27,26 +28,17 @@ const corsOptions = {
     allowedHeaders: ['Content-Type'],
     credentials: true
 };
-const session = require('express-session');
 
 const app = express();
 
-console.log("Process.env:", process.env);
-console.log("SESSION_SECRET:", process.env.SESSION_SECRET);
-
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        httpOnly: true,
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 24,
-    }
-}));
+import bodyParser from "body-parser";
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(cors(corsOptions));
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 const db = new sqlite3.Database('./bd/suzdal-gimnasia.db', (err) => {
     if (err) {
@@ -56,6 +48,9 @@ const db = new sqlite3.Database('./bd/suzdal-gimnasia.db', (err) => {
         console.log('Connected to database.');
     }
 });
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const ensureDirsExist = () => {
     const dirs = ['uploads', 'uploads/images', 'uploads/documents'];
@@ -132,12 +127,12 @@ app.get('/api/status', (req, res) => getAllDataFromTable('Status', res));
 
 app.get("/api/news/notArchived", (req, res) => {
     const sql = "SELECT * FROM News WHERE isArchived = 0";
-    db.all(sql, [], (err, rows) => { 
+    db.all(sql, [], (err, rows) => {
         if (err) {
             console.error("Ошибка при получении новостей:", err);
             res.status(500).json({ error: "Ошибка сервера" });
         } else {
-            res.json(rows); 
+            res.json(rows);
         }
     });
 });
@@ -181,7 +176,7 @@ app.get('/api/message', (req, res) => {
 
 app.get('/api/admin/tables', (req, res) => {
     db.all(`SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';`, [], (err, rows) => {
-        if (err) { 
+        if (err) {
             console.error('DB error:', err);
             return res.status(500).json({ error: 'Ошибка при получении таблиц' });
         }
@@ -270,7 +265,7 @@ app.delete('/api/admin/table/:tableName/:id', (req, res) => {
 
     const query = `DELETE FROM ${tableName} WHERE ${idField} = ?`;
 
-    db.run(query, [id], function (err) {
+    db.run(query, [id], function(err) {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Ошибка при удалении записи' });
@@ -291,7 +286,7 @@ app.put('/api/admin/table/:tableName/:id', (req, res) => {
 
     const query = `UPDATE ${tableName} SET ${setClause} WHERE ${idField} = ?`;
 
-    db.run(query, [...values, id], function (err) {
+    db.run(query, [...values, id], function(err) {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Ошибка при обновлении записи' });
@@ -329,13 +324,13 @@ app.get('/api/admin/foreign-keys/:tableName', (req, res) => {
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: function(req, file, cb) {
         const ext = path.extname(file.originalname).toLowerCase();
         const isImage = ['.jpg', '.jpeg', '.png', '.gif'].includes(ext);
         const folder = isImage ? 'images' : 'documents';
         cb(null, path.join(__dirname, 'uploads', folder));
     },
-    filename: function (req, file, cb) {
+    filename: function(req, file, cb) {
         cb(null, Date.now() + '-' + file.originalname);
     }
 });
@@ -497,8 +492,6 @@ app.put("/api/admin/users/:id/password", async (req, res) => {
     res.send();
 });
 
-const util = require("util");
-
 const dbGet = util.promisify(db.get.bind(db));
 const dbRun = util.promisify(db.run.bind(db));
 
@@ -546,7 +539,7 @@ app.post('/api/feedback', async (req, res) => {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `secret=${secret}&response=${recaptchaToken}`
-            });            
+            });
 
             const data = await verifyRes.json();
             console.log("📥 Пришёл запрос на /api/feedback:", req.body);
@@ -564,7 +557,7 @@ app.post('/api/feedback', async (req, res) => {
     }
 
     const query = 'INSERT INTO feedback (name, phone) VALUES (?, ?)';
-    db.run(query, [name, phone], function (err) {
+    db.run(query, [name, phone], function(err) {
         if (err) {
             console.error('Ошибка при добавлении заявки:', err);
             return res.status(500).json({ message: 'Ошибка при добавлении заявки' });
@@ -592,7 +585,7 @@ app.put('/api/feedback/:id', (req, res) => {
     const query = 'UPDATE feedback SET is_processed = ? WHERE id = ?';
     const params = [is_processed, id];
 
-    db.run(query, params, function (err) {
+    db.run(query, params, function(err) {
         if (err) {
             console.error('Ошибка при обновлении статуса:', err);
             return res.status(500).json({ message: 'Ошибка при обновлении статуса' });
@@ -603,7 +596,7 @@ app.put('/api/feedback/:id', (req, res) => {
 
 app.delete('/api/feedback/:id', (req, res) => {
     const id = req.params.id;
-    db.run('DELETE FROM Feedback WHERE id = ?', [id], function (err) {
+    db.run('DELETE FROM Feedback WHERE id = ?', [id], function(err) {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ message: 'Заявка удалена' });
     });
@@ -620,10 +613,10 @@ app.put('/api/users/:userId/password', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        db.run('UPDATE User SET Password = ? WHERE UserID = ?', [hashedPassword, userId], function (err) {
+        db.run('UPDATE User SET Password = ? WHERE UserID = ?', [hashedPassword, userId], function(err) {
             if (err) return res.status(500).json({ error: err.message });
 
-            db.run('DELETE FROM PasswordRequests WHERE UserID = ?', [userId], function (err2) {
+            db.run('DELETE FROM PasswordRequests WHERE UserID = ?', [userId], function(err2) {
                 if (err2) return res.status(500).json({ error: err2.message });
                 res.json({ message: 'Пароль обновлён и заявка удалена' });
             });
@@ -652,7 +645,7 @@ app.get('/api/password-requests', (req, res) => {
 app.delete('/api/password-requests/:userId', (req, res) => {
     const { userId } = req.params;
 
-    db.run('DELETE FROM PasswordRequests WHERE UserID = ?', [userId], function (err) {
+    db.run('DELETE FROM PasswordRequests WHERE UserID = ?', [userId], function(err) {
         if (err) return res.status(500).json({ error: err.message });
         if (this.changes === 0) {
             return res.status(404).json({ error: 'Заявка не найдена' });
