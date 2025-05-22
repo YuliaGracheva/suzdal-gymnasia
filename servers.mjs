@@ -4,10 +4,14 @@ import fetch from "node-fetch";
 import sqlite3 from "sqlite3";
 import multer from "multer";
 import path from "path";
-import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import fs from "fs";
 import util from "util";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config({ path: './process.env' });
 
@@ -49,8 +53,7 @@ const db = new sqlite3.Database('./bd/suzdal-gimnasia.db', (err) => {
     }
 });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 
 const ensureDirsExist = () => {
     const dirs = ['uploads', 'uploads/images', 'uploads/documents'];
