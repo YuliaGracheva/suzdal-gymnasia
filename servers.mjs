@@ -1,14 +1,14 @@
 require("dotenv").config({ path: './process.env' });
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const sqlite3 = require('sqlite3');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-const bcrypt = require('bcrypt');
-const fetch = require("node-fetch");
+import express from "express";
+import cors from "cors";
+import fetch from "node-fetch";
+import session from "express-session";
+import sqlite3 from "sqlite3";
+import multer from "multer";
+import path from "path";
+import { fileURLToPath } from "url";
+import dotenv from "dotenv";
 
 const allowedOrigins = [
     'http://localhost:3000',
