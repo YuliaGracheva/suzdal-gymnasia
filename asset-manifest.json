@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/suzdal_gymnaziaa/static/css/main.6d10ac35.css",
+    "main.js": "/suzdal_gymnaziaa/static/js/main.fdbaa6fa.js",
+    "static/js/453.d4b98aa2.chunk.js": "/suzdal_gymnaziaa/static/js/453.d4b98aa2.chunk.js",
+    "static/media/omofor.jpg": "/suzdal_gymnaziaa/static/media/omofor.e0f3515ebea398cd6feb.jpg",
+    "static/media/avo-do.jpg": "/suzdal_gymnaziaa/static/media/avo-do.59aed31c03e09f69241f.jpg",
+    "static/media/avo.jpg": "/suzdal_gymnaziaa/static/media/avo.7b14138fcfc080dd5c91.jpg",
+    "static/media/suz-reg-uo.jpg": "/suzdal_gymnaziaa/static/media/suz-reg-uo.0df54cf3fa99a6f14891.jpg",
+    "static/media/min-onrf.jpg": "/suzdal_gymnaziaa/static/media/min-onrf.d742e0f2d38c6af6ab10.jpg",
+    "static/media/fceor.jpg": "/suzdal_gymnaziaa/static/media/fceor.a6fe26008847437779a3.jpg",
+    "static/media/suz-reg.jpg": "/suzdal_gymnaziaa/static/media/suz-reg.e4b5c07778126847646f.jpg",
+    "static/media/image.png": "/suzdal_gymnaziaa/static/media/image.5cef9fbb25dfc45724ab.png",
+    "static/media/muzey-suvorova.jpg": "/suzdal_gymnaziaa/static/media/muzey-suvorova.40013de87da05d320ac2.jpg",
+    "static/media/fpro.jpg": "/suzdal_gymnaziaa/static/media/fpro.07e5d0ec9f338bcc99f4.jpg",
+    "static/media/edin_okno.jpg": "/suzdal_gymnaziaa/static/media/edin_okno.72949da7d292209c5e33.jpg",
+    "static/media/min-prosv.jpg": "/suzdal_gymnaziaa/static/media/min-prosv.a6aab995a4758350fc93.jpg",
+    "static/media/edin-kol.jpg": "/suzdal_gymnaziaa/static/media/edin-kol.4f3dde10f667726c3099.jpg",
+    "index.html": "/suzdal_gymnaziaa/index.html",
+    "main.6d10ac35.css.map": "/suzdal_gymnaziaa/static/css/main.6d10ac35.css.map",
+    "main.fdbaa6fa.js.map": "/suzdal_gymnaziaa/static/js/main.fdbaa6fa.js.map",
+    "453.d4b98aa2.chunk.js.map": "/suzdal_gymnaziaa/static/js/453.d4b98aa2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6d10ac35.css",
+    "static/js/main.fdbaa6fa.js"
+  ]
+}
