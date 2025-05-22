@@ -8,13 +8,11 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
-const { fileURLToPath } = require('url');
-const { dirname } = require('path');
 const fetch = require("node-fetch");
 
 const allowedOrigins = [
     'http://localhost:3000',
-    'https://suzdal-gymnasia.onrender.com'
+    'http://YuliaGracheva.github.io/suzdal_gymnaziaa'
 ];
 
 const corsOptions = {
@@ -99,33 +97,7 @@ function getAllDataFromTable(tableName, res) {
     });
 }
 
-
 app.get('/api/user', (req, res) => getAllDataFromTable('User', res));
-app.get('/api/employee', async (req, res) => {
-    try {
-        const sql = `
-            SELECT e.*, c.EmployeeCategoryName
-            FROM Employee e
-            LEFT JOIN EmployeeCategory c ON e.EmployeeCategoryID = c.EmployeeCategoryID
-        `;
-
-        db.all(sql, (err, rows) => {
-            if (err) {
-                console.error('Ошибка при получении сотрудников:', err);
-                res.status(500).json({ error: 'Ошибка при получении сотрудников' });
-            } else {
-                res.json(rows);
-            }
-        });
-    } catch (error) {
-        console.error('Ошибка при получении сотрудников:', error);
-        res.status(500).json({ error: 'Ошибка при получении сотрудников' });
-    }
-});
-
-
-
-app.get('/api/employeecategory', (req, res) => getAllDataFromTable('EmployeeCategory', res));
 app.get('/api/categorydocument', (req, res) => getAllDataFromTable('CategoryDocument', res));
 app.get('/api/document', (req, res) => getAllDataFromTable('Document', res));
 app.get('/api/managementbodies', (req, res) => getAllDataFromTable('ManagementBodies', res));
@@ -160,12 +132,12 @@ app.get('/api/status', (req, res) => getAllDataFromTable('Status', res));
 
 app.get("/api/news/notArchived", (req, res) => {
     const sql = "SELECT * FROM News WHERE isArchived = 0";
-    db.all(sql, [], (err, rows) => {
+    db.all(sql, [], (err, rows) => { 
         if (err) {
             console.error("Ошибка при получении новостей:", err);
             res.status(500).json({ error: "Ошибка сервера" });
         } else {
-            res.json(rows);
+            res.json(rows); 
         }
     });
 });
@@ -209,7 +181,7 @@ app.get('/api/message', (req, res) => {
 
 app.get('/api/admin/tables', (req, res) => {
     db.all(`SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';`, [], (err, rows) => {
-        if (err) {
+        if (err) { 
             console.error('DB error:', err);
             return res.status(500).json({ error: 'Ошибка при получении таблиц' });
         }
@@ -418,26 +390,6 @@ app.delete('/api/delete', (req, res) => {
     }
 });
 
-app.get("/api/news/:id/photos", (req, res) => {
-    const newsID = req.params.id;
-
-    const query = `
-        SELECT pn.PhotoPath 
-        FROM PhotoNews pn
-        JOIN PhotoNewsNews pnn ON pn.PhotoNewsID = pnn.PhotoNewsID
-        WHERE pnn.NewsID = ?
-    `;
-
-    db.all(query, [newsID], (err, rows) => {
-        if (err) {
-            console.error("Ошибка при получении фото:", err);
-            res.status(500).json({ error: "Ошибка при получении фото" });
-        } else {
-            res.json(rows);
-        }
-    });
-});
-
 app.get("/api/admin/users", async (req, res) => {
     try {
         const users = await new Promise((resolve, reject) => {
@@ -535,12 +487,6 @@ app.put("/api/admin/users/:id", async (req, res) => {
     }
 });
 
-app.delete("/api/admin/users/:id", async (req, res) => {
-    const { id } = req.params;
-    await db.run("DELETE FROM User WHERE UserID = ?", [id]);
-    res.send();
-});
-
 app.put("/api/admin/users/:id/password", async (req, res) => {
     const { id } = req.params;
     const { password } = req.body;
@@ -600,7 +546,7 @@ app.post('/api/feedback', async (req, res) => {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `secret=${secret}&response=${recaptchaToken}`
-            });
+            });            
 
             const data = await verifyRes.json();
             console.log("📥 Пришёл запрос на /api/feedback:", req.body);
@@ -628,7 +574,7 @@ app.post('/api/feedback', async (req, res) => {
 });
 
 
-app.get('/api/feedback', (req, res) => {
+app.get('/api/admin/feedback', (req, res) => {
     const query = 'SELECT * FROM feedback';
     db.all(query, [], (err, rows) => {
         if (err) {
@@ -685,17 +631,6 @@ app.put('/api/users/:userId/password', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Ошибка хеширования пароля' });
     }
-});
-
-app.get('/api/password-requests', (req, res) => {
-    db.all(`
-        SELECT pr.UserID, u.Username, u.Login 
-        FROM PasswordRequests pr
-        LEFT JOIN User u ON pr.UserID = u.UserID
-    `, [], (err, rows) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.json(rows);
-    });
 });
 
 app.get('/api/password-requests', (req, res) => {

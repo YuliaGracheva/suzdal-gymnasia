@@ -15,7 +15,7 @@ export default function Home() {
             }
         }
     
-        fetch("http://localhost:3004/api/news/notArchived")
+        fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/news/notArchived")
             .then((res) => res.json())
             .then((data) => {
                 const sorted = data

@@ -5,10 +5,9 @@ const NewsList = ({ limit, vertical = false }) => {
     const [news, setNews] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3004/api/news")
+        fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/news")
             .then(res => res.json())
             .then(data => {
-                // Сортировка по дате (от самой новой)
                 const sorted = data.sort((a, b) => new Date(b.NewsDate) - new Date(a.NewsDate));
                 setNews(limit ? sorted.slice(0, limit) : sorted);
             })

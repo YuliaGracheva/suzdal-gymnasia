@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3004/api/admin';
+const API_URL = 'http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/admin';
 
 export const fetchTableList = async () => {
     const res = await fetch(`${API_URL}/tables`);

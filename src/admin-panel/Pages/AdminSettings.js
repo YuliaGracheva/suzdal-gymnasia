@@ -12,7 +12,7 @@ const AdminSettings = () => {
     const [useRecaptcha, setUseRecaptcha] = useState(false);
 
     useEffect(() => {
-        fetch("http://localhost:3004/api/settings")
+        fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/settings")
             .then(res => res.json())
             .then((data) => {
                 if (!data) return;
@@ -63,7 +63,7 @@ const AdminSettings = () => {
             useRecaptcha
         };
     
-        fetch("http://localhost:3004/api/settings", {
+        fetch("https://suzdal-gymnazia-v2.onrender.com/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(settings)

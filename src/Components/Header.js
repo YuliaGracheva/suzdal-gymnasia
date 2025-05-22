@@ -20,7 +20,7 @@ export default function Header() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("http://localhost:3004/api/settings")
+        fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/settings")
             .then((res) => res.json())
             .then((data) => {
                 if (data.logo) {

@@ -46,7 +46,7 @@ class Footer extends Component {
     };
 
     componentDidMount() {
-        fetch("http://localhost:3004/api/settings")
+        fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/settings")
             .then((res) => res.json())
             .then((data) => {
                 if (!data) return;
@@ -79,7 +79,7 @@ class Footer extends Component {
         }
 
         try {
-            const response = await fetch("http://localhost:3004/api/feedback", {
+            const response = await fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/feedback", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name, phone, recaptchaToken, useRecaptcha })

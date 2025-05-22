@@ -33,7 +33,7 @@ function ImageModal({ onClose, onSelectImage, endpoint }) {
     }, [endpoint]);
 
     const handleImageClick = (url) => {
-        onSelectImage(`http://localhost:3004${url}`);
+        onSelectImage(`https://suzdal-gymnazia-v2.onrender.com${url}`);
         onClose();
     };
 

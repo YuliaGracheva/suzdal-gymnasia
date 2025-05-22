@@ -112,7 +112,7 @@ const canDelete = user.Role === "admin";
                                 {isImage ? (
                                     <div className="file-image-container">
                                         <img
-                                            src={`http://localhost:3004${file}`}
+                                            src={`http://YuliaGracheva.github.io/suzdal_gymnaziaa/${file}`}
                                             alt={fileNameWithoutExt}
                                             className="uploaded-file"
                                         />
@@ -126,7 +126,7 @@ const canDelete = user.Role === "admin";
                                     </div>
                                 ) : (
                                     <div className="file-document-container">
-                                        <a href={`http://localhost:3004${file}`} target="_blank" rel="noreferrer">
+                                        <a href={`http://YuliaGracheva.github.io/suzdal_gymnaziaa/${file}`} target="_blank" rel="noreferrer">
                                             📄 {fileNameWithoutExt}
                                         </a>
                                         <div className="file-actions">

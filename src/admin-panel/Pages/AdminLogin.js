@@ -18,7 +18,7 @@ const AdminLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3004/api/admin/login", {
+      const response = await fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

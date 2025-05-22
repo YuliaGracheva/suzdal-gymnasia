@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3004/api/admin/reset-password", {
+      const response = await fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/admin/reset-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
