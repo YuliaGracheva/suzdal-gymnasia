@@ -12,8 +12,19 @@ const { fileURLToPath } = require('url');
 const { dirname } = require('path');
 const fetch = require("node-fetch");
 
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://suzdal-gymnasia.onrender.com'
+];
+
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
     credentials: true
@@ -149,12 +160,12 @@ app.get('/api/status', (req, res) => getAllDataFromTable('Status', res));
 
 app.get("/api/news/notArchived", (req, res) => {
     const sql = "SELECT * FROM News WHERE isArchived = 0";
-    db.all(sql, [], (err, rows) => { 
+    db.all(sql, [], (err, rows) => {
         if (err) {
             console.error("Ошибка при получении новостей:", err);
             res.status(500).json({ error: "Ошибка сервера" });
         } else {
-            res.json(rows); 
+            res.json(rows);
         }
     });
 });
@@ -589,7 +600,7 @@ app.post('/api/feedback', async (req, res) => {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: `secret=${secret}&response=${recaptchaToken}`
-            });            
+            });
 
             const data = await verifyRes.json();
             console.log("📥 Пришёл запрос на /api/feedback:", req.body);
