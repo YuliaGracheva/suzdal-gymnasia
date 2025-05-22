@@ -8,7 +8,7 @@ const ArchiveNews = () => {
     const [filteredNews, setFilteredNews] = useState([]);
 
     useEffect(() => {
-        fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/news")
+        fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/news")
             .then(res => res.json())
             .then(data => {
                 setNews(data);

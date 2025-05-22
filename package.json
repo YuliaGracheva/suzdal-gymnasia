@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "homepage": "http://YuliaGracheva.github.io/suzdal_gymnaziaa", 
+  "homepage": "http://YuliaGracheva.github.io/suzdal_gymnazia", 
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -35,7 +35,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "concurrently \"node servers.cjs\" \"react-scripts start\"",
+    "start": "concurrently \"node servers.cjs\" \"react-scripts start \"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

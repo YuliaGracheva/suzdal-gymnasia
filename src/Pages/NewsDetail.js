@@ -10,12 +10,12 @@ const NewsDetail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/news/${id}`)
+        fetch(`http://YuliaGracheva.github.io/suzdal_gymnazia/api/news/${id}`)
             .then(res => res.json())
             .then(data => setNewsItem(data))
             .catch(err => console.error("Ошибка при получении новости:", err));
 
-        fetch(`http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/news/${id}/photos`)
+        fetch(`http://YuliaGracheva.github.io/suzdal_gymnazia/api/news/${id}/photos`)
             .then(res => res.json())
             .then(data => setPhotos(data))
             .catch(err => console.error("Ошибка при получении фото:", err));

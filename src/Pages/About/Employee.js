@@ -5,7 +5,7 @@ const Employee = () => {
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {
-    fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/document")
+    fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/document")
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res.json();

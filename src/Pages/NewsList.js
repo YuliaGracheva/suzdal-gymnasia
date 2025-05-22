@@ -5,7 +5,7 @@ const NewsList = ({ limit, vertical = false }) => {
     const [news, setNews] = useState([]);
 
     useEffect(() => {
-        fetch("http://YuliaGracheva.github.io/suzdal_gymnaziaa/api/news")
+        fetch("http://YuliaGracheva.github.io/suzdal_gymnazia/api/news")
             .then(res => res.json())
             .then(data => {
                 const sorted = data.sort((a, b) => new Date(b.NewsDate) - new Date(a.NewsDate));
