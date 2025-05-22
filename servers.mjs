@@ -13,7 +13,7 @@ dotenv.config({ path: './process.env' });
 
 const allowedOrigins = [
     'http://localhost:3000',
-    'http://4854069-fc63586.twc1.net'
+    'http://46.149.69.12'
 ];
 
 const corsOptions = {
