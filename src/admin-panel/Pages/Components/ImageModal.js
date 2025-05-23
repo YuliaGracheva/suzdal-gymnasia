@@ -51,7 +51,7 @@ function ImageModal({ onClose, onSelectImage, endpoint }) {
                         .map((url, index) => (
                             <img
                                 key={index}
-                                src={url.startsWith("http") ? url : `http://46.149.69.12:3004/${url}`}
+                                src={url.startsWith("http") ? url : `/api/${url}`}
                                 alt={`Изображение ${index + 1}`}
                                 onClick={() => handleImageClick(url)}
                                 className="selectable-image"

@@ -69,8 +69,7 @@ db.serialize(() => {
         console.error('Database error:', err.message);
     });
 
-    const PORT = process.env.PORT || 3004;
-    app.listen(3004, '0.0.0.0', () => {
+    app.listen(3000, '0.0.0.0', () => {
   console.log("Server running on port 3000");
 });
 
