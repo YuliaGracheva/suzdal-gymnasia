@@ -9,6 +9,8 @@ import fs from "fs";
 import util from "util";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import bcrypt from 'bcrypt';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -780,6 +782,12 @@ app.post("/api/settings", (req, res) => {
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+app._router.stack.forEach(r => {
+  if (r.route && r.route.path) {
+    console.log("Route:", r.route.path);
+  }
 });
 
 app.use(express.static('scripts'));
