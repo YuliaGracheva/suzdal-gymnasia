@@ -44,10 +44,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors(corsOptions));
 
-app.use(express.static(path.join(__dirname, 'build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 const db = new sqlite3.Database('./bd/suzdal-gimnasia.db', (err) => {
     if (err) {
         console.error('Error connecting to database:', err.message);
@@ -788,4 +784,9 @@ app._router.stack.forEach(r => {
   }
 });
 
-app.use(express.static('scripts'));
+app.use(express.static(path.join(__dirname, 'scripts')));
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
