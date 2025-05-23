@@ -5,7 +5,7 @@ function Message() {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        fetch("http://4854069-fc63586.twc1.net/api/message")
+        fetch("http://46.149.69.12:3004/api/message")
             .then((res) => res.json())
             .then((data) => {
                 console.log("Данные сообщений:", data);

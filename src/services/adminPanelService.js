@@ -1,4 +1,4 @@
-const API_URL = 'http://46.149.69.12/api/admin';
+const API_URL = 'http://46.149.69.12:3004/api/admin';
 
 export const fetchTableList = async () => {
     const res = await fetch(`${API_URL}/tables`);

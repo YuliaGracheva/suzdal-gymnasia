@@ -5,7 +5,7 @@ const configs = {
         base: "http://localhost:3004",
     },
     production: {
-        base: "http://46.149.69.12",
+        base: "http://46.149.69.12:3004",
     },
 };
 

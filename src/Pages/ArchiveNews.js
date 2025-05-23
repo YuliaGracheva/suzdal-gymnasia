@@ -8,7 +8,7 @@ const ArchiveNews = () => {
     const [filteredNews, setFilteredNews] = useState([]);
 
     useEffect(() => {
-        fetch("http://4854069-fc63586.twc1.net/api/news")
+        fetch("http://46.149.69.12:3004/api/news")
             .then(res => res.json())
             .then(data => {
                 setNews(data);

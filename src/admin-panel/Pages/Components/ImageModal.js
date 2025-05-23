@@ -33,7 +33,7 @@ function ImageModal({ onClose, onSelectImage, endpoint }) {
     }, [endpoint]);
 
     const handleImageClick = (url) => {
-        onSelectImage(`https://yuliagracheva.github.io/suzdal-gymnasia/${url}`);
+        onSelectImage(`http://46.149.69.12:3004/${url}`);
         onClose();
     };
 
@@ -51,7 +51,7 @@ function ImageModal({ onClose, onSelectImage, endpoint }) {
                         .map((url, index) => (
                             <img
                                 key={index}
-                                src={url.startsWith("http") ? url : `https://yuliagracheva.github.io/suzdal-gymnasia/${url}`}
+                                src={url.startsWith("http") ? url : `http://46.149.69.12:3004/${url}`}
                                 alt={`Изображение ${index + 1}`}
                                 onClick={() => handleImageClick(url)}
                                 className="selectable-image"

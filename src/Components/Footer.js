@@ -46,7 +46,7 @@ class Footer extends Component {
     };
 
     componentDidMount() {
-        fetch("http://4854069-fc63586.twc1.net/api/settings")
+        fetch("http://46.149.69.12:3004/api/settings")
             .then((res) => res.json())
             .then((data) => {
                 if (!data) return;
@@ -79,7 +79,7 @@ class Footer extends Component {
         }
 
         try {
-            const response = await fetch("http://4854069-fc63586.twc1.net/api/feedback", {
+            const response = await fetch("http://46.149.69.12:3004/api/feedback", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name, phone, recaptchaToken, useRecaptcha })
