@@ -79,10 +79,6 @@ db.serialize(() => {
         console.error('Database error:', err.message);
     });
 
-    app.listen(3000, '0.0.0.0', () => {
-  console.log("Server running on port 3000");
-});
-
     process.on('SIGINT', () => {
         db.close((err) => {
             if (err) {
