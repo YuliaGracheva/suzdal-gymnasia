@@ -65,8 +65,6 @@ const db = new sqlite3.Database('./bd/suzdal-gimnasia.db', (err) => {
     }
 });
 
-
-
 const ensureDirsExist = () => {
     const dirs = ['uploads', 'uploads/images', 'uploads/documents'];
     dirs.forEach(dir => {
@@ -790,10 +788,3 @@ app.post("/api/settings", (req, res) => {
         }
     );
 });
-
-app._router.stack.forEach(r => {
-  if (r.route && r.route.path) {
-    console.log("Route:", r.route.path);
-  }
-});
-
