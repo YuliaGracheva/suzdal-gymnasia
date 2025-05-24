@@ -11,6 +11,8 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import bcrypt from 'bcrypt';
 
+dotenv.config({ path: './process.env' });
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -26,10 +28,9 @@ app.get('*', (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+    console.log('App setup complete');
+    console.log(`Server started on port ${port}`);
 });
-
-dotenv.config({ path: './process.env' });
 
 const allowedOrigins = [
     'http://localhost:3000',
@@ -536,8 +537,6 @@ app.post("/api/admin/reset-password", async (req, res) => {
         res.status(500).json({ error: "Ошибка сервера" });
     }
 });
-
-app.use(bodyParser.json());
 
 app.post('/api/feedback', async (req, res) => {
     const { name, phone, recaptchaToken, useRecaptcha } = req.body;
