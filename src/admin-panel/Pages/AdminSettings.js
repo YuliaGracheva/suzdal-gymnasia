@@ -12,7 +12,7 @@ const AdminSettings = () => {
     const [useRecaptcha, setUseRecaptcha] = useState(false);
 
     useEffect(() => {
-        fetch("http://46.149.69.12:3004/api/settings")
+        fetch("/api/settings")
             .then(res => res.json())
             .then((data) => {
                 if (!data) return;

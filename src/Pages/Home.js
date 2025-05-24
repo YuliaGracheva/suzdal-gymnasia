@@ -15,7 +15,7 @@ export default function Home() {
             }
         }
     
-        fetch("http://46.149.69.12:3004/api/news/notArchived")
+        fetch("/api/news/notArchived")
             .then((res) => res.json())
             .then((data) => {
                 const sorted = data

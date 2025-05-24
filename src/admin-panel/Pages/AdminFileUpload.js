@@ -12,7 +12,7 @@ const AdminFileUpload = () => {
 
     const fetchFiles = async () => {
         try {
-            const response = await fetch(`http://46.149.69.12:3004/api/files/${fileType === 'image' ? 'images' : 'documents'}`);
+            const response = await fetch(`/api/files/${fileType === 'image' ? 'images' : 'documents'}`);
             const data = await response.json();
             if (Array.isArray(data)) {
                 setUploadedFiles(data);

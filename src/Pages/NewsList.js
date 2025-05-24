@@ -5,7 +5,7 @@ const NewsList = ({ limit, vertical = false }) => {
     const [news, setNews] = useState([]);
 
     useEffect(() => {
-        fetch("http://46.149.69.12:3004/api/news")
+        fetch("/api/news")
             .then(res => res.json())
             .then(data => {
                 const sorted = data.sort((a, b) => new Date(b.NewsDate) - new Date(a.NewsDate));

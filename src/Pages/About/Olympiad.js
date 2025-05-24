@@ -6,7 +6,7 @@ const Olympiad = () => {
 
     useEffect(() => {
         console.log("Компонент Olympiad загружен");
-        fetch("http://46.149.69.12:3004/api/olympiads")
+        fetch("/api/olympiads")
             .then(res => res.json())
             .then(data => {
                 console.log("Данные получены:", data);

@@ -33,7 +33,7 @@ function ImageModal({ onClose, onSelectImage, endpoint }) {
     }, [endpoint]);
 
     const handleImageClick = (url) => {
-        onSelectImage(`http://46.149.69.12:3004/${url}`);
+        onSelectImage(`/${url}`);
         onClose();
     };
 

@@ -10,7 +10,7 @@ class ProcessReception extends Component {
     }
 
     componentDidMount() {
-        fetch("http://46.149.69.12:3004/api/document") 
+        fetch("/api/document") 
             .then((response) => response.json())
             .then((data) => {
                 const filtered = data.filter(doc => doc.CategoryDocumentID === 9);

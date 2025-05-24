@@ -8,12 +8,12 @@ class Documents extends Component {
     };
 
     componentDidMount() {
-        fetch("http://46.149.69.12:3004/api/document")
+        fetch("/api/document")
             .then(res => res.json())
             .then(data => this.setState({ documents: data }))
             .catch(err => console.error("Ошибка загрузки документов:", err));
 
-        fetch("http://46.149.69.12:3004/api/categorydocument")
+        fetch("/api/categorydocument")
             .then(res => res.json())
             .then(data => this.setState({ categories: data }))
             .catch(err => console.error("Ошибка загрузки категорий:", err));

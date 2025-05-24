@@ -7,7 +7,7 @@ class PaidEducationalServices extends Component {
     };
 
     componentDidMount() {
-        fetch("http://46.149.69.12:3004/api/document")
+        fetch("/api/document")
             .then(res => res.json())
             .then(data => {
                 const filteredDocs = data.filter(doc => doc.CategoryDocumentID === 6);

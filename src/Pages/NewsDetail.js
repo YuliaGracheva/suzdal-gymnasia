@@ -10,12 +10,12 @@ const NewsDetail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://46.149.69.12:3004/api/news/${id}`)
+        fetch(`/api/news/${id}`)
             .then(res => res.json())
             .then(data => setNewsItem(data))
             .catch(err => console.error("Ошибка при получении новости:", err));
 
-        fetch(`http://46.149.69.12:3004/api/news/${id}/photos`)
+        fetch(`/api/news/${id}/photos`)
             .then(res => res.json())
             .then(data => setPhotos(data))
             .catch(err => console.error("Ошибка при получении фото:", err));
