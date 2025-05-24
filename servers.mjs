@@ -22,10 +22,6 @@ const buildPath = path.join(__dirname, 'build');
 
 app.use(express.static(buildPath));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(buildPath, 'index.html'));
-});
-
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log('App setup complete');
@@ -782,4 +778,8 @@ app.post("/api/settings", (req, res) => {
             res.json({ success: true });
         }
     );
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
 });
