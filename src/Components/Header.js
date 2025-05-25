@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { SearchContext } from "./SearchContext.js";
 import './Header.css';
 import defaultLogo from '../img/image.png';
+import YandexSearchForm from "./YandexSearchForm";
 
 export default function Header() {
     const [dropdowns, setDropdowns] = useState({
@@ -30,7 +31,7 @@ export default function Header() {
             .catch(err => {
                 console.error("Ошибка загрузки настроек:", err);
             });
-    }, []);    
+    }, []);
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -107,19 +108,10 @@ export default function Header() {
 
                             <NavDropdown.Item as={Link} to="/process-reception">Процесс поступления</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/fuctional-gramm">Функциональная грамотность</NavDropdown.Item>
-                            
+
                         </Nav>
                         <div className="header-search-wrapper">
-                            <Form className="d-flex" onSubmit={handleSearch}>
-                                <FormControl
-                                    type="text"
-                                    placeholder="Поиск"
-                                    className="mr-sm-2"
-                                    value={input}
-                                    onChange={(e) => setInput(e.target.value)}
-                                />
-                                <Button type="submit" variant="outline-info">Поиск</Button>
-                            </Form>
+                            <YandexSearchForm />
                         </div>
                     </Navbar.Collapse>
                 </Container>
