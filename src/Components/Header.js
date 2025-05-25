@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { SearchContext } from "./SearchContext.js";
 import './Header.css';
 import defaultLogo from '../img/image.png';
-import YandexSearchForm from "./YandexSearchForm";
+import YandexSearchForm from "./YandexSearchForm.js";
 
 export default function Header() {
     const [dropdowns, setDropdowns] = useState({
