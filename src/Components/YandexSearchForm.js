@@ -2,24 +2,27 @@ import React, { useEffect } from "react";
 
 export default function YandexSearchForm() {
   useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.charset = 'utf-8';
-    script.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//site.yandex.net/v2.0/js/all.js';
+     window.yandex_site_callbacks = window.yandex_site_callbacks || [];
 
-    script.onload = () => {
+    window.yandex_site_callbacks.push(function () {
       if (window.Ya && window.Ya.Site && window.Ya.Site.Form) {
         window.Ya.Site.Form.init();
       }
-    };
+    });
+
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.charset = "utf-8";
+    script.src = (document.location.protocol === "https:" ? "https:" : "http:") + "//site.yandex.net/v2.0/js/all.js";
 
     document.body.appendChild(script);
-    document.documentElement.classList.add('ya-page_js_yes');
+
+    document.documentElement.classList.add("ya-page_js_yes");
 
     return () => {
       document.body.removeChild(script);
-      document.documentElement.classList.remove('ya-page_js_yes');
+      document.documentElement.classList.remove("ya-page_js_yes");
     };
   }, []);
 

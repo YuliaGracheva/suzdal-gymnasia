@@ -1,18 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 const SearchPage = () => {
     useEffect(() => {
+        window.yandex_site_callbacks = window.yandex_site_callbacks || [];
+
+        window.yandex_site_callbacks.push(function () {
+            if (window.Ya && window.Ya.Site && window.Ya.Site.Results) {
+                window.Ya.Site.Results.init();
+            }
+        });
+
         const script = document.createElement('script');
         script.type = 'text/javascript';
         script.async = true;
         script.charset = 'utf-8';
         script.src = (document.location.protocol === 'https:' ? 'https:' : 'http:') + '//site.yandex.net/v2.0/js/all.js';
-
-        script.onload = () => {
-            if (window.Ya && window.Ya.Site && window.Ya.Site.Results) {
-                window.Ya.Site.Results.init();
-            }
-        };
 
         document.body.appendChild(script);
 
@@ -20,18 +22,19 @@ const SearchPage = () => {
             document.body.removeChild(script);
         };
     }, []);
+
     return (
-        <><div
-            id="ya-site-results"
-            data-bem='{"tld": "ru", "language": "ru", "encoding": "", "htmlcss": "1.x", "updatehash": true}'
-            style={{
-                color: '#333333',
-                background: '#FFFFFF',
-                fontFamily: 'Arial',
-            }}
-        ></div>
-            <style>
-                {`
+        <>
+            <div
+                id="ya-site-results"
+                data-bem='{"tld": "ru", "language": "ru", "encoding": "", "htmlcss": "1.x", "updatehash": true}'
+                style={{
+                    color: '#333333',
+                    background: '#FFFFFF',
+                    fontFamily: 'Arial',
+                }}
+            ></div>
+            <style> {`
 #ya-site-results
 {
     color: #333333;
@@ -254,8 +257,7 @@ const SearchPage = () => {
     background: #FFFFFF;
     border-color: #ffffcc !important;
 }
-`}
-            </style>
+`}</style>
         </>
     );
 };
