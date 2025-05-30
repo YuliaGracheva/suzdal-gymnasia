@@ -1,47 +1,52 @@
 .leadership-main-info {
     background-color: #ffffff;
-    color: #333333;
-    padding: 2rem;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #2e2e2e;
+    padding: 2rem 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.7;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .leadership-main-info p {
-    font-size: 14pt;
-    margin: 0.7em 0;
-    color: #555;
+    font-size: 1rem; 
+    margin: 1em 0;
+    color: #555555;
 }
 
 .leadership-main-info p:first-child {
-    font-size: 14px;
-    color: #888;
+    font-size: 0.9rem; 
+    color: #777777;
     margin-bottom: 1.5rem;
 }
 
 .leadership-main-info p:first-child a {
     color: #7a5b98;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-.leadership-main-info p:first-child a:hover {
+.leadership-main-info p:first-child a:hover,
+.leadership-main-info p:first-child a:focus {
     text-decoration: underline;
+    color: #5a3e6a;
+    outline: none;
 }
 
 .leadership-info {
     background: #f9f7fb;
-    padding: 2rem;
+    padding: 2rem 20px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(122, 91, 152, 0.1);
 }
 
 .leadership-info h1 {
-    font-size: 28px;
+    font-size: 1.75rem;
     color: #5d4d7a;
     margin-bottom: 2rem;
     position: relative;
+    font-weight: 700;
 }
 
 .leadership-info h1::after {
@@ -58,43 +63,61 @@
     background-color: #fdfdfd;
     border: 1px solid #e0e0e0;
     border-radius: 15px;
-    padding: 25px;
+    padding: 25px 20px;
     margin-bottom: 25px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.leader-card:hover {
+.leader-card:hover,
+.leader-card:focus-within {
     transform: translateY(-6px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    outline: none;
 }
 
 .leader-card h2 {
-    font-size: 20pt;
+    font-size: 1.25rem; 
     color: #7a5b98;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+    font-weight: 600;
 }
 
 .leader-card p {
-    font-size: 14pt;
-    color: #555;
-    margin: 5px 0;
+    font-size: 1rem; 
+    color: #555555;
+    margin: 6px 0;
 }
 
 .leader-card strong {
     color: #5d4d7a;
 }
 
+/* Адаптивность */
 @media (max-width: 768px) {
     .leadership-main-info {
-        padding: 1.5rem;
+        padding: 1.5rem 15px;
     }
 
     .leadership-info {
-        padding: 1.5rem;
+        padding: 1.5rem 15px;
     }
 
     .leader-card {
-        padding: 18px;
+        padding: 18px 15px;
+    }
+
+    .leadership-info h1 {
+        font-size: 1.4rem; 
+        margin-bottom: 1.5rem;
+    }
+
+    .leader-card h2 {
+        font-size: 1.1rem; 
+    }
+
+    .leadership-main-info p,
+    .leader-card p {
+        font-size: 0.95rem;
     }
 }

@@ -1,195 +1,281 @@
 .main-info {
-  background-color: #ffffff;
-  color: #333333;
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  line-height: 1.7;
-  max-width: 1200px;
-  margin: 0 auto;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #3a2f5a;
 }
 
-h1, h2 {
-  color: #7a5b98;
-  font-size: 18pt;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-.line-purple, .line-yellow {
-  height: 3px;
-  margin: 1rem 0;
-  border-radius: 2px;
+.main-info h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    font-weight: 700;
 }
 
 .line-purple {
-  background-color: #9a7cb7;
+    height: 4px;
+    background-color: #705f9b;
+    margin: 10px 0 20px 0;
+    border-radius: 2px;
 }
 
 .line-yellow {
-  background-color: #f9e08c;
-}
-
-p {
-  font-size: 14pt;
-  margin: 0.7em 0;
-  color: #555;
-}
-
-.director-name {
-  font-weight: bold;
-  margin-top: 1em;
+    height: 4px;
+    background-color: #ffcc00;
+    margin: 10px 0 20px 0;
+    border-radius: 2px;
 }
 
 .carousel-wrapper {
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
 }
 
 .carousel-button {
-  background-color: #e8d7f1;
-  border: none;
-  color: #7a5b98;
-  font-size: 22px;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  cursor: pointer;
-  margin: 0 12px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: #705f9b;
+    border: none;
+    color: white;
+    font-size: 28px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+    user-select: none;
 }
 
 .carousel-button:hover {
-  background-color: #d1bde2;
-  transform: scale(1.1);
+    background-color: #4e3d75;
+}
+
+.carousel-button:disabled {
+    background-color: #ccc;
+    cursor: default;
+}
+
+.hide-buttons .carousel-button {
+    display: none;
 }
 
 .carousel-container {
-  overflow-x: hidden;
-  flex: 1;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .carousel-track {
-  display: flex;
-  gap: 25px;
+    display: flex;
 }
 
 .news-card {
-  background-color: #fdfdfd;
-  border: 1px solid #e0e0e0;
-  border-radius: 15px;
-  padding: 25px;
-  width: 320px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  overflow: hidden;
+    flex: 0 0 320px;
+    background: #f6f0fa;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-right: 20px;
+    box-shadow: 0 4px 8px rgba(112, 95, 155, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
 }
 
 .news-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.news-card h2 {
+    font-size: 20px;
+    color: #3a2f5a;
+    margin-bottom: 10px;
 }
 
 .news-description {
-  font-size: 14pt;
-  color: #666;
+    font-size: 14px;
+    color: #5c5377;
+    flex-grow: 1;
+    margin-bottom: 15px;
 }
 
 .news-card-bottom {
-  margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .news-date {
-  font-size: 12pt;
-  color: #888;
+    font-size: 12px;
+    color: #705f9b;
 }
 
 .view-button {
-  display: inline-block;
-  margin-top: 10px;
-  background-color: #e8d7f1;
-  padding: 8px 16px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #5d4d7a;
-  font-weight: 600;
-  font-size: 14pt;
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: #705f9b;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: background-color 0.3s ease;
 }
 
 .view-button:hover {
-  background-color: #d1bde2;
-  transform: scale(1.05);
+    background-color: #4e3d75;
+}
+
+.main-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #3a2f5a;
+    margin-bottom: 20px;
+}
+
+.director-name {
+    font-weight: 700;
+    font-size: 18px;
+    color: #705f9b;
+    margin-bottom: 20px;
 }
 
 .button-resurs-view {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-  margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 40px;
+    justify-content: center;
 }
 
 .button-resurs {
-  width: 240px;
-  height: auto;
-  background-color: #f5f0fa;
-  border: 1px solid #dcd0ec;
-  border-radius: 12px;
-  color: #7a5b98;
-  font-size: 14pt;
-  font-weight: 500;
-  text-align: center;
-  padding: 16px;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  cursor: pointer;
-  word-wrap: break-word;
+    background-color: #705f9b;
+    color: white;
+    border-radius: 10px;
+    padding: 18px 24px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 280px;
+    height: 110px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.4;
+    gap: 6px;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+    text-decoration: none; 
 }
 
-.button-resurs:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  transform: scale(1.05);
+.button-resurs p {
+    margin: 0;
+    color: white !important
 }
 
-@media (max-width: 768px) {
-  .main-info {
-    padding: 1.5rem;
-  }
+.button-resurs:hover,
+.button-resurs:focus {
+    background-color: #4e3d75;
+    outline: none;
+    text-decoration: none;
+}
 
-  h1, h2 {
-    font-size: 16pt;
-  }
+@media (max-width: 900px) {
+    .news-card {
+        flex: 0 0 280px;
+        margin-right: 15px;
+    }
 
-  .news-card {
-    width: 100%;
-    padding: 18px;
-  }
+    .carousel-button {
+        width: 35px;
+        height: 35px;
+        font-size: 24px;
+    }
+}
 
-  .view-button {
-    font-size: 12pt;
-    padding: 6px 12px;
-  }
+@media (max-width: 600px) {
+    .main-info {
+        padding: 15px 10px;
+    }
 
-  .button-resurs {
-    width: 100%;
-    padding: 12px;
-  }
+    .main-info h1 {
+        font-size: 24px;
+    }
 
-  .carousel-button {
-    display: none;
-  }
+    .carousel-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-  .carousel-track {
-    gap: 15px;
-  }
+    .carousel-button {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        margin: 5px 0;
+        align-self: center;
+    }
 
-  .button-resurs-view {
-    gap: 15px;
-  }
+    .carousel-container {
+        margin: 10px 0;
+        overflow-x: scroll;
+    }
+
+    .carousel-track {
+        width: auto !important;
+    }
+
+    .news-card {
+        flex: 0 0 90vw;
+        margin-right: 15px;
+        padding: 15px;
+    }
+
+    .button-resurs-view {
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .button-resurs {
+        width: 100%;
+        height: auto;
+        flex-basis: 100%;
+        padding: 15px 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .main-info h1 {
+        font-size: 20px;
+    }
+
+    .news-card h2 {
+        font-size: 18px;
+    }
+
+    .main-text {
+        font-size: 14px;
+    }
+
+    .director-name {
+        font-size: 16px;
+    }
+
+    .carousel-button {
+        width: 28px;
+        height: 28px;
+        font-size: 18px;
+    }
 }

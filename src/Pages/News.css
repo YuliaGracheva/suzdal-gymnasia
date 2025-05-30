@@ -18,7 +18,7 @@
 }
 
 .news-sidebar h3 {
-  font-size: 18pt;
+  font-size: 16pt; /* уменьшено */
   margin-bottom: 1rem;
   color: #5d4d7a;
 }
@@ -30,10 +30,10 @@
 }
 
 .archive-list li {
-  padding: 8px 0;
+  padding: 6px 0; /* чуть меньше отступ */
   cursor: pointer;
   color: #7a5b98;
-  font-size: 14pt;
+  font-size: 12pt; /* уменьшено */
   transition: color 0.3s ease;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .news-main-content h1 {
-  font-size: 28px;
+  font-size: 24px; /* уменьшено */
   color: #5d4d7a;
   margin-bottom: 1rem;
   position: relative;
@@ -84,14 +84,14 @@
   flex: 1;
   min-width: 200px;
   padding: 10px 15px;
-  font-size: 14pt;
+  font-size: 14px; /* уменьшено */
   border: 1px solid #ccc;
   border-radius: 10px;
 }
 
 .news-sort {
   padding: 10px 15px;
-  font-size: 14pt;
+  font-size: 14px; /* уменьшено */
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
@@ -125,18 +125,18 @@
 
 .news-card-vertical h2 {
   color: #7a5b98;
-  font-size: 18pt;
+  font-size: 16pt; /* уменьшено */
   margin-bottom: 15px;
   font-weight: 600;
 }
 
 .news-card-vertical p {
-  font-size: 14pt;
+  font-size: 14px; /* уменьшено */
   color: #666;
 }
 
 .news-date {
-  font-size: 12pt;
+  font-size: 12px; /* уменьшено */
   color: #888;
   margin-bottom: 10px;
 }
@@ -150,7 +150,7 @@
   text-decoration: none;
   color: #5d4d7a;
   font-weight: 600;
-  font-size: 14pt;
+  font-size: 14px; /* уменьшено */
   text-align: center;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -159,6 +159,8 @@
   background-color: #d1bde2;
   transform: scale(1.05);
 }
+
+/* Адаптивность */
 
 @media (max-width: 992px) {
   .news-page {
@@ -171,6 +173,14 @@
     order: 2;
   }
 
+  .news-sidebar h3 {
+    font-size: 14pt; /* еще меньше на планшетах */
+  }
+
+  .archive-list li {
+    font-size: 11pt; /* уменьшено для удобства */
+  }
+
   .news-main-content {
     order: 1;
   }
@@ -181,5 +191,50 @@
 
   .news-card-vertical {
     width: 100%;
+  }
+
+  .news-main-content h1 {
+    font-size: 22px;
+  }
+
+  .news-card-vertical h2 {
+    font-size: 14pt;
+  }
+
+  .news-card-vertical p,
+  .news-search,
+  .news-sort,
+  .view-button {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .news-sidebar {
+    padding: 1rem;
+  }
+
+  .news-sidebar h3 {
+    font-size: 13pt;
+  }
+
+  .archive-list li {
+    font-size: 10pt;
+    padding: 5px 0;
+  }
+
+  .news-main-content h1 {
+    font-size: 20px;
+  }
+
+  .news-card-vertical h2 {
+    font-size: 13pt;
+  }
+
+  .news-card-vertical p,
+  .news-search,
+  .news-sort,
+  .view-button {
+    font-size: 12px;
   }
 }

@@ -1,40 +1,50 @@
 .olympiad-main-info {
     background-color: #ffffff;
-    color: #333333;
-    padding: 2rem;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #2e2e2e;
+    padding: 2rem 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.7;
     max-width: 1200px;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .olympiad-main-info p {
-    font-size: 14pt;
-    margin: 0.7em 0;
-    color: #555;
+    font-size: 1rem;
+    margin: 1em 0;
+    color: #555555;
 }
 
 .olympiad-main-info p:first-child {
-    font-size: 14px;
-    color: #888;
+    font-size: 0.9rem;
+    color: #777777;
     margin-bottom: 1.5rem;
 }
 
 .olympiad-main-info p:first-child a {
     color: #7a5b98;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-.olympiad-main-info p:first-child a:hover {
+.olympiad-main-info p:first-child a:hover,
+.olympiad-main-info p:first-child a:focus {
     text-decoration: underline;
+    color: #5a3e6a;
+    outline-offset: 2px;
+    outline-color: #7a5b98;
+    outline-style: solid;
+    outline-width: 2px;
 }
 
 .olympiad-main-info h1 {
-    font-size: 28px;
+    font-size: 1.75rem;
     color: #5d4d7a;
     margin-bottom: 1rem;
     position: relative;
+    font-weight: 700;
+    text-align: center;
 }
 
 .olympiad-main-info h1::after {
@@ -43,34 +53,37 @@
     width: 60px;
     height: 4px;
     background-color: #7a5b98;
-    margin-top: 8px;
+    margin: 8px auto 0 auto;
     border-radius: 2px;
 }
 
 .table-wrapper {
     margin-top: 2rem;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .olympiad-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    font-size: 1rem;
 }
 
 .olympiad-table th,
 .olympiad-table td {
-    padding: 12px;
+    padding: 12px 10px;
     text-align: left;
-    font-size: 14pt;
-    color: #555;
+    color: #555555;
+    vertical-align: middle;
 }
 
 .olympiad-table th {
     background-color: #9f83b9;
-    color: white;
+    color: #ffffff;
     font-weight: 600;
 }
 
@@ -82,25 +95,91 @@
     background-color: #f0f0f0;
 }
 
-.olympiad-table tr:hover td {
+.olympiad-table tr:hover td,
+.olympiad-table tr:focus-within td {
     background-color: #e8d7f1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .olympiad-main-info {
-        padding: 1.5rem;
+        padding: 1.8rem 15px;
     }
 
     .olympiad-main-info h1 {
-        font-size: 24px;
+        font-size: 1.5rem;
+    }
+
+    .olympiad-table {
+        font-size: 0.95rem;
     }
 
     .olympiad-table th,
     .olympiad-table td {
-        font-size: 12pt;
+        padding: 10px 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .olympiad-main-info {
+        padding: 1.5rem 12px;
+    }
+
+    .olympiad-main-info h1 {
+        font-size: 1.3rem;
     }
 
     .olympiad-table {
-        font-size: 12pt;
+        font-size: 0.9rem;
+    }
+
+    .olympiad-table th,
+    .olympiad-table td {
+        padding: 8px 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .olympiad-main-info {
+        padding: 1rem 10px;
+    }
+
+    .olympiad-main-info p {
+        font-size: 0.9rem;
+    }
+
+    .olympiad-main-info p:first-child {
+        font-size: 0.85rem;
+    }
+
+    .olympiad-main-info h1 {
+        font-size: 1.1rem;
+    }
+
+    .olympiad-table {
+        font-size: 0.85rem;
+    }
+
+    .olympiad-table th,
+    .olympiad-table td {
+        padding: 6px 5px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .olympiad-main-info {
+        padding: 3rem 40px;
+    }
+
+    .olympiad-main-info h1 {
+        font-size: 2rem;
+    }
+
+    .olympiad-table {
+        font-size: 1.1rem;
+    }
+
+    .olympiad-table th,
+    .olympiad-table td {
+        padding: 14px 12px;
     }
 }

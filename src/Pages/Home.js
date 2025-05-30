@@ -14,7 +14,7 @@ export default function Home() {
                 setNewsCount(parsed.newsCount);
             }
         }
-    
+
         fetch("/api/news/notArchived")
             .then((res) => res.json())
             .then((data) => {
@@ -23,7 +23,7 @@ export default function Home() {
                     .slice(0, newsCount);
                 setNews(sorted);
             });
-    }, [newsCount]); 
+    }, [newsCount]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -128,35 +128,25 @@ export default function Home() {
                 <h1>Услуги в сфере образования</h1>
                 <div className="line-purple"></div>
                 <div className="button-resurs-view">
-                    <a href="https://образование33.рф/elektronnyy-shkola/informatsiya-ob-uchrezhdeniyakh/">
-                        <button className="button-resurs">
-                            <p>Электронная школа.</p>
-                            <p>Информация об учреждениях</p>
-                        </button>
+                    <a href="https://образование33.рф/elektronnyy-shkola/informatsiya-ob-uchrezhdeniyakh/" className="button-resurs" target="_blank" rel="noopener noreferrer">
+                        <p>Электронная школа.</p>
+                        <p>Информация об учреждениях</p>
                     </a>
-                    <a href="https://образование33.рф/auth/">
-                        <button className="button-resurs">
-                            <p>Электронная школа.</p>
-                            <p>Подать заявление</p>
-                        </button>
+                    <a href="https://образование33.рф/auth/" className="button-resurs" target="_blank" rel="noopener noreferrer">
+                        <p>Электронная школа.</p>
+                        <p>Подать заявление</p>
                     </a>
-                    <a href="https://образование33.рф/elektronnyy-shkola/proverka-statusa-zayavleniya/">
-                        <button className="button-resurs">
-                            <p>Электронная школа.</p>
-                            <p>Проверка статуса заявления</p>
-                        </button>
+                    <a href="https://образование33.рф/elektronnyy-shkola/proverka-statusa-zayavleniya/" className="button-resurs" target="_blank" rel="noopener noreferrer">
+                        <p>Электронная школа.</p>
+                        <p>Проверка статуса заявления</p>
                     </a>
-                    <a href="https://образование33.рф/elektronnyy-shkola/rezultaty-ege-oge/">
-                        <button className="button-resurs">
-                            <p>Электронная школа.</p>
-                            <p>Результаты ЕГЭ\ОГЭ</p>
-                        </button>
+                    <a href="https://образование33.рф/elektronnyy-shkola/rezultaty-ege-oge/" className="button-resurs" target="_blank" rel="noopener noreferrer">
+                        <p>Электронная школа.</p>
+                        <p>Результаты ЕГЭ\ОГЭ</p>
                     </a>
-                    <a href="https://школа.образование33.рф/auth/login-page">
-                        <button className="button-resurs">
-                            <p>Электронная школа.</p>
-                            <p>Электронный дневник</p>
-                        </button>
+                    <a href="https://школа.образование33.рф/auth/login-page" className="button-resurs" target="_blank" rel="noopener noreferrer">
+                        <p>Электронная школа.</p>
+                        <p>Электронный дневник</p>
                     </a>
                 </div>
             </div>

@@ -57,7 +57,7 @@ export default function Header() {
 
     return (
         <>
-            <Navbar collapseOnSelect expand="md" className="header-main">
+            <Navbar collapseOnSelect expand="lg"  className="header-main">
                 <Container>
                     <Navbar.Brand as={Link} to="/">
                         <img

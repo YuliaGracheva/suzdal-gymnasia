@@ -1,93 +1,119 @@
 .functional-gramm-main-info {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    font-family: "Arial", sans-serif;
-    color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
+.functional-gramm-main-info p:first-child {
+  font-size: 13pt;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+.functional-gramm-main-info p:first-child a {
+  color: #7a5b98;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.functional-gramm-main-info p:first-child a:hover {
+  text-decoration: underline;
+}
+
+.fin-gram-info {
+  background: #f9f7fb;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(122, 91, 152, 0.1);
+}
+
+.fin-gram-info h1 {
+  font-size: 22pt;
+  color: #5d4d7a;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.fin-gram-info h1::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #7a5b98;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.fin-gram-info h2 {
+  font-size: 18pt;
+  color: #5d4d7a;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.fin-gram-info p {
+  font-size: 14pt;
+  line-height: 1.7;
+  margin: 1rem 0;
+}
+
+.fin-gram-info .text-bold {
+  font-weight: bold;
+  font-size: 15pt;
+  color: #5d4d7a;
+  margin-top: 2rem;
+}
+
+.fin-gram-info ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.fin-gram-info ul li {
+  font-size: 14pt;
+  margin-bottom: 0.75rem;
+}
+
+.fin-gram-info a {
+  display: block;
+  color: #7a5b98;
+  font-size: 14pt;
+  margin-top: 0.5rem;
+  transition: color 0.3s ease;
+  text-decoration: underline;
+}
+
+.fin-gram-info a:hover {
+  color: #5d4d7a;
+}
+
+@media (max-width: 768px) {
+  .functional-gramm-main-info {
+    padding: 1.5rem 1rem;
   }
-  
-  .functional-gramm-main-info p:first-child {
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 1.5rem;
-  }
-  
-  .functional-gramm-main-info p:first-child a {
-    color: #7a5b98;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .functional-gramm-main-info p:first-child a:hover {
-    text-decoration: underline;
-  }
-  
+
   .fin-gram-info {
-    background: #f9f7fb;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(122, 91, 152, 0.1);
+    padding: 1.5rem;
   }
-  
+
   .fin-gram-info h1 {
-    font-size: 28px;
-    color: #5d4d7a;
-    margin-bottom: 1rem;
-    position: relative;
+    font-size: 20pt;
   }
-  
-  .fin-gram-info h1::after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 4px;
-    background-color: #7a5b98;
-    margin-top: 8px;
-    border-radius: 2px;
-  }
-  
-  .fin-gram-info p {
-    font-size: 16px;
-    line-height: 1.7;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .fin-gram-info .text-bold {
-    font-weight: bold;
-    font-size: 18px;
-    color: #5d4d7a;
-    margin-top: 2rem;
-  }
-  
-  .fin-gram-info ul {
-    list-style-type: disc;
-    padding-left: 1.5rem;
-    margin-top: 1rem;
-  }
-  
-  .fin-gram-info ul li {
-    font-size: 16px;
-    margin-bottom: 0.75rem;
-  }
-  
-  .fin-gram-info a {
-    display: block;
-    color: #7a5b98;
-    font-size: 16px;
-    margin-top: 0.5rem;
-    transition: color 0.3s ease;
-    text-decoration: underline;
-  }
-  
-  .fin-gram-info a:hover {
-    color: #5d4d7a;
-  }
-  
+
   .fin-gram-info h2 {
-    font-size: 24px;
-    color: #5d4d7a;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    font-size: 16pt;
   }
-  
+
+  .fin-gram-info p,
+  .fin-gram-info ul li,
+  .fin-gram-info a {
+    font-size: 13pt;
+  }
+
+  .fin-gram-info .text-bold {
+    font-size: 14pt;
+  }
+}

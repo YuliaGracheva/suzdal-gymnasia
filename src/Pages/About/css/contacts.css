@@ -1,49 +1,58 @@
 .contact-main-info {
     background-color: #ffffff;
-    color: #333333;
-    padding: 2rem;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #2e2e2e;
+    padding: 2rem 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.7;
     max-width: 1200px;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 .contact-main-info p {
-    font-size: 14pt;
-    margin: 0.7em 0;
-    color: #555;
+    font-size: 1rem;
+    margin: 1em 0;
+    color: #555555;
 }
 
 .contact-main-info p:first-child {
-    font-size: 14px;
-    color: #888;
+    font-size: 0.9rem;
+    color: #777777;
     margin-bottom: 1.5rem;
 }
 
 .contact-main-info p:first-child a {
     color: #7a5b98;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-.contact-main-info p:first-child a:hover {
+.contact-main-info p:first-child a:hover,
+.contact-main-info p:first-child a:focus {
     text-decoration: underline;
+    color: #5a3e6a;
+    outline-offset: 2px;
+    outline-color: #7a5b98;
+    outline-style: solid;
+    outline-width: 2px;
 }
 
 .contact-main-info h1 {
-    font-size: 28px;
+    font-size: 1.75rem;
     color: #5d4d7a;
     margin-bottom: 1rem;
     position: relative;
+    font-weight: 700;
+    text-align: center;
 }
 
 .purple-line {
-    content: "";
     display: block;
     width: 60px;
     height: 4px;
     background-color: #7a5b98;
-    margin: 8px 0 24px 0;
+    margin: 8px auto 24px auto;
     border-radius: 2px;
 }
 
@@ -52,36 +61,43 @@
     flex-wrap: wrap;
     gap: 25px;
     justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.purple-contact-block,
+.white-contact-block {
+    box-sizing: border-box;
+    border-radius: 15px;
+    padding: 25px 20px;
+    min-width: 280px;
+    flex: 1 1 280px;
+    max-width: 500px;
 }
 
 .purple-contact-block {
     background-color: #e8d7f1;
-    border-radius: 15px;
-    padding: 20px;
-    flex: 1;
-    min-width: 280px;
-    max-width: 500px;
 }
 
 .white-contact-block {
     background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .white-contact-block h2 {
     color: #5d4d7a;
-    font-size: 18pt;
+    font-size: 1.125rem;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .white-contact-block pre {
-    font-size: 14pt;
-    color: #666;
+    font-size: 1rem;
+    color: #666666;
     white-space: pre-wrap;
     word-wrap: break-word;
+    margin: 0;
 }
 
 .button-donat {
@@ -90,41 +106,109 @@
     background-color: #7a5b98;
     color: #ffffff;
     font-weight: 600;
-    padding: 10px 15px;
+    padding: 12px 15px;
     margin-bottom: 10px;
     border: none;
     border-radius: 10px;
-    font-size: 14pt;
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
 }
 
-.button-donat:hover {
+.button-donat:hover,
+.button-donat:focus {
     background-color: #6b4e89;
     transform: scale(1.03);
+    outline-offset: 2px;
+    outline-color: #7a5b98;
+    outline-style: solid;
+    outline-width: 2px;
 }
 
 @media (max-width: 768px) {
     .contact-main-info {
-        padding: 1.5rem;
+        padding: 1.5rem 15px;
+    }
+
+    .contact-main-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .purple-line {
+        width: 50px;
+        height: 3px;
+        margin-bottom: 20px;
     }
 
     .contact-info {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
     }
 
-    .purple-contact-block {
-        width: 100%;
-        padding: 15px;
-    }
-
+    .purple-contact-block,
     .white-contact-block {
-        padding: 15px;
+        max-width: 100%;
+        padding: 20px 15px;
     }
 
     .button-donat {
-        font-size: 12pt;
-        padding: 8px 12px;
+        font-size: 0.9rem;
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-main-info {
+        padding: 1rem 10px;
+    }
+
+    .contact-main-info p {
+        font-size: 0.9rem;
+    }
+
+    .contact-main-info p:first-child {
+        font-size: 0.85rem;
+    }
+
+    .contact-main-info h1 {
+        font-size: 1.25rem;
+    }
+
+    .purple-line {
+        width: 40px;
+        height: 3px;
+        margin-bottom: 16px;
+    }
+
+    .button-donat {
+        font-size: 0.85rem;
+        padding: 9px 10px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .contact-main-info {
+        padding: 3rem 40px;
+    }
+
+    .contact-main-info h1 {
+        font-size: 2rem;
+    }
+
+    .purple-line {
+        width: 80px;
+        height: 5px;
+    }
+
+    .purple-contact-block,
+    .white-contact-block {
+        padding: 35px 30px;
+        max-width: 600px;
+    }
+
+    .button-donat {
+        font-size: 1.125rem;
+        padding: 14px 20px;
     }
 }

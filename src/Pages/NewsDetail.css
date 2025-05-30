@@ -10,7 +10,7 @@
 
 h1 {
   color: #7a5b98;
-  font-size: 18pt;
+  font-size: 16pt; /* уменьшено */
   font-weight: 600;
   margin-bottom: 15px;
 }
@@ -24,13 +24,13 @@ h1 {
 
 h2 {
   color: #7a5b98;
-  font-size: 18pt;
+  font-size: 15pt; /* уменьшено */
   font-weight: 600;
   margin-bottom: 15px;
 }
 
 p {
-  font-size: 14pt;
+  font-size: 14px; /* уменьшено */
   color: #555555;
   margin: 0.7em 0;
 }
@@ -69,7 +69,7 @@ a p {
   margin-top: 2rem;
   color: #7a5b98;
   font-weight: bold;
-  font-size: 14pt;
+  font-size: 14px; /* уменьшено */
   cursor: pointer;
   transition: color 0.3s ease;
 }
@@ -116,9 +116,9 @@ a p:hover {
   background-color: #e8d7f1;
   border: none;
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  font-size: 18px;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
   color: #7a5b98;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -133,7 +133,7 @@ a p:hover {
   margin-top: 2rem;
   color: #7a5b98;
   font-weight: bold;
-  font-size: 14pt;
+  font-size: 14px; /* уменьшено */
   cursor: pointer;
   transition: color 0.3s ease;
   text-decoration: underline;
@@ -148,12 +148,40 @@ a p:hover {
     padding: 1.5rem;
   }
 
-  h1, h2 {
-    font-size: 16pt;
+  h1 {
+    font-size: 15pt;
+  }
+
+  h2 {
+    font-size: 14pt;
+  }
+
+  p, .back-link, a p {
+    font-size: 13px;
   }
 
   .news-photo {
     width: 100%;
     height: auto;
+  }
+
+  .close-modal {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .news-detail-info {
+    padding: 1rem;
+  }
+
+  h1, h2 {
+    font-size: 14pt;
+  }
+
+  p, .back-link, a p {
+    font-size: 12px;
   }
 }

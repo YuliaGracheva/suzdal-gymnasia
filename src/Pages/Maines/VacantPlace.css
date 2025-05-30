@@ -1,74 +1,191 @@
 .vacant-place-main-info {
-    padding: 30px 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fdfdfd;
-    color: #2e2e2e;
-    max-width: 1100px;
-    margin: 0 auto;
+  padding: 30px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fdfdfd;
+  color: #2e2e2e;
+  max-width: 1100px;
+  margin: 0 auto;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .vacant-place-main-info a {
-    color: #4b0082;
-    text-decoration: none;
-    font-weight: 500;
+  color: #4b0082;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 .vacant-place-main-info a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .vacant-place-content h1 {
-    font-size: 2rem;
-    color: #4b0082;
-    margin-bottom: 20px;
+  font-size: 2rem;
+  color: #4b0082;
+  margin-bottom: 20px;
+  line-height: 1.3;
 }
 
 .section {
-    background-color: #ffffff;
-    border-left: 6px solid #B6B4CF;
-    border-radius: 16px;
-    padding: 25px;
-    box-shadow: 0 4px 12px rgba(182, 180, 207, 0.2);
-    margin-top: 20px;
+  background-color: #ffffff;
+  border-left: 6px solid #B6B4CF;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(182, 180, 207, 0.2);
+  margin-top: 20px;
 }
 
 .section h2 {
-    color: #4b0082;
-    margin-bottom: 15px;
-    font-size: 1.5rem;
+  color: #4b0082;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
 }
 
 .subsection {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .subsection h3 {
-    color: #2c2c2c;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+  color: #2c2c2c;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
 }
 
-.subsection p, .subsection ul {
-    font-size: 1rem;
-    color: #333;
-    margin-left: 15px;
+.subsection p,
+.subsection ul {
+  font-size: 1rem;
+  color: #333;
+  margin-left: 15px;
 }
 
 .subsection ul {
-    padding-left: 20px;
-    list-style-type: disc;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+/* Адаптация под планшеты и телефоны */
+@media (max-width: 1024px) {
+  .vacant-place-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .section h2 {
+    font-size: 1.4rem;
+  }
+
+  .subsection h3 {
+    font-size: 1.15rem;
+  }
+
+  .subsection p,
+  .subsection ul {
+    font-size: 0.95rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .vacant-place-content h1 {
-        font-size: 1.5rem;
-    }
+  .vacant-place-main-info {
+    padding: 25px 16px;
+    font-size: 14.5px;
+  }
 
-    .section h2 {
-        font-size: 1.3rem;
-    }
+  .vacant-place-content h1 {
+    font-size: 1.6rem;
+  }
 
-    .subsection h3 {
-        font-size: 1.1rem;
-    }
+  .section {
+    padding: 20px;
+  }
+
+  .section h2 {
+    font-size: 1.3rem;
+  }
+
+  .subsection h3 {
+    font-size: 1.1rem;
+  }
+
+  .subsection p,
+  .subsection ul {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .vacant-place-main-info {
+    padding: 20px 12px;
+    font-size: 14px;
+  }
+
+  .vacant-place-content h1 {
+    font-size: 1.4rem;
+  }
+
+  .section {
+    padding: 16px;
+  }
+
+  .section h2 {
+    font-size: 1.2rem;
+  }
+
+  .subsection h3 {
+    font-size: 1.05rem;
+  }
+
+  .subsection p,
+  .subsection ul {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .vacant-place-main-info {
+    padding: 16px 10px;
+    font-size: 13.5px;
+  }
+
+  .vacant-place-content h1 {
+    font-size: 1.25rem;
+  }
+
+  .section {
+    padding: 14px;
+  }
+
+  .section h2 {
+    font-size: 1.1rem;
+  }
+
+  .subsection h3 {
+    font-size: 1rem;
+  }
+
+  .subsection p,
+  .subsection ul {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 340px) {
+  .vacant-place-main-info {
+    font-size: 13px;
+  }
+
+  .vacant-place-content h1 {
+    font-size: 1.1rem;
+  }
+
+  .section h2 {
+    font-size: 1rem;
+  }
+
+  .subsection h3 {
+    font-size: 0.95rem;
+  }
+
+  .subsection p,
+  .subsection ul {
+    font-size: 0.8rem;
+  }
 }

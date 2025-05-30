@@ -1,73 +1,91 @@
 .reception-main-info {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-    font-family: "Arial", sans-serif;
-    color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: "Arial", sans-serif;
+  color: #333;
+}
+
+.reception-main-info p:first-child {
+  font-size: 13pt;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+.reception-main-info p:first-child a {
+  color: #7a5b98;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.reception-main-info p:first-child a:hover {
+  text-decoration: underline;
+}
+
+.reception-info {
+  background: #f9f7fb;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(122, 91, 152, 0.1);
+}
+
+.reception-info h1 {
+  font-size: 22pt;
+  color: #5d4d7a;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.reception-info h1::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background-color: #7a5b98;
+  margin-top: 8px;
+  border-radius: 2px;
+}
+
+.document-links {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.document-links a {
+  display: inline-block;
+  font-size: 14pt;
+  color: #7a5b98;
+  background-color: #ffffff;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.document-links a:hover {
+  background-color: #f0eafa;
+  color: #5d4d7a;
+  border-color: #c8b8e6;
+}
+
+@media (max-width: 768px) {
+  .reception-main-info {
+    padding: 1.5rem 1rem;
   }
-  
-  .reception-main-info p:first-child {
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 1.5rem;
-  }
-  
-  .reception-main-info p:first-child a {
-    color: #7a5b98;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .reception-main-info p:first-child a:hover {
-    text-decoration: underline;
-  }
-  
+
   .reception-info {
-    background: #f9f7fb;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(122, 91, 152, 0.1);
+    padding: 1.5rem;
   }
-  
+
   .reception-info h1 {
-    font-size: 28px;
-    color: #5d4d7a;
-    margin-bottom: 1rem;
-    position: relative;
+    font-size: 20pt;
   }
-  
-  .reception-info h1::after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 4px;
-    background-color: #7a5b98;
-    margin-top: 8px;
-    border-radius: 2px;
-  }
-  
-  .document-links {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
+
   .document-links a {
-    display: inline-block;
-    font-size: 16px;
-    color: #7a5b98;
-    background-color: #ffffff;
-    padding: 0.8rem 1.2rem;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: all 0.3s ease;
+    font-size: 13pt;
+    padding: 0.7rem 1rem;
   }
-  
-  .document-links a:hover {
-    background-color: #f0eafa;
-    color: #5d4d7a;
-    border-color: #c8b8e6;
-  }
-  
+}
