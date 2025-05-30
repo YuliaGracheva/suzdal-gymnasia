@@ -1,0 +1,81 @@
+.accessible-mode {
+  background-color: #fdfaf5 !important;
+  color: #000 !important;
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+  font-family: Arial, sans-serif !important;
+  transition: none !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+.accessible-mode,
+.accessible-mode p,
+.accessible-mode span,
+.accessible-mode li,
+.accessible-mode h1,
+.accessible-mode h2,
+.accessible-mode h3,
+.accessible-mode h4,
+.accessible-mode h5,
+.accessible-mode h6,
+.accessible-mode label,
+.accessible-mode input,
+.accessible-mode textarea,
+.accessible-mode select,
+.accessible-mode button {
+  color: #000 !important;
+}
+
+.accessible-mode a {
+  color: #00008b !important;
+  text-decoration: underline !important;
+  outline-offset: 2px !important;
+}
+
+.accessible-mode a:focus,
+.accessible-mode button:focus,
+.accessible-mode input:focus,
+.accessible-mode select:focus,
+.accessible-mode textarea:focus,
+.accessible-mode :focus {
+  outline: 3px solid #00008b !important;
+  outline-offset: 2px !important;
+  box-shadow: none !important;
+}
+
+.accessible-mode .navbar,
+.accessible-mode .dropdown-menu {
+  background-color: #e8e0f3 !important;
+  color: #000 !important;
+}
+
+.accessible-mode .btn,
+.accessible-mode button {
+  background-color: #fff !important;  
+  color: #000 !important;            
+  border: 2px solid #000 !important; 
+  font-weight: bold !important;
+}
+
+.accessible-mode img {
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+}
+
+.accessible-mode * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+@media (max-width: 768px) {
+  .accessible-mode {
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .accessible-mode {
+    font-size: 14px !important;
+  }
+}

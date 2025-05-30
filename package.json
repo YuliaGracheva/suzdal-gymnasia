@@ -36,7 +36,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "concurrently \"node servers.cjs\" \"react-scripts start \"",
+    "start": "concurrently \"node servers.mjs\" \"react-scripts start \"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
