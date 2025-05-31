@@ -4,14 +4,13 @@ export default function YandexSearchForm() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    function initYandexSearch() {
-      if (window.Ya && window.Ya.Site && window.Ya.Site.Form) {
+    const initYandexSearch = () => {
+      if (window.Ya?.Site?.Form?.init) {
         window.Ya.Site.Form.init();
+      } else {
+        setTimeout(initYandexSearch, 300);
       }
-    }
-
-    window.yandex_site_callbacks = window.yandex_site_callbacks || [];
-    window.yandex_site_callbacks.push(initYandexSearch);
+    };
 
     if (!document.getElementById("yandex-site-search-script")) {
       const script = document.createElement("script");
@@ -20,23 +19,16 @@ export default function YandexSearchForm() {
       script.async = true;
       script.charset = "utf-8";
       script.src = "https://site.yandex.net/v2.0/js/all.js";
+      script.onload = initYandexSearch;
+
       document.body.appendChild(script);
     } else {
       initYandexSearch();
     }
 
-    const interval = setInterval(() => {
-      if (document.querySelector(".ya-site-form_inited_yes")) {
-        clearInterval(interval);
-      } else {
-        initYandexSearch();
-      }
-    }, 500);
-
     document.documentElement.classList.add("ya-page_js_yes");
 
     return () => {
-      clearInterval(interval);
       const script = document.getElementById("yandex-site-search-script");
       if (script) {
         document.body.removeChild(script);
