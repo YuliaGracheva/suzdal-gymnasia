@@ -17,9 +17,7 @@ export default function YandexSearchForm() {
       script.type = "text/javascript";
       script.async = true;
       script.charset = "utf-8";
-      script.src =
-        (document.location.protocol === "https:" ? "https:" : "http:") +
-        "//site.yandex.net/v2.0/js/all.js";
+      script.src = "https://site.yandex.net/v2.0/js/all.js";
 
       document.body.appendChild(script);
     }
