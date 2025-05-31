@@ -56,7 +56,7 @@
     border-radius: 2px;
 }
 
-.contact-info {
+.contact-infos {
     display: flex;
     flex-wrap: wrap;
     gap: 25px;

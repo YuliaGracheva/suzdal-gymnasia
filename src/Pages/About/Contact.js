@@ -40,7 +40,7 @@ class Contact extends Component {
                 <h1>Контакты</h1>
                 <div className="purple-line"></div>
 
-                <div className="contact-info">
+                <div className="contact-infos">
                     <div className="purple-contact-block">
                         <div className="white-contact-block">
                             <h2>Свяжитесь с нами</h2>
