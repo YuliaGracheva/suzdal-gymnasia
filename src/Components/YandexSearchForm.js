@@ -4,7 +4,7 @@ export default function YandexSearchForm() {
   const formRef = useRef(null); 
 
   const dataBemConfig = {
-    action: "http://4854069-fc63586.twc1.net/search",
+    action: "/search",
     arrow: false,
     bg: "transparent",
     fontsize: 14,
