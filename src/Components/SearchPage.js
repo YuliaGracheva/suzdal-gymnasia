@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-export default function YandexSearchResults() {
+export default function SearchPage() {
   const resultsRef = useRef(null); 
 
   const dataBemConfig = {
