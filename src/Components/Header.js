@@ -16,8 +16,6 @@ export default function Header() {
         resurs: false
     });
 
-    const { setQuery } = useContext(SearchContext);
-    const [input, setInput] = useState("");
     const [customLogo, setCustomLogo] = useState(null);
     const navigate = useNavigate();
     const { accessible, toggleAccessibilityMode } = useContext(AccessibilityContext);
@@ -34,13 +32,7 @@ export default function Header() {
                 console.error("Ошибка загрузки настроек:", err);
             });
     }, []);
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        setQuery(input);
-        navigate("/search");
-    };
-
+    
     const handleToggle = (menu) => {
         setDropdowns(prev => ({
             ...prev,
