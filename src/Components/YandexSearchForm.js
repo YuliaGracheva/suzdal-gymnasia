@@ -1,8 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 export default function YandexSearchForm() {
+  const formRef = useRef(null);
+
   useEffect(() => {
     const scriptId = "yandex-site-search-script";
+
+    function initForm() {
+      if (window.Ya && window.Ya.Site && window.Ya.Site.Form && typeof window.Ya.Site.Form.init === "function") {
+        window.Ya.Site.Form.init();
+      }
+    }
 
     if (!document.getElementById(scriptId)) {
       const script = document.createElement("script");
@@ -13,19 +21,18 @@ export default function YandexSearchForm() {
       script.src =
         (window.location.protocol === "https:" ? "https:" : "http:") +
         "//site.yandex.net/v2.0/js/all.js";
+
       script.onload = () => {
-        if (window.Ya?.Site?.Form?.init) {
-          window.Ya.Site.Form.init();
-        }
+        initForm();
       };
+
       document.body.appendChild(script);
     } else {
-      if (window.Ya?.Site?.Form?.init) {
-        window.Ya.Site.Form.init();
-      }
+      initForm();
     }
 
     document.documentElement.classList.add("ya-page_js_yes");
+
     return () => {
       document.documentElement.classList.remove("ya-page_js_yes");
     };
@@ -33,6 +40,7 @@ export default function YandexSearchForm() {
 
   return (
     <div
+      ref={formRef}
       className="ya-site-form ya-site-form_inited_no"
       data-bem='{
         "action":"http://4854069-fc63586.twc1.net/search",
