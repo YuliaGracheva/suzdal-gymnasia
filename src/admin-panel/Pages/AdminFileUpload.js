@@ -37,7 +37,7 @@ const AdminFileUpload = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch(`http://46.149.69.12:3004/api/upload`, {
+            const response = await fetch(`http://4854069-fc63586.twc1.net/api/upload`, {
                 method: 'POST',
                 body: formData,
             });
@@ -57,7 +57,7 @@ const AdminFileUpload = () => {
 
     const handleDelete = async (filePath) => {
         try {
-            const response = await fetch(`http://46.149.69.12:3004/api/delete`, {
+            const response = await fetch(`http://4854069-fc63586.twc1.net/api/delete`, {
                 method: 'DELETE',
                 body: JSON.stringify({ filePath }),
                 headers: { 'Content-Type': 'application/json' },
@@ -74,7 +74,7 @@ const AdminFileUpload = () => {
     };
 
     const handleCopy = (filePath) => {
-        navigator.clipboard.writeText(`http://46.149.69.12:3004${filePath}`);
+        navigator.clipboard.writeText(`http://4854069-fc63586.twc1.net${filePath}`);
         alert('Путь скопирован в буфер обмена!');
     };
 
@@ -112,7 +112,7 @@ const canDelete = user.Role === "admin";
                                 {isImage ? (
                                     <div className="file-image-container">
                                         <img
-                                            src={`http://46.149.69.12:3004/${file}`}
+                                            src={`http://4854069-fc63586.twc1.net/${file}`}
                                             alt={fileNameWithoutExt}
                                             className="uploaded-file"
                                         />
@@ -126,7 +126,7 @@ const canDelete = user.Role === "admin";
                                     </div>
                                 ) : (
                                     <div className="file-document-container">
-                                        <a href={`http://46.149.69.12:3004/${file}`} target="_blank" rel="noreferrer">
+                                        <a href={`http://4854069-fc63586.twc1.net/${file}`} target="_blank" rel="noreferrer">
                                             📄 {fileNameWithoutExt}
                                         </a>
                                         <div className="file-actions">
