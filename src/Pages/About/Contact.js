@@ -81,14 +81,14 @@ class Contact extends Component {
                     <div className="purple-contact-block">
                         <div className="white-contact-block">
                             <h2>Принимаем пожертвования на уставную деятельность</h2>
-                            <button class="button-donat">Пожертвовать на уставную деятельность учреждения 100 руб.</button>
-                            <button class="button-donat">Пожертвовать на уставную деятельность учреждения 300 руб.</button>
-                            <button class="button-donat">Пожертвовать на уставную деятельность учреждения 500 руб.</button>
-                            <button class="button-donat">Пожертвовать на уставную деятельность учреждения 1 000 руб.</button>
-                            <button class="button-donat">Пожертвовать на уставную деятельность учреждения 3 000 руб.</button>
-                            <button class="button-donat">Пожертвовать на уставную деятельность учреждения 5 000 руб.</button>
-                            <button class="button-donat">Пожертвовать на уставную деятельность учреждения 10 000 руб.</button>
-                            <button class="button-donat">Пожертвовать на уставную деятельность учреждения 50 000 руб.</button>
+                            <button class="button-donat" href="https://yookassa.ru/my/i/ZkrfKFT8XDEd/l">Пожертвовать на уставную деятельность учреждения 100 руб.</button>
+                            <button class="button-donat" href="https://yookassa.ru/my/i/Zkrfu0c_3BPc/l">Пожертвовать на уставную деятельность учреждения 300 руб.</button>
+                            <button class="button-donat" href="https://yookassa.ru/my/i/ZkMXA1McXWcF/l">Пожертвовать на уставную деятельность учреждения 500 руб.</button>
+                            <button class="button-donat" href="https://yookassa.ru/my/i/ZkMngV04waU7/l">Пожертвовать на уставную деятельность учреждения 1 000 руб.</button>
+                            <button class="button-donat" href="https://yookassa.ru/my/i/ZkMnnK_57MGe/l">Пожертвовать на уставную деятельность учреждения 3 000 руб.</button>
+                            <button class="button-donat" href="https://yookassa.ru/my/i/ZkMnvH9LPA1O/l">Пожертвовать на уставную деятельность учреждения 5 000 руб.</button>
+                            <button class="button-donat" href="https://yookassa.ru/my/i/ZkSd1exilCqn/l">Пожертвовать на уставную деятельность учреждения 10 000 руб.</button>
+                            <button class="button-donat" href="https://yookassa.ru/my/i/ZkSeRVHRFgOt/l">Пожертвовать на уставную деятельность учреждения 50 000 руб.</button>
 
                         </div>
                     </div>
