@@ -4,48 +4,45 @@ export default function YandexSearchForm() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    const initYandexSearch = () => {
+    const initYandex = () => {
       if (window.Ya?.Site?.Form?.init) {
         window.Ya.Site.Form.init();
       } else {
-        setTimeout(initYandexSearch, 300);
+        setTimeout(initYandex, 300);
       }
     };
 
+    // Подключаем скрипт, если его ещё нет
     if (!document.getElementById("yandex-site-search-script")) {
       const script = document.createElement("script");
       script.id = "yandex-site-search-script";
       script.type = "text/javascript";
       script.async = true;
       script.charset = "utf-8";
-      script.src = "https://site.yandex.net/v2.0/js/all.js";
-      script.onload = initYandexSearch;
-
+      script.src = (window.location.protocol === "https:" ? "https:" : "http:") +
+        "//site.yandex.net/v2.0/js/all.js";
+      script.onload = initYandex;
       document.body.appendChild(script);
     } else {
-      initYandexSearch();
+      initYandex();
     }
 
     document.documentElement.classList.add("ya-page_js_yes");
 
     return () => {
-      const script = document.getElementById("yandex-site-search-script");
-      if (script) {
-        document.body.removeChild(script);
-      }
       document.documentElement.classList.remove("ya-page_js_yes");
     };
   }, []);
 
   const bemData = {
-    action: "/search",
+    action: "http://4854069-fc63586.twc1.net/search",
     arrow: false,
     bg: "transparent",
     fontsize: 14,
     fg: "#000000",
     language: "ru",
     logo: "rb",
-    publicname: "Поиск по сайту",
+    publicname: "Поиск по 46.149.69.12",
     suggest: true,
     target: "_self",
     tld: "ru",
