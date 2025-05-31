@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-export default function YandexSearchEmbed() {
+export default function YandexSearchForm() {
   useEffect(() => {
     if (!document.getElementById("yandex-site-search-script")) {
       const script = document.createElement("script");
