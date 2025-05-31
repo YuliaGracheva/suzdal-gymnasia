@@ -35,34 +35,36 @@ export default function YandexSearchForm() {
     };
   }, []);
 
+  const bemData = {
+    action: "/search",
+    arrow: false,
+    bg: "transparent",
+    fontsize: 14,
+    fg: "#000000",
+    language: "ru",
+    logo: "rb",
+    publicname: "Поиск по сайту",
+    suggest: true,
+    target: "_self",
+    tld: "ru",
+    type: 2,
+    usebigdictionary: true,
+    searchid: 12885827,
+    input_fg: "#000000",
+    input_bg: "#ffffff",
+    input_fontStyle: "normal",
+    input_fontWeight: "normal",
+    input_placeholder: "Поиск по сайту...",
+    input_placeholderColor: "#000000",
+    input_borderColor: "#e5ccff"
+  };
+
   return (
     <>
       <div
         ref={containerRef}
         className="ya-site-form ya-site-form_inited_no"
-        data-bem='{
-          "action":"/search",
-          "arrow":false,
-          "bg":"transparent",
-          "fontsize":14,
-          "fg":"#000000",
-          "language":"ru",
-          "logo":"rb",
-          "publicname":"Поиск по сайту",
-          "suggest":true,
-          "target":"_self",
-          "tld":"ru",
-          "type":2,
-          "usebigdictionary":true,
-          "searchid":12885827,
-          "input_fg":"#000000",
-          "input_bg":"#ffffff",
-          "input_fontStyle":"normal",
-          "input_fontWeight":"normal",
-          "input_placeholder":"Поиск по сайту...",
-          "input_placeholderColor":"#000000",
-          "input_borderColor":"#e5ccff"
-        }'
+        data-bem={JSON.stringify(bemData)}
       ></div>
 
       <style>{`
