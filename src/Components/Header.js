@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Button, Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { SearchContext } from "./SearchContext.js";
 import './Header.css';
 import defaultLogo from '../img/image.png';
 import YandexSearchForm from "./YandexSearchForm.js";
@@ -32,7 +31,7 @@ export default function Header() {
                 console.error("Ошибка загрузки настроек:", err);
             });
     }, []);
-    
+
     const handleToggle = (menu) => {
         setDropdowns(prev => ({
             ...prev,
