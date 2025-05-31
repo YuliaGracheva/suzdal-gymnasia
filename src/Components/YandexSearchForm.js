@@ -4,40 +4,46 @@ export default function YandexSearchForm() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-  window.yandex_site_callbacks = window.yandex_site_callbacks || [];
-  window.yandex_site_callbacks.push(function () {
-    if (window.Ya && window.Ya.Site && window.Ya.Site.Form) {
-      window.Ya.Site.Form.init();
+    function initYandexSearch() {
+      if (window.Ya && window.Ya.Site && window.Ya.Site.Form) {
+        window.Ya.Site.Form.init();
+      }
     }
-  });
 
-  if (!document.getElementById("yandex-site-search-script")) {
-    const script = document.createElement("script");
-    script.id = "yandex-site-search-script";
-    script.type = "text/javascript";
-    script.async = true;
-    script.charset = "utf-8";
-    script.src = "https://site.yandex.net/v2.0/js/all.js";
-    document.body.appendChild(script);
-  }
+    window.yandex_site_callbacks = window.yandex_site_callbacks || [];
+    window.yandex_site_callbacks.push(initYandexSearch);
 
-  document.documentElement.classList.add("ya-page_js_yes");
-
-  const timer = setTimeout(() => {
-    if (window.Ya && window.Ya.Site && window.Ya.Site.Form) {
-      window.Ya.Site.Form.init();
+    if (!document.getElementById("yandex-site-search-script")) {
+      const script = document.createElement("script");
+      script.id = "yandex-site-search-script";
+      script.type = "text/javascript";
+      script.async = true;
+      script.charset = "utf-8";
+      script.src = "https://site.yandex.net/v2.0/js/all.js";
+      document.body.appendChild(script);
+    } else {
+      initYandexSearch();
     }
-  }, 500);
 
-  return () => {
-    clearTimeout(timer);
-    const script = document.getElementById("yandex-site-search-script");
-    if (script) {
-      document.body.removeChild(script);
-    }
-    document.documentElement.classList.remove("ya-page_js_yes");
-  };
-}, []);
+    const interval = setInterval(() => {
+      if (document.querySelector(".ya-site-form_inited_yes")) {
+        clearInterval(interval);
+      } else {
+        initYandexSearch();
+      }
+    }, 500);
+
+    document.documentElement.classList.add("ya-page_js_yes");
+
+    return () => {
+      clearInterval(interval);
+      const script = document.getElementById("yandex-site-search-script");
+      if (script) {
+        document.body.removeChild(script);
+      }
+      document.documentElement.classList.remove("ya-page_js_yes");
+    };
+  }, []);
 
   const bemData = {
     action: "/search",
