@@ -574,7 +574,7 @@ app.post('/api/feedback', async (req, res) => {
 });
 
 
-app.get('/api/admin/feedback', (req, res) => {
+app.get('/api/feedback', (req, res) => {
     const query = 'SELECT * FROM feedback';
     db.all(query, [], (err, rows) => {
         if (err) {
