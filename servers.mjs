@@ -21,6 +21,7 @@ const app = express();
 const buildPath = path.join(__dirname, 'build');
 
 app.use(express.static(buildPath));
+app.use(express.json());
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
@@ -30,7 +31,8 @@ app.listen(port, () => {
 
 const allowedOrigins = [
     'http://localhost:3000',
-    'http://46.149.69.12'
+    'http://46.149.69.12',
+    'http://4854069-fc63586.twc1.net'
 ];
 
 const corsOptions = {
@@ -728,7 +730,8 @@ app.post("/api/admin/login", async (req, res) => {
             user: {
                 UserID: user.UserID,
                 Username: user.Username,
-                Role: user.role
+                Role: user.role,
+                isBlocked: user.isBlocked
             }
         });
 
