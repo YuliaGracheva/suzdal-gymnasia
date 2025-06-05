@@ -7,19 +7,19 @@ export const fetchTableList = async () => {
 };
 
 export const fetchTableData = async (tableName) => {
-    const res = await fetch(`${API_URL}/table/${tableName}`);
+    const res = await fetch(`/table/${tableName}`);
     if (!res.ok) throw new Error(`Ошибка загрузки данных из таблицы ${tableName}`);
     return res.json();
 };
 
 export const fetchTableInfo = async (tableName) => {
-    const res = await fetch(`${API_URL}/table-info/${tableName}`);
+    const res = await fetch(`/table-info/${tableName}`);
     if (!res.ok) throw new Error(`Ошибка получения информации о таблице ${tableName}`);
     return res.json();
 };
 
 export const updateTableRow = async (tableName, id, updatedRow) => {
-    const res = await fetch(`${API_URL}/table/${tableName}/${id}`, {
+    const res = await fetch(`/table/${tableName}/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export const updateTableRow = async (tableName, id, updatedRow) => {
 };
 
 export const deleteTableRow = async (tableName, id) => {
-    const res = await fetch(`${API_URL}/table/${tableName}/${id}`, {
+    const res = await fetch(`/table/${tableName}/${id}`, {
         method: 'DELETE',
     });
 
@@ -41,7 +41,7 @@ export const deleteTableRow = async (tableName, id) => {
 };
 
 export async function fetchForeignKeys(tableName) {
-    const res = await fetch(`${API_URL}/foreign-keys/${tableName}`);
+    const res = await fetch(`/foreign-keys/${tableName}`);
     if (!res.ok) {
         throw new Error(`Ошибка при получении внешних ключей: ${res.status}`);
     }
@@ -49,7 +49,7 @@ export async function fetchForeignKeys(tableName) {
 }
 
 export async function fetchTableColumns(tableName) {
-    const res = await fetch(`${API_URL}/columns/${tableName}`);
+    const res = await fetch(`/columns/${tableName}`);
     if (!res.ok) {
         throw new Error(`Ошибка при получении структуры таблицы: ${res.status}`);
     }
@@ -62,7 +62,7 @@ export async function createTableRow(tableName, rowData) {
         rowData.UserID = user.ID;
     }
 
-    const response = await fetch(`${API_URL}/table/${tableName}`, {
+    const response = await fetch(`/table/${tableName}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -78,7 +78,7 @@ export async function createTableRow(tableName, rowData) {
 }
 
 export async function fetchUsers() {
-    const response = await fetch(`${API_URL}/users`);
+    const response = await fetch(`/users`);
     if (!response.ok) {
         throw new Error(`Ошибка загрузки пользователей: ${response.status}`);
     }
@@ -115,7 +115,7 @@ export const updateUser = async (user) => {
 
     console.log("Sending update request with data:", updateData);  
 
-    const res = await fetch(`${API_URL}/users/${user.UserID}`, {
+    const res = await fetch(`/users/${user.UserID}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updateData),
@@ -131,7 +131,7 @@ export const updateUser = async (user) => {
 };
 
 export const updateUserPassword = async (UserID, Password) => {
-    const res = await fetch(`${API_URL}/users/${UserID}/password`, {
+    const res = await fetch(`/users/${UserID}/password`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ Password }),
@@ -145,7 +145,7 @@ export const updateUserPassword = async (UserID, Password) => {
 };
 
 export const deleteUser = async (UserID) => {
-    const res = await fetch(`${API_URL}/users/${UserID}`, {
+    const res = await fetch(`/users/${UserID}`, {
         method: "DELETE",
     });
 
@@ -158,7 +158,7 @@ export const deleteUser = async (UserID) => {
 
 export async function fetchImageList() {
     try {
-        const response = await fetch(`http://4854069-fc63586.twc1.net/api/files/images`);
+        const response = await fetch(`/api/files/images`);
         if (!response.ok) {
             throw new Error("Не удалось загрузить изображения");
         }
