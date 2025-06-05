@@ -37,7 +37,7 @@ const AdminFileUpload = () => {
         formData.append('file', file);
 
         try {
-            const response = await fetch(`http://4854069-fc63586.twc1.net/api/upload`, {
+            const response = await fetch(`/api/upload`, {
                 method: 'POST',
                 body: formData,
             });
@@ -57,7 +57,7 @@ const AdminFileUpload = () => {
 
     const handleDelete = async (filePath) => {
         try {
-            const response = await fetch(`http://4854069-fc63586.twc1.net/api/delete`, {
+            const response = await fetch(`/api/delete`, {
                 method: 'DELETE',
                 body: JSON.stringify({ filePath }),
                 headers: { 'Content-Type': 'application/json' },
@@ -74,7 +74,7 @@ const AdminFileUpload = () => {
     };
 
     const handleCopy = (filePath) => {
-        navigator.clipboard.writeText(`http://4854069-fc63586.twc1.net${filePath}`);
+        navigator.clipboard.writeText(`${filePath}`);
         alert('Путь скопирован в буфер обмена!');
     };
 

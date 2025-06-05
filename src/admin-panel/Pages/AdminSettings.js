@@ -63,7 +63,7 @@ const AdminSettings = () => {
             useRecaptcha
         };
     
-        fetch("https://suzdal-gymnazia-v2.onrender.com/api/settings", {
+        fetch("/api/settings", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(settings)

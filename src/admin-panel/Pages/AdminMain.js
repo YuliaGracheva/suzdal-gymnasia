@@ -37,7 +37,7 @@ class AdminMain extends Component {
 
     fetchRequests = async () => {
         try {
-            const response = await fetch('http://46.149.69.12:3004/api/feedback');
+            const response = await fetch('/api/feedback');
             if (!response.ok) throw new Error();
             const data = await response.json();
             this.setState({ requests: data });
@@ -49,7 +49,7 @@ class AdminMain extends Component {
 
     handleMarkProcessed = async (id) => {
         try {
-            const response = await fetch(`http://46.149.69.12:3004/api/feedback/${id}`, {
+            const response = await fetch(`/api/feedback/${id}`, {
                 method: 'DELETE'
             });
             if (!response.ok) throw new Error();
@@ -62,7 +62,7 @@ class AdminMain extends Component {
 
     fetchPasswordRequests = async () => {
         try {
-            const response = await fetch('http://46.149.69.12:3004/api/password-requests');
+            const response = await fetch('/api/password-requests');
             if (!response.ok) throw new Error();
             const data = await response.json();
             this.setState({ passwordRequests: data });
@@ -77,7 +77,7 @@ class AdminMain extends Component {
         if (!newPassword) return alert("Введите новый пароль");
 
         try {
-            const response = await fetch(`http://46.149.69.12:3004/api/users/${userID}/password`, {
+            const response = await fetch(`/api/users/${userID}/password`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ password: newPassword })
@@ -101,7 +101,7 @@ class AdminMain extends Component {
 
     handleCancelPasswordRequest = async (userId) => {
         try {
-            const response = await fetch(`http://46.149.69.12:3004/api/password-requests/${userId}`, {
+            const response = await fetch(`/api/password-requests/${userId}`, {
                 method: 'DELETE'
             });
             if (!response.ok) throw new Error();
